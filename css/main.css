@@ -1,0 +1,37 @@
+body {
+    font-family: 'Century Gothic';
+    background-color: lightblue;
+}
+
+.main-header {
+    text-align: center
+}
+
+.headers {
+    display: inline-block;
+    font-size: 14px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding-right: 5px;
+    text-align: center;
+}
+
+.headers li {
+    text-decoration: none;
+}
+
+.info-box {
+    height: auto;
+    width: 25%;
+    background: white;
+    font-size: 22px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.data {
+    background-color: white;
+    color: red;
+    font-size: 15px;
+    padding: 10px;
+}
