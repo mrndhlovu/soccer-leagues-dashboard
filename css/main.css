@@ -1,6 +1,6 @@
 body {
     font-family: 'Century Gothic';
-    background-color: lightblue;
+    background-color: white;
 }
 
 .main-header {
@@ -22,16 +22,10 @@ body {
 
 .info-box {
     height: auto;
-    width: 25%;
-    background: white;
-    font-size: 22px;
-    border: 1px solid black;
-    border-radius: 5px;
+    background-color: grey;
 }
 
 .data {
+    height: auto;
     background-color: white;
-    color: red;
-    font-size: 15px;
-    padding: 10px;
 }

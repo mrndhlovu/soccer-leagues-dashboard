@@ -22,18 +22,19 @@ var characters = [];
 var house = [];
 var gender = [];
 var book = [];
+var clear = " ";
 
 
-//Get data and push to empty arrays
+// Get data and push to empty arrays
 function useApiData(data) {
 
 
 
-    //iterate though api array and fill empty arrays
+    // Iterate though api array and fill empty arrays
     data.forEach(function(item, index, array) {
 
         characters.push(item.name);
-        //document.getElementById("data").innerHTML = characters;
+        // document.getElementById("data").innerHTML = characters;
 
         house.push(item.house);
         //document.getElementById("data").innerHTML = house;
@@ -63,7 +64,7 @@ function useApiData(data) {
 // Write to document
 function showNames() {
     //
-    document.getElementById("data").innerHTML = characters;
+    document.getElementById("infoBox").innerHTML = characters;
 }
 
 function showHouse() {
@@ -81,6 +82,9 @@ function showBook() {
     document.getElementById("data").innerHTML = book;
 }
 
+function clearData() {
+    document.getElementById("data", "infoBox").innerHTML = clear;
+};
 
 getDataFromAPI(function(data) {
     useApiData(data);

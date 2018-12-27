@@ -15,16 +15,19 @@
 <body>
     <h1 class="main-header">Game of Thrones Statistics</h1>
     <div class="container-fluid">
-        <div class="row">
-            <button onclick="showNames()" class="btn-default col-md-3"><a href="#">Name</a></button>
-            <button onclick="showHouse()" class="btn-default col-md-3"><a href="#">House</a></button>
-            <button onclick="showGender()"class="btn-default col-md-3"><a href="#">Gender</a></button>
-            <button onclick="showBook()" class="btn-default col-md-3"><a href="#">Books</a></button>
+        <div>
+            <button class="btn btn-warning btn-lg" onclick="showNames()">Name</button>
+            <button class="btn btn-warning btn-lg" onclick="showHouse()">House</button>
+            <button class="btn btn-warning btn-lg" onclick="showGender()">Gender</button>
+            <button class="btn btn-warning btn-lg" onclick="showBook()">Books</button>
+            <button class="btn btn-warning btn-lg" onclick="clearData()">Reset</button>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-6 col-sx-6 col-sm-6 info-box" id="infoBox"></div>
+        <div class="col-md-6 col-sx-6 col-sm-6 data" id="data"></div>
+    </div>
 
-
-    <div class="data" id="data"></div>
 </body>
 <script type="text/javascript" src="stats.js"></script>
 
