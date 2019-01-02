@@ -20,11 +20,11 @@ $.ajax({
 
 
     // empty arrays
+    var awayScore = [];
+    var homeScore = [];
     var awayTeam = [];
     var homeTeam = [];
     var matchDay = [];
-    var awayScore = [];
-    var homeScore = [];
     var status = [];
 
 
@@ -34,52 +34,83 @@ $.ajax({
     Object.keys(match).forEach(function(key) {
 
         matchDay.push(match[key].matchday);
-
+        homeTeam.push(match[key].homeTeam.name);
         awayTeam.push(match[key].awayTeam.name);
         status.push(match[key].status);
 
 
         //Populate home and away score arrays
-        if (match[key].score) {
+        if (match[key].score.fullTime.awayTeam) {
             awayScore.push(match[key].score.fullTime.awayTeam);
         }
-        else {
+        else if (match[key].score.fullTime.homeTeam) {
             homeScore.push(match[key].score.fullTime.homeTeam);
+        }
+        else {
+            return "error";
         }
 
 
 
     });
+    //display winner : green if win, red if loss  and blue if draw
+    function showWinner() {
 
-    for (var i = 0 ; i < matchDay.length; i++) {
+    }
 
-        var x = document.createElement("tr");
-        var y = document.createElement("th");
-        var z = document.createElement("div");
-        x.appendChild(y);
-        
-        
-        document.getElementsByClassName('table-striped').appendChild(x).appendChild(y).innerHTML = i
-        print(matchDay[i]);
+    for (var col = 0; col < matchDay.length; col++) {
+
+        var tr = document.createElement('tr'),
+            th, tr, td, match, s, hTeam, aTeam, score;
+
+        //create elements
+        th = document.createElement('th');
+        th.scope = "row";
+        s = document.createElement('td');
+        hTeam = document.createElement('td');
+        aTeam = document.createElement('td');
+        score = document.createElement('td');
+        score.tagName = "score";
+
+        //append new elements and pust to document
+        for (match = 0; match < matchDay.length; match++) {
+            tr.appendChild(th);
+            tr.appendChild(s);
+            tr.appendChild(hTeam);
+            tr.appendChild(aTeam);
+            tr.appendChild(score);
+
+
+            th.innerHTML = matchDay[col];
+            s.innerHTML = status[col];
+            hTeam.innerHTML = homeTeam[col];
+            aTeam.innerHTML = awayTeam[col];
+            score.innerHTML = status[col];
+            if (homeScore[match] > awayScore[match]) {
+                winner();
+                score.innerHTML = homeScore[col] + " : " + awayScore[col];
+            }
+            else if (homeScore[col] < awayScore[col]) {
+                loss();
+                score.innerHTML = homeScore[col] + " : " + awayScore[col];
+            }
+            else {
+                score.innerHTML = homeScore[col] + " : " + awayScore[col];
+            }
+
+        }
+        document.getElementById('tableStriped').appendChild(tr);
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    //display winner : green if win, red if loss  and blue if draw
+    function winner() {
+        score.style.color = "green";
+    }
+    
+    function loss() {
+        score.style.color = "red";
+    }
 
 
 });
