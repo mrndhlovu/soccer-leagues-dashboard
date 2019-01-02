@@ -5,30 +5,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
+
+
     <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
     <title>Game Statistics</title>
 </head>
 
 <body>
-    <h1 class="main-header">Game of Thrones Statistics</h1>
+    <h1 class="main-header">Premiere League Statistics</h1>
     <div class="container-fluid">
         <div>
-            <button class="btn btn-warning btn-lg" onclick="showNames()">Name</button>
-            <button class="btn btn-warning btn-lg" onclick="showHouse()">House</button>
-            <button class="btn btn-warning btn-lg" onclick="showGender()">Gender</button>
-            <button class="btn btn-warning btn-lg" onclick="showBook()">Books</button>
+            <button class="btn btn-warning btn-lg" onclick="showNames()">All Games</button>
+            <button class="btn btn-warning btn-lg" onclick="showHouse()">Wins</button>
+            <button class="btn btn-warning btn-lg" onclick="showGender()">Losses</button>
+            <button class="btn btn-warning btn-lg" onclick="showBook()">Draw</button>
             <button class="btn btn-warning btn-lg" onclick="clearData()">Reset</button>
         </div>
     </div>
+
+
+    <div class="table-container" id="t-container">
+
+        <table class="table table-striped thead-dark">
+            <thead>
+                <tr>
+                    <th scope="col">Match day</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Home team</th>
+                    <th scope="col">Away Team</th>
+                    <th scope="col">Winners</th>
+                </tr>
+            </thead>
+            <tbody class="table-striped">
+                
+
+            </tbody>
+        </table>
+
+    </div>
+
     <div class="row">
-        <div class="col-md-6 col-sx-6 col-sm-6 info-box" id="infoBox"></div>
+        <div class="col-md-6 col-sx-6 col-sm-6 info-box" id="infoBox">
+            <!--<svg id="canvas"></svg>-->
+
+        </div>
+
         <div class="col-md-6 col-sx-6 col-sm-6 data" id="data"></div>
     </div>
 
+    <script>
+        /* var min = characters;*/
+        /*print(min);*/
+    </script>
+
+
+
 </body>
 <script type="text/javascript" src="stats.js"></script>
+<script type="text/javascript" src="gto.js"></script>
 
 </html>

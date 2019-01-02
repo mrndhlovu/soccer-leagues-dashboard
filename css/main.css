@@ -22,10 +22,15 @@ body {
 
 .info-box {
     height: auto;
-    background-color: grey;
+    
 }
 
 .data {
     height: auto;
     background-color: white;
+}
+
+#canvas {
+    height:400px;
+    width: auto;
 }
