@@ -9,7 +9,7 @@ body {
 
 .headers {
     display: inline-block;
-    font-size: 14px;
+    font-size: 1.5em;
     border: 1px solid black;
     border-radius: 5px;
     padding-right: 5px;
@@ -37,9 +37,40 @@ body {
 
 .t-headers{
     text-align: center;
-    font-size: 2em;
+    font-size: 1.5em;
     border: 1px solid #000;
 }
 .resultInfo {
     font-size: 12px;
 }
+
+.table-container {
+    height: 50vh;
+    width: 50%;
+}
+
+
+.wrapper {
+    text-align: center;
+    background-color: #0095ff;
+    height: 100px;
+}
+
+.menuLi {
+    font-size: 1.5em;
+    text-decoration: none;
+    color: white;
+    padding-top: 30px;
+    display: inline-block;
+    width: 15%;
+}
+    
+.liText {
+    color: white;
+}
+
+.liText:hover {
+    color: white;
+    background-color: #07C;
+}
+    

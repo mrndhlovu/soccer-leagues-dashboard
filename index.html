@@ -19,54 +19,61 @@
 </head>
 
 <body>
-    <h1 class="main-header">Premiere League Statistics</h1>
-    <div class="container-fluid">
-        <div>
-            <button class="btn btn-warning btn-lg" onclick="showNames()">All Games</button>
-            <button class="btn btn-warning btn-lg" onclick="showHouse()">Wins</button>
-            <button class="btn btn-warning btn-lg" onclick="showGender()">Losses</button>
-            <button class="btn btn-warning btn-lg" onclick="showBook()">Draw</button>
-            <button class="btn btn-warning btn-lg" onclick="clearData()">Reset</button>
-        </div>
-    </div>
+    <header>
+        <h1 class="main-header">Premiere League Statistics</h1>
+    </header>
 
+    <nav class="navbar navbar-default">
 
-    <div class="table-container" id="t-container">
-
-        <table class="table table-bordered table-responsive">
-            <thead class="thead-dark">
-                <tr>
-                    <th class="t-headers" scope="col">Match Day</th>
-                    <th class="t-headers" scope="col">Home Team</th>
-                    <th class="t-headers" scope="col">Away Team</th>
-                    <th class="t-headers" scope="col">Status</th>
-                    <th class="t-headers" scope="col">Result</th>
-                </tr>
-            </thead>
-            <tbody class="table-striped" id='tableStriped'>
-
-
-            </tbody>
-        </table>
-
-    </div>
-
-    <div class="row">
-        <div class="col-md-6 col-sx-6 col-sm-6 info-box" id="infoBox">
-            <!--<svg id="canvas"></svg>-->
-
+        <div class="row wrapper">
+            <ul>
+                    <li class="menuLi" onclick="showNames()"><a class="liText" href="#">All Games</a></li>
+                
+                    <li class="menuLi" onclick="showNames()"><a class="liText" href="#">Scorers</a></li>
+               
+                    <li class="menuLi" onclick="showHouse()"><a class="liText" href="#">Wins</a></li>
+                
+                    <li class="menuLi" onclick="showGender()"><a class="liText" href="#">Losses</a></li>
+                
+                    <li class="menuLi" onclick="showBook()"><a class="liText" href="#">Draw</a></li>
+                
+                    <li class="menuLi" onclick="clearData()"><a class="liText" href="#">Reset</a></li>
+               
+            </ul>
         </div>
 
-        <div class="col-md-6 col-sx-6 col-sm-6 data" id="data"></div>
+
+    </nav>
+
+
+
+
+    <div id="t-container">
+        <div class="table-container">
+            <table class="table table-bordered table-responsive">
+                <thead class="thead-dark">
+                    <tr>
+                        <th class="t-headers" scope="col">Match Day</th>
+                        <th class="t-headers" scope="col">Home Team</th>
+                        <th class="t-headers" scope="col">Away Team</th>
+                        <th class="t-headers" scope="col">Status</th>
+                        <th class="t-headers" scope="col">Result</th>
+                    </tr>
+                </thead>
+                <tbody class="table-striped" id='tableStriped'>
+
+
+                </tbody>
+            </table>
+
+        </div>
+
+
     </div>
 
-    <script>
-        /* var min = characters;*/
-        /*print(min);*/
+
+    <script src="stats.js">
     </script>
-
-
-<script src="stats.js"> </script>
 </body>
 
 
