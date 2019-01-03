@@ -39,19 +39,14 @@ function setUpApp() {
             if (match[key].score.fullTime.awayTeam) {
                 awayScore.push(match[key].score.fullTime.awayTeam);
             }
-            else if (match[key].score.fullTime.homeTeam) {
+            else{
                 homeScore.push(match[key].score.fullTime.homeTeam);
             }
-            else {
-                return "error";
-            }
+            
         
         });
-        //display winner : green if win, red if loss  and blue if draw
-        function showWinner() {
-
-        }
-
+        
+        print(match);
         for (var col = 0; col < matchDay.length; col++) {
 
             var tr = document.createElement('tr'),
@@ -69,23 +64,27 @@ function setUpApp() {
             //append new elements and pust to document
             for (match = 0; match < matchDay.length; match++) {
                 tr.appendChild(th);
-                tr.appendChild(s);
                 tr.appendChild(hTeam);
                 tr.appendChild(aTeam);
+                tr.appendChild(s);
                 tr.appendChild(score);
 
 
                 th.innerHTML = matchDay[col];
-                s.innerHTML = status[col];
+                
                 hTeam.innerHTML = homeTeam[col];
                 aTeam.innerHTML = awayTeam[col];
-                score.innerHTML = status[col];
+                s.innerHTML = status[col];
                 if (homeScore[match] > awayScore[match]) {
-                    winner();
+                    homeWin();
                     score.innerHTML = homeScore[col] + " : " + awayScore[col];
                 }
                 else if (homeScore[col] < awayScore[col]) {
-                    loss();
+                    awayWin();
+                    score.innerHTML = homeScore[col] + " : " + awayScore[col];
+                }
+                else if (homeScore[col] == awayScore[col]) {
+                    draw();
                     score.innerHTML = homeScore[col] + " : " + awayScore[col];
                 }
                 else {
@@ -98,13 +97,22 @@ function setUpApp() {
         }
 
 
-        //display winner : green if home win, red if away win
-        function winner() {
+        //apply css to winner colomn 
+        function homeWin() {
             score.style.color = "green";
+            score.style.textAlign = "center";
+            score.style.fontSize = "1.5em";
         }
 
-        function loss() {
+        function awayWin() {
             score.style.color = "red";
+            score.style.textAlign = "center";
+            score.style.fontSize = "1.5em";
+        }
+        function draw() {
+            score.style.color = "blue";
+            score.style.textAlign = "center";
+            score.style.fontSize = "1.5em";
         }
     
     });

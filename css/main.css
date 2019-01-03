@@ -35,3 +35,11 @@ body {
     width: auto;
 }
 
+.t-headers{
+    text-align: center;
+    font-size: 2em;
+    border: 1px solid #000;
+}
+.resultInfo {
+    font-size: 12px;
+}
