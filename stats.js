@@ -37,6 +37,7 @@ function setUpApp() {
 
             //Populate home and away score arrays
             if (match[key].status !== "SCHEDULED") {
+
                 awayScore.push(match[key].score.fullTime.awayTeam);
                 homeScore.push(match[key].score.fullTime.homeTeam);
             }
@@ -54,7 +55,7 @@ function setUpApp() {
         for (var col = 0; col < matchDay.length; col++) {
 
             var tr = document.createElement('tr'),
-                th, tr, td, match, state, hTeam, aTeam, score;
+                th, tr, td, result, state, hTeam, aTeam, score, spanWin, spanLoss;
 
             //create elements
             th = document.createElement('th');
@@ -68,9 +69,13 @@ function setUpApp() {
             aTeam.className = "awayTeam";
             score = document.createElement('td');
             score.className = "score";
+            spanWin = document.createElement("span");
+            spanWin.className = "win glyphicon glyphicon-ok";
+            spanLoss = document.createElement("span");
+            spanLoss.className = "loss glyphicon glyphicon-remove";
 
             //append new elements and pust to document
-            for (match = 0; match < matchDay.length; match++) {
+            for (result = 0; result < matchDay.length; result++) {
                 tr.appendChild(th);
                 tr.appendChild(hTeam);
                 tr.appendChild(aTeam);
@@ -79,20 +84,24 @@ function setUpApp() {
 
 
                 th.innerHTML = matchDay[col];
-
                 hTeam.innerHTML = homeTeam[col];
                 aTeam.innerHTML = awayTeam[col];
                 state.innerHTML = status[col];
-                if (homeScore[match] > awayScore[match]) {
-                    homeWin();
+
+
+                //show results
+                if (homeScore[col] > awayScore[col]) {
+                    showWin();
+                    showResult();
                     score.innerHTML = homeScore[col] + " : " + awayScore[col];
                 }
                 else if (homeScore[col] < awayScore[col]) {
-                    awayWin();
+                    showLosser(); 
+                    showResult();
                     score.innerHTML = homeScore[col] + " : " + awayScore[col];
                 }
                 else if (homeScore[col] == awayScore[col]) {
-                    draw();
+                    showResult();
                     score.innerHTML = homeScore[col] + " : " + awayScore[col];
                 }
                 else {
@@ -106,34 +115,33 @@ function setUpApp() {
 
 
         //apply css to winner colomn 
-        function homeWin() {
-            score.style.color = "green";
-            score.style.textAlign = "center";
-            score.style.fontSize = "1.5em";
-            hTeam.style.radius = "90deg";
-            hTeam.style.textAlign = "center";
-            hTeam.style.color = "green";
-            aTeam.style.color = "red";
-            aTeam.style.textAlign = "center";
-            state.style.textAlign = "center";
-            th.style.textAlign = "center";
 
-        }
-
-        function awayWin() {
-            score.style.color = "red";
-            score.style.textAlign = "center";
-            score.style.fontSize = "1.5em";
-            aTeam.style.color = "green";
-            hTeam.style.color = "red";
+        function showWin() {
+            aTeam.appendChild(spanLoss);
+            hTeam.appendChild(spanWin);
+            spanWin.style.color = "green";
+            spanLoss.style.color = "red";
             
         }
 
-        function draw() {
-            score.style.color = "blue";
+        function showLosser() {
+            aTeam.appendChild(spanWin);
+            hTeam.appendChild(spanLoss);
+            spanLoss.style.color = "red";
+            spanWin.style.color = "green";
+            
+            
+        }
+
+        function showResult() {
             score.style.textAlign = "center";
             score.style.fontSize = "1.5em";
+            state.style.textAlign = "center"
+            th.style.textAlign = "center"
+            
         }
+
+
 
     });
 
