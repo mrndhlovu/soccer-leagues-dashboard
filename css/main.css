@@ -22,7 +22,7 @@ body {
 
 .info-box {
     height: auto;
-    
+
 }
 
 .data {
@@ -31,22 +31,24 @@ body {
 }
 
 #canvas {
-    height:400px;
+    height: 400px;
     width: auto;
 }
 
-.t-headers{
+.t-headers {
     text-align: center;
     font-size: 1.5em;
     border: 1px solid #000;
 }
+
 .resultInfo {
     font-size: 12px;
 }
 
 .table-container {
     height: 50vh;
-    width: 50%;
+    display: flex;
+
 }
 
 
@@ -64,7 +66,7 @@ body {
     display: inline-block;
     width: 15%;
 }
-    
+
 .liText {
     color: white;
 }
@@ -73,12 +75,18 @@ body {
     color: white;
     background-color: #07C;
 }
-    
+
 #seasonHead {
-    background-color:  #07C;
-    height: 50px;
+    background-color: #07C;
+    height: 70px;
     text-align: center;
+    width: 50%;
+    border: 1px solid black;
+    
 }
-.headerText{
-    padding-top: 8px;
+
+.headerText {
+    /*padding-top: 8px;*/
+    font-size: 2em;
+    padding-bottom: 10px;
 }

@@ -22,47 +22,60 @@
     <header>
         <h1 class="main-header">Premiere League Statistics</h1>
     </header>
+    <div class="container">
+        <nav class="navbar navbar-default">
 
-    <nav class="navbar navbar-default">
+            <div class="row wrapper">
+                <ul>
+                    <li class="menuLi" onclick="showNames()"><a class="liText" href="#">All Games</a></li>
 
-        <div class="row wrapper">
-            <ul>
-                <li class="menuLi" onclick="showNames()"><a class="liText" href="#">All Games</a></li>
+                    <li class="menuLi" onclick="showNames()"><a class="liText" href="#">Scorers</a></li>
 
-                <li class="menuLi" onclick="showNames()"><a class="liText" href="#">Scorers</a></li>
+                    <li class="menuLi" onclick="showHouse()"><a class="liText" href="#">Wins</a></li>
 
-                <li class="menuLi" onclick="showHouse()"><a class="liText" href="#">Wins</a></li>
+                    <li class="menuLi" onclick="showGender()"><a class="liText" href="#">Losses</a></li>
 
-                <li class="menuLi" onclick="showGender()"><a class="liText" href="#">Losses</a></li>
+                    <li class="menuLi" onclick="showBook()"><a class="liText" href="#">Draw</a></li>
 
-                <li class="menuLi" onclick="showBook()"><a class="liText" href="#">Draw</a></li>
+                    <li class="menuLi" onclick="clearData()"><a class="liText" href="#">Reset</a></li>
 
-                <li class="menuLi" onclick="clearData()"><a class="liText" href="#">Reset</a></li>
+                </ul>
+            </div>
+        </nav>
 
-            </ul>
+
+    </div>
+
+
+
+    <div class="container table-container ">
+        <div class="row">
+            <div class="col-md-6" id="seasonHead">
+                <h2 class="headerText">2018 - 2019 Season</h2>
+
+                <table class="table table-bordered table-responsive">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th class="t-headers" scope="col">Match Day</th>
+                            <th class="t-headers" scope="col">Home Team</th>
+                            <th class="t-headers" scope="col">Away Team</th>
+                            <th class="t-headers" scope="col">Status</th>
+                            <th class="t-headers" scope="col">Result</th>
+
+                        </tr>
+                    </thead>
+                    <tbody class="table-striped" id='tableStriped'>
+
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-md-6" id="seasonHead">
+                <h2 class="headerText">Top Goal Scorers Season</h2>
+            </div>
         </div>
-    </nav>
 
-
-    <div class="table-container">
-        <div id="seasonHead">
-            <h2 class="headerText">2018 - 2019 Season</h2>
-        </div>
-        <table class="table table-bordered table-responsive">
-            <thead class="thead-dark">
-                <tr>
-                    <th class="t-headers" scope="col">Match Day</th>
-                    <th class="t-headers" scope="col">Home Team</th>
-                    <th class="t-headers" scope="col">Away Team</th>
-                    <th class="t-headers" scope="col">Status</th>
-                    <th class="t-headers" scope="col">Result</th>
-                </tr>
-            </thead>
-            <tbody class="table-striped" id='tableStriped'>
-
-
-            </tbody>
-        </table>
 
     </div>
 
@@ -70,8 +83,7 @@
 
 
 
-    <script src="stats.js">
-    </script>
+    <script src="stats.js"></script>
 </body>
 
 
