@@ -70,9 +70,9 @@ function setUpApp() {
             score = document.createElement('td');
             score.className = "score";
             spanWin = document.createElement("span");
-            spanWin.className = "win glyphicon glyphicon-ok";
+            spanWin.className = "win glyphicon glyphicon-flag";
             spanLoss = document.createElement("span");
-            spanLoss.className = "loss glyphicon glyphicon-remove";
+            spanLoss.className = "loss glyphicon glyphicon-flag";
 
             //append new elements and pust to document
             for (result = 0; result < matchDay.length; result++) {
@@ -101,6 +101,7 @@ function setUpApp() {
                     score.innerHTML = homeScore[col] + " : " + awayScore[col];
                 }
                 else if (homeScore[col] == awayScore[col]) {
+                    showDraw() ;
                     showResult();
                     score.innerHTML = homeScore[col] + " : " + awayScore[col];
                 }
@@ -115,20 +116,36 @@ function setUpApp() {
 
 
         //apply css to winner colomn 
-
+        // show green flag if win
         function showWin() {
             aTeam.appendChild(spanLoss);
             hTeam.appendChild(spanWin);
             spanWin.style.color = "green";
             spanLoss.style.color = "red";
+            spanLoss.style.fontSize = "8px";
+            spanWin.style.fontSize = "15px";
             
         }
-
+        
+        // show red flag loss
         function showLosser() {
             aTeam.appendChild(spanWin);
             hTeam.appendChild(spanLoss);
             spanLoss.style.color = "red";
             spanWin.style.color = "green";
+            spanLoss.style.fontSize = "8px";
+            spanWin.style.fontSize = "15px";
+            
+            
+        }
+        
+        function showDraw() {
+            aTeam.appendChild(spanWin);
+            hTeam.appendChild(spanLoss);
+            spanLoss.style.color = "blue";
+            spanWin.style.color = "blue";
+            spanLoss.style.fontSize = "8px";
+            spanWin.style.fontSize = "8px";
             
             
         }
@@ -138,7 +155,8 @@ function setUpApp() {
             score.style.fontSize = "1.5em";
             state.style.textAlign = "center"
             th.style.textAlign = "center"
-            
+            hTeam.style.textAlign = "center";
+            aTeam.style.textAlign = "center";
         }
 
 
