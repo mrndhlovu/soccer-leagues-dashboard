@@ -27,49 +27,47 @@
 
         <div class="row wrapper">
             <ul>
-                    <li class="menuLi" onclick="showNames()"><a class="liText" href="#">All Games</a></li>
-                
-                    <li class="menuLi" onclick="showNames()"><a class="liText" href="#">Scorers</a></li>
-               
-                    <li class="menuLi" onclick="showHouse()"><a class="liText" href="#">Wins</a></li>
-                
-                    <li class="menuLi" onclick="showGender()"><a class="liText" href="#">Losses</a></li>
-                
-                    <li class="menuLi" onclick="showBook()"><a class="liText" href="#">Draw</a></li>
-                
-                    <li class="menuLi" onclick="clearData()"><a class="liText" href="#">Reset</a></li>
-               
+                <li class="menuLi" onclick="showNames()"><a class="liText" href="#">All Games</a></li>
+
+                <li class="menuLi" onclick="showNames()"><a class="liText" href="#">Scorers</a></li>
+
+                <li class="menuLi" onclick="showHouse()"><a class="liText" href="#">Wins</a></li>
+
+                <li class="menuLi" onclick="showGender()"><a class="liText" href="#">Losses</a></li>
+
+                <li class="menuLi" onclick="showBook()"><a class="liText" href="#">Draw</a></li>
+
+                <li class="menuLi" onclick="clearData()"><a class="liText" href="#">Reset</a></li>
+
             </ul>
         </div>
-
-
     </nav>
 
 
-
-
-    <div id="t-container">
-        <div class="table-container">
-            <table class="table table-bordered table-responsive">
-                <thead class="thead-dark">
-                    <tr>
-                        <th class="t-headers" scope="col">Match Day</th>
-                        <th class="t-headers" scope="col">Home Team</th>
-                        <th class="t-headers" scope="col">Away Team</th>
-                        <th class="t-headers" scope="col">Status</th>
-                        <th class="t-headers" scope="col">Result</th>
-                    </tr>
-                </thead>
-                <tbody class="table-striped" id='tableStriped'>
-
-
-                </tbody>
-            </table>
-
+    <div class="table-container">
+        <div id="seasonHead">
+            <h2 class="headerText">2018 - 2019 Season</h2>
         </div>
+        <table class="table table-bordered table-responsive">
+            <thead class="thead-dark">
+                <tr>
+                    <th class="t-headers" scope="col">Match Day</th>
+                    <th class="t-headers" scope="col">Home Team</th>
+                    <th class="t-headers" scope="col">Away Team</th>
+                    <th class="t-headers" scope="col">Status</th>
+                    <th class="t-headers" scope="col">Result</th>
+                </tr>
+            </thead>
+            <tbody class="table-striped" id='tableStriped'>
 
+
+            </tbody>
+        </table>
 
     </div>
+
+
+
 
 
     <script src="stats.js">

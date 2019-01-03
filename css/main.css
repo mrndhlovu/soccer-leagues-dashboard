@@ -74,3 +74,11 @@ body {
     background-color: #07C;
 }
     
+#seasonHead {
+    background-color:  #07C;
+    height: 50px;
+    text-align: center;
+}
+.headerText{
+    padding-top: 8px;
+}
