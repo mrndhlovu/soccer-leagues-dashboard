@@ -25,7 +25,7 @@ function setUpApp() {
         var homeTeam = [];
         var matchDay = [];
         var status = [];
-
+        var toPlay = " - ";
         //Loop through object arrays and filter data using push to empty arrays
         Object.keys(match).forEach(function(key) {
 
@@ -36,28 +36,36 @@ function setUpApp() {
 
 
             //Populate home and away score arrays
-            if (match[key].score.fullTime.awayTeam) {
+            if (match[key].status !== "SCHEDULED") {
                 awayScore.push(match[key].score.fullTime.awayTeam);
-            }
-            else{
                 homeScore.push(match[key].score.fullTime.homeTeam);
             }
-            
-        
+            else {}
+            if (match[key].status == "SCHEDULED") {
+                homeScore.push(toPlay);
+                awayScore.push(toPlay);
+            }
+            else {}
+
+
         });
-        
-        print(match);
+
+        //print(match); to see data on console
         for (var col = 0; col < matchDay.length; col++) {
 
             var tr = document.createElement('tr'),
-                th, tr, td, match, s, hTeam, aTeam, score;
+                th, tr, td, match, state, hTeam, aTeam, score;
 
             //create elements
             th = document.createElement('th');
             th.scope = "row";
-            s = document.createElement('td');
+            th.className = "matchDay";
+            state = document.createElement('td');
+            state.className = "matchState";
             hTeam = document.createElement('td');
+            hTeam.className = "homeTeam";
             aTeam = document.createElement('td');
+            aTeam.className = "awayTeam";
             score = document.createElement('td');
             score.className = "score";
 
@@ -66,15 +74,15 @@ function setUpApp() {
                 tr.appendChild(th);
                 tr.appendChild(hTeam);
                 tr.appendChild(aTeam);
-                tr.appendChild(s);
+                tr.appendChild(state);
                 tr.appendChild(score);
 
 
                 th.innerHTML = matchDay[col];
-                
+
                 hTeam.innerHTML = homeTeam[col];
                 aTeam.innerHTML = awayTeam[col];
-                s.innerHTML = status[col];
+                state.innerHTML = status[col];
                 if (homeScore[match] > awayScore[match]) {
                     homeWin();
                     score.innerHTML = homeScore[col] + " : " + awayScore[col];
@@ -93,7 +101,7 @@ function setUpApp() {
 
             }
             document.getElementById('tableStriped').appendChild(tr);
-            
+
         }
 
 
@@ -102,21 +110,33 @@ function setUpApp() {
             score.style.color = "green";
             score.style.textAlign = "center";
             score.style.fontSize = "1.5em";
+            hTeam.style.radius = "90deg";
+            hTeam.style.textAlign = "center";
+            hTeam.style.color = "green";
+            aTeam.style.color = "red";
+            aTeam.style.textAlign = "center";
+            state.style.textAlign = "center";
+            th.style.textAlign = "center";
+
         }
 
         function awayWin() {
             score.style.color = "red";
             score.style.textAlign = "center";
             score.style.fontSize = "1.5em";
+            aTeam.style.color = "green";
+            hTeam.style.color = "red";
+            
         }
+
         function draw() {
             score.style.color = "blue";
             score.style.textAlign = "center";
             score.style.fontSize = "1.5em";
         }
-    
+
     });
-    
+
 }
 
 window.onload = function() {
