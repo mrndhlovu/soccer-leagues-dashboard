@@ -45,13 +45,6 @@ body {
     font-size: 12px;
 }
 
-.table-container {
-    height: 60vh;
-    display: flex;
-
-}
-
-
 .wrapper {
     text-align: center;
     background-color: #0095ff;
@@ -81,6 +74,8 @@ body {
     width: 50%;
     border: 1px solid black;
     flex: 1;
+    color: white;
+    background-color: grey;
 }
 
 .headerText {
@@ -88,21 +83,52 @@ body {
     font-size: 2em;
     padding-bottom: 10px;
     position: inherit;
+    display: block;
+}
+
+.table-container {
+    height: 100vh;
+    display: flex;
+
 }
 
 .parent {
     display: flex;
     background-color: grey;
+    width: 100%;
+    margin-left: 3px;
+    
+    
 }
 
 .child-1 {
+    display: flex;
     flex:1;
-   /* background-color: purple;*/
-    height: 60vh;
+    background-color: #d9edf7;
+    height: 70vh;
+    border: 1px solid black;
+    text-align: center;
 }
 
 .child-2 {
-    /*background-color: red;*/
-    height: 60vh;
+    background-color: grey;
+    height: 70vh;
     overflow: auto;
+    flex:1;
+    border: 1px solid black;
+}
+.child-3 {
+    background-color: #eee;
+    height: 70vh;
+    overflow: auto;
+    flex:1;
+    border: 1px solid black;
+}
+
+.teams {
+    width: 100%;
+}
+
+#gameToPlay {
+    background-color: white;
 }

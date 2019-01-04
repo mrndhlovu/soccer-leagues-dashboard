@@ -6,7 +6,7 @@ function setUpApp() {
     }
 
     var apiRequestURL = "https://api.football-data.org/v2/competitions/PL/matches?matchday=";
-    var day = 22;
+    var day = 21;
     var apiAuthorization = { 'X-Auth-Token': '5d791d1818c3415d9b1a4b323c899bf4' };
 
     $.ajax({
