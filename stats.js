@@ -15,6 +15,7 @@ function setUpApp() {
         dataType: 'json',
         type: 'GET',
     }).done(function(response) {
+
         // do something with the response, e.g. isolate the id of a linked resource   
         var data = response;
         var match = data.matches;
@@ -56,35 +57,43 @@ function setUpApp() {
             }
             else {}
 
-
-
         });
-        
-        
-        // Fill option seletor with teams
-        var option = document.createElement("option");
-        
-        
-       for (var i = 0; i < teams.length; i++) {
-           document.getElementById("teamList").appendChild(option);
-            option.className = "team-" + i;
-            option.value =  teams[i];
-            option.className = "team"+i;
-            option.innerHTML = teams[i];
-            teams.sort();
-            document.getElementsByClassName("team"+ i ).innerHTML = teams[i];
-            
-        }
-        document.getElementById("teamList").appendChild(option);
-        
-        
 
+        // Fill option seletor with teams
+        var select = document.createElement("select"),
+            option, br, input;
+
+        select.id = "teamList";
+        select.name = "teams";
+        br = document.createElement("br");
+        input = document.createElement("input");
+        input.type = "submit";
+
+        for (var i = 0; i < teams.length; i++) {
+
+            option = document.createElement("option");
+            option.id = "team" + i;
+            option.value = teams[i];
+            option.id = "team" + i;
+            teams.sort();
+            select.appendChild(option);
+            option.innerHTML = teams[i];
+            select.appendChild(option);
+
+        }
+        document.getElementById("formSelect").appendChild(select);
+        document.getElementById("formSelect").appendChild(br);
+        document.getElementById("formSelect").appendChild(input);
+        
+         
+
+        //Create elements
         for (var col = 0; col < matchDay.length; col++) {
 
             var tr = document.createElement('tr'),
                 th, tr, td, result, state, hTeam, aTeam, score, spanWin, spanLoss;
 
-            //create elements
+            
             th = document.createElement('th');
             th.scope = "row";
             th.className = "matchDay";
@@ -101,7 +110,7 @@ function setUpApp() {
             spanLoss = document.createElement("span");
             spanLoss.className = "loss glyphicon glyphicon-flag";
 
-            //append new elements and pust to document
+            // Append new elements and pust to document
             for (result = 0; result < matchDay.length; result++) {
                 tr.appendChild(th);
                 tr.appendChild(hTeam);
@@ -135,14 +144,13 @@ function setUpApp() {
                 else {
                     score.innerHTML = homeScore[col] + " : " + awayScore[col];
                 }
-
             }
             document.getElementById('tableStriped').appendChild(tr);
 
         }
 
 
-        //apply css to winner colomn 
+        //Apply css to winner colomn 
         // show green flag if win
         function showWin() {
             aTeam.appendChild(spanLoss);
