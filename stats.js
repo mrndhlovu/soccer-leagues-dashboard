@@ -74,12 +74,11 @@ function setUpApp() {
             option = document.createElement("option");
             option.id = "team" + i;
             option.value = teams[i];
-            option.id = "team" + i;
+            option.id = "team" + ( i + 1);
             teams.sort();
             select.appendChild(option);
             option.innerHTML = teams[i];
             select.appendChild(option);
-
         }
         document.getElementById("formSelect").appendChild(select);
         document.getElementById("formSelect").appendChild(br);
