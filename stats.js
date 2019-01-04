@@ -1,15 +1,17 @@
 function setUpApp() {
+
     //Log to console function
     function print(data) {
         console.log(data);
     }
 
-    var apiRequestURL = "https://api.football-data.org/v2/competitions/PL/matches";
+    var apiRequestURL = "https://api.football-data.org/v2/competitions/PL/matches?matchday=";
+    var day = 22;
     var apiAuthorization = { 'X-Auth-Token': '5d791d1818c3415d9b1a4b323c899bf4' };
 
     $.ajax({
         headers: apiAuthorization,
-        url: apiRequestURL,
+        url: apiRequestURL + day,
         dataType: 'json',
         type: 'GET',
     }).done(function(response) {
@@ -26,18 +28,24 @@ function setUpApp() {
         var matchDay = [];
         var status = [];
         var toPlay = " - ";
+        const teams = [];
+
         //Loop through object arrays and filter data using push to empty arrays
         Object.keys(match).forEach(function(key) {
 
             matchDay.push(match[key].matchday);
+
             homeTeam.push(match[key].homeTeam.name);
+            teams.push(match[key].homeTeam.name);
+
             awayTeam.push(match[key].awayTeam.name);
+            teams.push(match[key].awayTeam.name);
+
             status.push(match[key].status);
 
 
             //Populate home and away score arrays
             if (match[key].status !== "SCHEDULED") {
-
                 awayScore.push(match[key].score.fullTime.awayTeam);
                 homeScore.push(match[key].score.fullTime.homeTeam);
             }
@@ -49,9 +57,28 @@ function setUpApp() {
             else {}
 
 
-        });
 
-        //print(match); to see data on console
+        });
+        
+        
+        // Fill option seletor with teams
+        var option = document.createElement("option");
+        
+        
+       for (var i = 0; i < teams.length; i++) {
+           document.getElementById("teamList").appendChild(option);
+            option.className = "team-" + i;
+            option.value =  teams[i];
+            option.className = "team"+i;
+            option.innerHTML = teams[i];
+            teams.sort();
+            document.getElementsByClassName("team"+ i ).innerHTML = teams[i];
+            
+        }
+        document.getElementById("teamList").appendChild(option);
+        
+        
+
         for (var col = 0; col < matchDay.length; col++) {
 
             var tr = document.createElement('tr'),
@@ -96,12 +123,12 @@ function setUpApp() {
                     score.innerHTML = homeScore[col] + " : " + awayScore[col];
                 }
                 else if (homeScore[col] < awayScore[col]) {
-                    showLosser(); 
+                    showLosser();
                     showResult();
                     score.innerHTML = homeScore[col] + " : " + awayScore[col];
                 }
                 else if (homeScore[col] == awayScore[col]) {
-                    showDraw() ;
+                    showDraw();
                     showResult();
                     score.innerHTML = homeScore[col] + " : " + awayScore[col];
                 }
@@ -124,9 +151,9 @@ function setUpApp() {
             spanLoss.style.color = "red";
             spanLoss.style.fontSize = "8px";
             spanWin.style.fontSize = "15px";
-            
+
         }
-        
+
         // show red flag loss
         function showLosser() {
             aTeam.appendChild(spanWin);
@@ -135,10 +162,10 @@ function setUpApp() {
             spanWin.style.color = "green";
             spanLoss.style.fontSize = "8px";
             spanWin.style.fontSize = "15px";
-            
-            
+
+
         }
-        
+
         function showDraw() {
             aTeam.appendChild(spanWin);
             hTeam.appendChild(spanLoss);
@@ -146,8 +173,8 @@ function setUpApp() {
             spanWin.style.color = "blue";
             spanLoss.style.fontSize = "8px";
             spanWin.style.fontSize = "8px";
-            
-            
+
+
         }
 
         function showResult() {

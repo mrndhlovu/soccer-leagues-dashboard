@@ -13,7 +13,7 @@
 
 
     <link rel="stylesheet" type="text/css" href="css/main.css">
-    
+
     <title>Game Statistics</title>
 </head>
 
@@ -48,8 +48,25 @@
 
 
     <div class="container table-container ">
-        <div class="row">
-            <div class="col-md-6" id="seasonHead">
+        <div class="row parent">
+
+            <div class="col-md-8 child-1" id="seasonHead">
+                <h2 class="headerText">Season Team Statistics</h2>
+
+                <p>
+                    <form action="#">
+                        <select id="teamList" name="teams">
+                                    
+                    </select>
+                        <br><br>
+                        <input type="submit">
+                    </form>
+                </p>
+            </div>
+
+
+
+            <div class="col-md-4 child-2" id="seasonHead">
                 <h2 class="headerText">2018 - 2019 Season</h2>
 
                 <table class="table table-bordered table-responsive">
@@ -70,9 +87,7 @@
                 </table>
             </div>
 
-            <div class="col-md-6" id="seasonHead">
-                <h2 class="headerText">Season Top Goal Scorers</h2>
-            </div>
+
         </div>
 
 
