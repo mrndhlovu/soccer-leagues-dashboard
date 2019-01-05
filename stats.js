@@ -206,7 +206,8 @@ function setUpApp() {
         //
 
         var gamesPlayed = [];
-        var didNotPlay = 0;
+        var toPlayHome = 0;
+        var toPlayAway = 0;
         
         var homeGames = 0;
         var awayGames = 0;
@@ -233,14 +234,19 @@ function setUpApp() {
                 }else if ( homeTeam[i] == checkTeam && awayScore[i] > homeScore[i] ){
                     print("away win")
                     awayWin ++
-                }else if( homeTeam[i] == checkTeam && awayScore[i] == homeScore[i] ){
-                    awayDraw++;
+                }else if( homeTeam[i] == checkTeam && homeScore[i] == awayScore[i] ){
+                      if (status[i] != "SCHEDULED") {
+                    homeDraw ++;
+                }
                 }else if ( awayTeam[i] == checkTeam && homeScore[i] < awayScore[i] ){
                     homeLoss ++;
                 }else if ( awayTeam[i] == checkTeam && awayScore[i] < homeScore[i] ){
                     awayLoss ++;
-                }else if ( awayTeam[i] == checkTeam && homeScore[i] == awayScore[i] ){
-                    homeDraw ++;
+                }else if ( awayTeam[i] == checkTeam && awayScore[i] == homeScore[i] ){
+                    if (status[i] != "SCHEDULED") {
+                    awayDraw ++;
+                }
+                    
                 }
                 
                 // Check if team played on a particullar day and get home or away
@@ -250,29 +256,21 @@ function setUpApp() {
                 }
                 else if (status[i] == "SCHEDULED" && homeTeam[i].includes(checkTeam)) {
                     //print(false)
-                    awayGames++;
+                    toPlayHome++;
                 }
                 else if (status[i] == "FINISHED" && awayTeam[i].includes(checkTeam)) {
-                    didNotPlay++;
+                    awayGames++;
                 }
                 else if (status[i] == "SCHEDULED" && awayTeam[i].includes(checkTeam)) {
-                    didNotPlay++;
-                }
-                else {
-
-                }
+                    toPlayAway++;
+                }else {}
             }
-            document.getElementById("played").innerHTML = "Home : " + homeGames + " -  Away: " + awayGames; 
             
-            ;
-            
+            document.getElementById("played").innerHTML = "Home : " + homeGames + " -  Away: " + awayGames;
             document.getElementById("wins").innerHTML = "Home : " + homeWin + " -  Away: " + awayWin; 
-            
-            
+            document.getElementById("toPlay").innerHTML = "Home : " + toPlayHome + " -  Away: " + toPlayAway; 
             document.getElementById("loss").innerHTML = "Home : " + homeLoss + " -  Away: " + awayLoss;  
-            
             document.getElementById("draw").innerHTML = "Home : " + homeDraw + " -  Away : " + awayDraw;
-            
             
             document.getElementById("goalPerMatch").innerHTML = awayGames;
             document.getElementById("totalGoal").innerHTML = awayGames;
