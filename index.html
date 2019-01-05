@@ -17,7 +17,7 @@
     <title>Game Statistics</title>
 </head>
 
-<body>
+<body onload="onload();">
     <header>
         <h1 class="main-header">Premiere League Statistics</h1>
     </header>
@@ -42,10 +42,7 @@
             </div>
         </nav>
 
-
     </div>
-
-
 
     <div class="container-fluid table-container ">
         <div class="row parent">
@@ -53,17 +50,17 @@
             <div class="col-sm-12  col-md-4 child-1" id="seasonHead1">
 
                 <h2 class="headerText">Season Team Statistics</h2>
-                <br>
 
                 <!-- select tag to pick teams-->
 
                 <div class="teams">
                     <p>
-                        <form id="formSelect" action="#"> </form>
+                        <form id="formSelect" action="#"> 
+                        
+                        </form>
                     </p>
 
                 </div>
-
 
             </div>
             <div class="col-sm-12 col-md-4 child-2" id="seasonHea2">
@@ -81,9 +78,22 @@
 
             </div>
 
-
             <div class="col-sm-12 col-md-4 child-3" id="seasonHead3">
+
                 <h2 class="headerText">2018 - 2019 Season</h2>
+
+                <!-- select tag for matchday-->
+
+                <div class="day">
+                    <p id=matchDaySelect>
+                        
+                        <input type="range" value="19" min="0" max="38" id="userData" oninput="userInput.value = userData.value"/><br>
+                        <input   id="userInput" value="19"></input>
+                        <button  >Pick Match Day</button>
+                        
+                    </p>
+
+                </div>
 
                 <table class="table table-bordered table-responsive">
                     <thead class="thead-dark">
@@ -103,19 +113,11 @@
                 </table>
             </div>
 
-
         </div>
-
 
     </div>
 
-
-
-
-
     <script src="stats.js"></script>
 </body>
-
-
 
 </html>

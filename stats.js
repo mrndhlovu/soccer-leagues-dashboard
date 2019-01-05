@@ -1,3 +1,4 @@
+/*global$*/
 function setUpApp() {
 
     //Log to console function
@@ -5,21 +6,21 @@ function setUpApp() {
         console.log(data);
     }
 
-    var apiRequestURL = "https://api.football-data.org/v2/competitions/PL/matches?matchday=";
-    var day = 21;
+    var apiLinks = ["https://api.football-data.org/v2/competitions/PL/matches?matchday=", "https://api.football-data.org/v2/competitions/PL/matches"];
+
     var apiAuthorization = { 'X-Auth-Token': '5d791d1818c3415d9b1a4b323c899bf4' };
+    var dayInput = 1;
+
 
     $.ajax({
         headers: apiAuthorization,
-        url: apiRequestURL + day,
+        url: apiLinks[1],
         dataType: 'json',
         type: 'GET',
     }).done(function(response) {
 
         // do something with the response, e.g. isolate the id of a linked resource   
-        var data = response;
-        var match = data.matches;
-
+        var data = response.matches;
 
         // empty arrays
         var awayScore = [];
@@ -29,29 +30,35 @@ function setUpApp() {
         var matchDay = [];
         var status = [];
         var toPlay = " - ";
-        const teams = [];
+        var teams = [];
+        
+        
+        // Filter teams array and remove dublicates
+        
+
+
 
         //Loop through object arrays and filter data using push to empty arrays
-        Object.keys(match).forEach(function(key) {
+        Object.keys(data).forEach(function(key) {
 
-            matchDay.push(match[key].matchday);
+            matchDay.push(data[key].matchday);
 
-            homeTeam.push(match[key].homeTeam.name);
-            teams.push(match[key].homeTeam.name);
+            homeTeam.push(data[key].homeTeam.name);
+            teams.push(data[key].homeTeam.name);
 
-            awayTeam.push(match[key].awayTeam.name);
-            teams.push(match[key].awayTeam.name);
+            awayTeam.push(data[key].awayTeam.name);
+            teams.push(data[key].awayTeam.name);
 
-            status.push(match[key].status);
+            status.push(data[key].status);
 
 
             //Populate home and away score arrays
-            if (match[key].status !== "SCHEDULED") {
-                awayScore.push(match[key].score.fullTime.awayTeam);
-                homeScore.push(match[key].score.fullTime.homeTeam);
+            if (data[key].status !== "SCHEDULED") {
+                awayScore.push(data[key].score.fullTime.awayTeam);
+                homeScore.push(data[key].score.fullTime.homeTeam);
             }
             else {}
-            if (match[key].status == "SCHEDULED") {
+            if (data[key].status == "SCHEDULED") {
                 homeScore.push(toPlay);
                 awayScore.push(toPlay);
             }
@@ -59,40 +66,66 @@ function setUpApp() {
 
         });
 
+        
+        function removeDuplicates(teams) {
+            var uniqueTeams = [];
+            for (let i = 0; i < teams.length; i++) {
+                if (uniqueTeams.indexOf(teams[i]) == -1) {
+                    uniqueTeams.push(teams[i])
+                }
+            }
+            return uniqueTeams;
+        }
+
+       teams = removeDuplicates(teams);
+
+        print(teams);
+
+
+        print(data[0]);
+
         // Fill option seletor with teams
         var select = document.createElement("select"),
-            option, br, input;
+            option, day, dayOption;
 
         select.id = "teamList";
         select.name = "teams";
-        br = document.createElement("br");
-        input = document.createElement("input");
-        input.type = "submit";
+
+        day = document.createElement("select");
+        day.id = "dayOfMatch";
+        day.name = "day";
 
         for (var i = 0; i < teams.length; i++) {
 
             option = document.createElement("option");
-            option.id = "team" + i;
-            option.value = teams[i];
-            option.id = "team" + ( i + 1);
+            option.value = "Select Team";
+            option.id = "team" + (i + 1);
+
+            dayOption = document.createElement("option");
+            dayOption.id = "day" + (i + 1);
+            dayOption.value = "day" + (i + 1);
+
+
             teams.sort();
+            //matchDay.sort();
+
             select.appendChild(option);
+            day.appendChild(dayOption);
+
             option.innerHTML = teams[i];
+            dayOption.innerHTML = dayInput.value;
+
             select.appendChild(option);
+            day.appendChild(dayOption);
         }
         document.getElementById("formSelect").appendChild(select);
-        document.getElementById("formSelect").appendChild(br);
-        document.getElementById("formSelect").appendChild(input);
-        
-         
 
-        //Create elements
+        //Create table tags
         for (var col = 0; col < matchDay.length; col++) {
 
             var tr = document.createElement('tr'),
                 th, tr, td, result, state, hTeam, aTeam, score, spanWin, spanLoss;
 
-            
             th = document.createElement('th');
             th.scope = "row";
             th.className = "matchDay";
@@ -193,11 +226,23 @@ function setUpApp() {
             aTeam.style.textAlign = "center";
         }
 
+        
 
+
+        // Get number of games played per team
+        function playedGames() {
+            Object.keys(teams).forEach(function(key) {
+
+
+
+            })
+        };
 
     });
 
 }
+
+
 
 window.onload = function() {
     setUpApp();
