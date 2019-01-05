@@ -129,6 +129,14 @@ body {
     width: 100%;
 }
 
-#gameToPlay {
+#statsHead {
     background-color: white;
+    
+    color: red;
+    height: 80px;
+    text-align: center;
 }
+
+
+
+   

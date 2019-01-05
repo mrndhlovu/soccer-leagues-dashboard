@@ -9,12 +9,12 @@ function setUpApp() {
     var apiLinks = ["https://api.football-data.org/v2/competitions/PL/matches?matchday=", "https://api.football-data.org/v2/competitions/PL/matches"];
 
     var apiAuthorization = { 'X-Auth-Token': '5d791d1818c3415d9b1a4b323c899bf4' };
-    var dayInput = 1;
+    var dayInput;
 
 
     $.ajax({
         headers: apiAuthorization,
-        url: apiLinks[1],
+        url: apiLinks[0],
         dataType: 'json',
         type: 'GET',
     }).done(function(response) {
@@ -31,12 +31,6 @@ function setUpApp() {
         var status = [];
         var toPlay = " - ";
         var teams = [];
-        
-        
-        // Filter teams array and remove dublicates
-        
-
-
 
         //Loop through object arrays and filter data using push to empty arrays
         Object.keys(data).forEach(function(key) {
@@ -66,7 +60,7 @@ function setUpApp() {
 
         });
 
-        
+        // Filter teams array and remove dublicates
         function removeDuplicates(teams) {
             var uniqueTeams = [];
             for (let i = 0; i < teams.length; i++) {
@@ -77,23 +71,16 @@ function setUpApp() {
             return uniqueTeams;
         }
 
-       teams = removeDuplicates(teams);
-
-        print(teams);
-
+        teams = removeDuplicates(teams);
 
         print(data[0]);
 
         // Fill option seletor with teams
         var select = document.createElement("select"),
-            option, day, dayOption;
+            option;
 
         select.id = "teamList";
         select.name = "teams";
-
-        day = document.createElement("select");
-        day.id = "dayOfMatch";
-        day.name = "day";
 
         for (var i = 0; i < teams.length; i++) {
 
@@ -101,22 +88,11 @@ function setUpApp() {
             option.value = "Select Team";
             option.id = "team" + (i + 1);
 
-            dayOption = document.createElement("option");
-            dayOption.id = "day" + (i + 1);
-            dayOption.value = "day" + (i + 1);
-
-
             teams.sort();
-            //matchDay.sort();
-
             select.appendChild(option);
-            day.appendChild(dayOption);
-
             option.innerHTML = teams[i];
-            dayOption.innerHTML = dayInput.value;
-
             select.appendChild(option);
-            day.appendChild(dayOption);
+
         }
         document.getElementById("formSelect").appendChild(select);
 
@@ -226,17 +202,88 @@ function setUpApp() {
             aTeam.style.textAlign = "center";
         }
 
+
+        //
+
+        var gamesPlayed = [];
+        var didNotPlay = 0;
         
+        var homeGames = 0;
+        var awayGames = 0;
+        
+        var homeWin = 0;
+        var homeLoss = 0;
+        
+        var awayWin = 0;
+        var awayLoss = 0;
+        
+        var homeDraw = 0;
+        var awayDraw = 0;
 
+        // Get number of games played per team home and away
+        function playedGames(team) {
+            var checkTeam = team;
+            
+            // get team wins, losses, draws - home and
+            for (var i = 0; i < data.length; i++) {
+                
+                if ( homeTeam[i] == checkTeam &&  homeScore[i] > awayScore[i] ){
+                    homeWin ++;
+                    //print(matchDay[i] +  '  '+homeTeam[i] +'  '+ homeScore[i] + " " + awayTeam [i] + ' '+ awayScore[i] );
+                }else if ( homeTeam[i] == checkTeam && awayScore[i] > homeScore[i] ){
+                    print("away win")
+                    awayWin ++
+                }else if( homeTeam[i] == checkTeam && awayScore[i] == homeScore[i] ){
+                    awayDraw++;
+                }else if ( awayTeam[i] == checkTeam && homeScore[i] < awayScore[i] ){
+                    homeLoss ++;
+                }else if ( awayTeam[i] == checkTeam && awayScore[i] < homeScore[i] ){
+                    awayLoss ++;
+                }else if ( awayTeam[i] == checkTeam && homeScore[i] == awayScore[i] ){
+                    homeDraw ++;
+                }
+                
+                // Check if team played on a particullar day and get home or away
+                if (status[i] == "FINISHED" && homeTeam[i].includes(checkTeam)) {
+                    homeGames++;
+                    //print(true)
+                }
+                else if (status[i] == "SCHEDULED" && homeTeam[i].includes(checkTeam)) {
+                    //print(false)
+                    awayGames++;
+                }
+                else if (status[i] == "FINISHED" && awayTeam[i].includes(checkTeam)) {
+                    didNotPlay++;
+                }
+                else if (status[i] == "SCHEDULED" && awayTeam[i].includes(checkTeam)) {
+                    didNotPlay++;
+                }
+                else {
 
-        // Get number of games played per team
-        function playedGames() {
-            Object.keys(teams).forEach(function(key) {
-
-
-
-            })
+                }
+            }
+            document.getElementById("played").innerHTML = "Home : " + homeGames + " -  Away: " + awayGames; 
+            
+            ;
+            
+            document.getElementById("wins").innerHTML = "Home : " + homeWin + " -  Away: " + awayWin; 
+            
+            
+            document.getElementById("loss").innerHTML = "Home : " + homeLoss + " -  Away: " + awayLoss;  
+            
+            document.getElementById("draw").innerHTML = "Home : " + homeDraw + " -  Away : " + awayDraw;
+            
+            
+            document.getElementById("goalPerMatch").innerHTML = awayGames;
+            document.getElementById("totalGoal").innerHTML = awayGames;
+            document.getElementById("cleanSheets").innerHTML = awayGames;
+            document.getElementById("avgGoalsConc").innerHTML = awayGames;
+            
+            print("Home " + homeGames);
+            print("Away " + awayGames);
+            print(teams[2]);
         };
+        playedGames(teams[2]);
 
     });
 

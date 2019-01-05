@@ -54,26 +54,53 @@
                 <!-- select tag to pick teams-->
 
                 <div class="teams">
-                    <p>
-                        <form id="formSelect" action="#"> 
-                        
-                        </form>
-                    </p>
+                    <p>Teams</p>
+                    <form id="formSelect" action="#">
 
+                    </form>
                 </div>
 
             </div>
             <div class="col-sm-12 col-md-4 child-2" id="seasonHea2">
                 <h2 class="headerText">Season Team Statistics</h2>
                 <div>
-                    <h5 id="gameToPlay">Games Played</h5>
-                    <h5 id="gameToPlay">Games to Play</h5>
-                    <h5 id="gameToPlay">Number of Wins</h5>
-                    <h5 id="gameToPlay">Number of Losses</h5>
-                    <h5 id="gameToPlay">Goals Per Match</h5>
-                    <h5 id="gameToPlay">Total Season Goals</h5>
-                    <h5 id="gameToPlay">Cleans Sheets</h5>
-                    <h5 id="gameToPlay">Average Goals Conceded</h5>
+                    <div id="statsHead">
+                        <h3 id="">Games Played</h3>
+                        <p id="played" ></p>
+                    </div>
+                    <div id="statsHead">
+                        <h3 id="">Games to Played</h3>
+                        <p id="toPlay" ></p>
+                    </div>
+                    <div id="statsHead">
+                        <h3 id="">Wins</h3>
+                        <p id="wins" ></p>
+                    </div>
+                    <div id="statsHead">
+                        <h3 id="">Loss</h3>
+                        <p id="loss" ></p>
+                    </div>
+                    <div id="statsHead">
+                        <h3 id="">Draw</h3>
+                        <p id="draw" ></p>
+                    </div>
+                    <div id="statsHead">
+                        <h3 id="">Goals Per Match</h3>
+                        <p id="goalPerMatch" ></p>
+                    </div>
+                    <div id="statsHead">
+                        <h3 id="">Total Season Goals</h3>
+                        <p id="totalGoal" ></p>
+                    </div>
+                    <div id="statsHead">
+                        <h3 id="">Cleans Sheets</h3>
+                        <p id="cleanSheets" ></p>
+                    </div>
+                    <div id="statsHead">
+                        <h3 id="">Average Goals Conceded</h3>
+                        <p id="avgGoalsConc" ></p>
+                    </div>
+
                 </div>
 
             </div>
@@ -86,11 +113,11 @@
 
                 <div class="day">
                     <p id=matchDaySelect>
-                        
-                        <input type="range" value="19" min="0" max="38" id="userData" oninput="userInput.value = userData.value"/><br>
-                        <input   id="userInput" value="19"></input>
-                        <button  >Pick Match Day</button>
-                        
+
+                        <input type="range" value="19" min="0" max="38" id="userData" oninput="userInput.value = userData.value" /><br>
+                        <input id="userInput" value="19"></input>
+                        <button>Pick Match Day</button>
+
                     </p>
 
                 </div>
