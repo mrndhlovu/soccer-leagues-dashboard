@@ -84,6 +84,7 @@ body {
     padding-bottom: 10px;
     position: inherit;
     display: block;
+    text-align: center;
 }
 
 .table-container {
@@ -93,8 +94,8 @@ body {
 }
 
 .parent {
-    display: flex;
-    background-color: grey;
+    /*display: flex;*/
+    
     width: 100%;
     margin-left: 3px;
     
@@ -102,26 +103,27 @@ body {
 }
 
 .child-1 {
-    display: flex;
-    flex:1;
-    background-color: #d9edf7;
-    height: 70vh;
+    /*display: flex;*/
+    /*flex:1;*/
+    display: 100vh;
+    height: auto;
     border: 1px solid black;
     text-align: center;
+    
 }
 
 .child-2 {
-    background-color: grey;
-    height: 70vh;
+    
+    height: inherit;
     overflow: auto;
-    flex:1;
+    /*flex:1;*/
     border: 1px solid black;
 }
 .child-3 {
     background-color: #eee;
-    height: 70vh;
+    height: inherit;
     overflow: auto;
-    flex:1;
+    /*flex:2;*/
     border: 1px solid black;
 }
 
@@ -130,10 +132,10 @@ body {
 }
 
 #statsHead {
-    background-color: white;
-    
+  border: 1px solid black;
+  margin-bottom: 5px;
     color: red;
-    height: 80px;
+    height: 100px;
     text-align: center;
 }
 
