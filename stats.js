@@ -203,22 +203,20 @@ function setUpApp() {
         }
 
         //Stats variables
-        var avg = 0;
-        var totalGoals = 0;
-        var toPlayHome = 0;
-        var toPlayAway = 0;
-        var cleanSheets = 0;
-        var homeGames = 0;
-        var awayGames = 0;
-
-        var homeWin = 0;
-        var homeLoss = 0;
-
-        var awayWin = 0;
-        var awayLoss = 0;
-
-        var homeDraw = 0;
-        var awayDraw = 0;
+        var avg = 0,
+            totalGoals = 0,
+            toPlayHome = 0,
+            toPlayAway = 0,
+            cleanSheets = 0,
+            homeGames = 0,
+            awayGames = 0,
+            goalsConceded =0,
+            homeWin = 0,
+            homeLoss = 0,
+            awayWin = 0,
+            awayLoss = 0,
+            homeDraw = 0,
+            awayDraw = 0;
 
         // Get number of games played per team home and away
         function gamePlay(team) {
@@ -229,10 +227,16 @@ function setUpApp() {
 
                 if (homeTeam[i] == checkTeam && homeScore[i] > awayScore[i]) {
                     homeWin++;
+                    if (awayScore[i] > 0) {
+                        goalsConceded += awayScore[i];
+                    }
+
                 }
                 else if (homeTeam[i] == checkTeam && awayScore[i] > homeScore[i]) {
-                    print("away win");
-                    awayWin++;
+                    homeLoss++;
+                    if (awayScore[i] > 0) {
+                        goalsConceded += awayScore[i];
+                    }
                 }
                 else if (homeTeam[i] == checkTeam && homeScore[i] == awayScore[i]) {
                     if (status[i] != "SCHEDULED") {
@@ -241,19 +245,23 @@ function setUpApp() {
                     if (homeScore[i] > 0) {
                         totalGoals += homeScore[i];
                     }
+                    if (awayScore[i] > 0) {
+                        goalsConceded += awayScore[i];
+                    }
                 }
-                else if (awayTeam[i] == checkTeam && homeScore[i] < awayScore[i]) {
-                    homeLoss++;
-                }
-                else if (awayTeam[i] == checkTeam && awayScore[i] < homeScore[i]) {
+                else if (awayTeam[i] == checkTeam && homeScore[i] > awayScore[i]) {
                     awayLoss++;
+                    
+                }
+                if (homeScore[i] > 0) {
+                    goalsConceded += homeScore[i];
                 }
                 else if (awayTeam[i] == checkTeam && awayScore[i] == homeScore[i]) {
                     if (status[i] != "SCHEDULED") {
                         awayDraw++;
                     }
-                    if (awayScore[i] > 0) {
-                        totalGoals += awayScore[i];
+                    if (homeScore[i] > 0) {
+                        totalGoals += homeScore[i];
                     }
 
                 }
@@ -263,20 +271,22 @@ function setUpApp() {
                     homeGames++;
                     if (homeScore[i] > 0) {
                         totalGoals += homeScore[i];
-                    }if (awayScore[i] == 0) {
+                    }
+                    if (awayScore[i] == 0) {
                         cleanSheets++;
                     }
-                    //print(true)
+
                 }
                 else if (status[i] == "SCHEDULED" && homeTeam[i].includes(checkTeam)) {
-                    //print(false)
+
                     toPlayHome++;
                 }
                 else if (status[i] == "FINISHED" && awayTeam[i].includes(checkTeam)) {
                     awayGames++;
                     if (awayScore[i] > 0) {
                         totalGoals += awayScore[i];
-                    }if (homeScore[i] == 0) {
+                    }
+                    if (homeScore[i] == 0) {
                         cleanSheets++;
                     }
                 }
@@ -285,10 +295,8 @@ function setUpApp() {
                 }
                 else {}
             }
-             //Find average goals per game;
+            //Find average goals per game;
             avg = totalGoals / (homeGames + awayGames);
-
-
 
             // Write to html tags
             document.getElementById("played").innerHTML = "Home : " + homeGames + " -  Away: " + awayGames;
@@ -296,16 +304,13 @@ function setUpApp() {
             document.getElementById("toPlay").innerHTML = "Home : " + toPlayHome + " -  Away: " + toPlayAway;
             document.getElementById("loss").innerHTML = "Home : " + homeLoss + " -  Away: " + awayLoss;
             document.getElementById("draw").innerHTML = "Home : " + homeDraw + " -  Away : " + awayDraw;
-
-            document.getElementById("goalPerMatch").innerHTML = avg.toFixed(0);
             document.getElementById("totalGoal").innerHTML = totalGoals;
+            document.getElementById("goalPerMatch").innerHTML = avg.toFixed(0);
             document.getElementById("cleanSheets").innerHTML = cleanSheets;
-            document.getElementById("avgGoalsConc").innerHTML = awayGames;
+            document.getElementById("goalsConc").innerHTML = goalsConceded;
 
-            print("Home " + homeGames);
-            print("Away " + awayGames);
             print(teams[0]);
-            print(avg.toFixed(0));
+
         }
         gamePlay(teams[0]);
 
