@@ -33,7 +33,7 @@ function getData(query) {
 }
 
 var data = getData("");
-print(data);
+//print(data);
 
 // empty stats arrays
 var awayScore = [],
@@ -45,10 +45,6 @@ var awayScore = [],
     toPlay = " - ",
     teams = [];
 
-function reseStats() {
-    awayScore.length = 0;
-    homeScore.length = 0;
-}
 
 //Loop through array and filter data using push to empty arrays
 function filter() {
@@ -92,7 +88,7 @@ function removeDudataicates(teams) {
 teams = removeDudataicates(teams);
 teams.sort();
 
-print(data[0]);
+//print(data[0]);
 
 // Fill option seletor with list of teams
 var select = document.createElement("select"),
@@ -124,7 +120,7 @@ function getStats(getSelectedTeam) {
         homeDraw = 0,
         awayDraw = 0;
     // get team wins, losses, draws - home and
-    print(getSelectedTeam);
+   
 
     for (var i = 0; i < matchDay.length; i++) {
         var winH = (matchDay[i] && homeTeam[i] == getSelectedTeam) && homeScore[i] > awayScore[i],
@@ -140,7 +136,7 @@ function getStats(getSelectedTeam) {
 
         //If Team selected was playing  show get stats
         if ((matchDay[i] && homeTeam[i] == getSelectedTeam) && homeScore[i] > awayScore[i]) {
-            print(homeScore[i] + "      " + awayScore[i]);
+           
             homeWin++;
             if (awayScore[i] > 0) {
                 goalsConceded += awayScore[i];
@@ -149,7 +145,7 @@ function getStats(getSelectedTeam) {
         else if (lossH) {
             homeLoss++;
             goalsConceded += awayScore[i];
-            print("loss: " + homeScore[i] + "      " + awayScore[i]);
+            
         }
         else if (winA) {
             awayWin++;
