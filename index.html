@@ -21,7 +21,7 @@
     <header>
         <h1 class="main-header">PL Soccer Dashborad</h1>
     </header>
-    <div class="container">
+ <!--   <div class="container">
         <nav class="navbar navbar-default">
 
             <div class=" wrapper">
@@ -42,7 +42,7 @@
             </div>
         </nav>
 
-    </div>
+    </div>-->
 
     <div class="container-fluid table-container ">
         <div class="row parent">
@@ -52,14 +52,14 @@
                 <h2 class="headerText">Season Team Statistics</h2>
 
                 <!-- select tag to pick teams-->
-
-                <div class="teams">
-                    <p>Teams</p>
-                    <form id="formSelect">
-                    </form>
-                </div>
-
                 <div>
+                    <div id="statsHead">
+                        <h3 id="">Pick a Team</h3>
+                        <div class="teams">
+                            <form id="formSelect">
+                            </form>
+                        </div>
+                    </div>
                     <div id="statsHead">
                         <h3 id="">Games Played</h3>
                         <p id="played"></p>
@@ -77,17 +77,18 @@
                         <h3 id="">Draw</h3>
                         <p id="draw"></p>
                     </div>
-                    <div id="statsHead">
-                        <h3 id="">Average Goals Per Match</h3>
-                        <p id="goalPerMatch"></p>
-                    </div>
+
 
                 </div>
 
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-4 child-2" id="seasonHea2">
+            <div class="col-xs-12 col-sm-12 col-md-4 child-2" id="seasonHead2">
                 <h2 class="headerText">Season Team Statistics</h2>
                 <div>
+                    <div id="statsHead">
+                        <h3 id="">Average Goals Per Match</h3>
+                        <p id="goalPerMatch"></p>
+                    </div>
                     <div id="statsHead">
                         <h3 id="">Games to Played</h3>
                         <p id="toPlay"></p>
@@ -96,7 +97,7 @@
                         <h3 id="">Total Season Goals</h3>
                         <p id="totalGoal"></p>
                     </div>
-                    
+
                     <div id="statsHead">
                         <h3 id="">Cleans Sheets</h3>
                         <p id="cleanSheets"></p>
@@ -125,9 +126,9 @@
 
                     </p>
 
-                </div>
+                </div >
 
-                <table class="table table-bordered table-responsive">
+                <table class="table table-bordered ">
                     <thead class="thead-dark">
                         <tr>
                             <th class="t-headers" scope="col">Match Day</th>

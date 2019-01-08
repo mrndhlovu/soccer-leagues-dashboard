@@ -157,13 +157,13 @@ function getStats(getSelectedTeam) {
             awayLoss++
             goalsConceded += homeScore[i];
         }
-        else if (drawH) {
+        else if (playedH && drawH) {
             homeDraw++;
             if (awayScore[i] > 0) {
                 goalsConceded += awayScore[i];
             }
         }
-        else if (drawA) {
+        else if (playedA && drawA) {
             awayDraw++
             if (homeScore[i] > 0) {
                 goalsConceded += homeScore[i];
