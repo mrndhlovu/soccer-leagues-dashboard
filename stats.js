@@ -41,7 +41,7 @@ var awayScore = [],
     awayTeam = [],
     homeTeam = [],
     matchDay = [],
-    status = [],
+    state = [],
     toPlay = " - ",
     teams = [];
 
@@ -53,25 +53,22 @@ function reseStats() {
 //Loop through array and filter data using push to empty arrays
 function filter() {
     Object.keys(data).forEach(function(key) {
-
+        state.push(data[key].status);
         matchDay.push(data[key].matchday);
-
         homeTeam.push(data[key].homeTeam.name);
         teams.push(data[key].homeTeam.name);
-
         awayTeam.push(data[key].awayTeam.name);
         teams.push(data[key].awayTeam.name);
-
-        //status.push(data[key].status);
+        
 
 
         //Populate home and away score arrays
-        if (data[key].status !== "SCHEDULED") {
+        if (data[key].state !== "SCHEDULED") {
             awayScore.push(data[key].score.fullTime.awayTeam);
             homeScore.push(data[key].score.fullTime.homeTeam);
         }
         else {}
-        if (data[key].status == "SCHEDULED") {
+        if (data[key].state == "SCHEDULED") {
             homeScore.push(toPlay);
             awayScore.push(toPlay);
         }
@@ -105,9 +102,7 @@ select.id = "teamList";
 select.name = "teams";
 
 function getSelectedTeam() {
-
     var choice = document.getElementById("teamList").value;
-
     getStats(choice);
 }
 
@@ -138,13 +133,13 @@ function getStats(getSelectedTeam) {
             lossA = (matchDay[i] && awayTeam[i] == getSelectedTeam) && awayScore[i] < homeScore[i],
             drawH = (matchDay[i] && homeTeam[i] == getSelectedTeam) && homeScore[i] == awayScore[i],
             drawA = (matchDay[i] && awayTeam[i] == getSelectedTeam) && awayScore[i] == homeScore[i],
-            playedH = status[i] == "FINISHED" && homeTeam[i].includes(getSelectedTeam),
-            notPlayedH = status[i] == "SCHEDULED" && homeTeam[i].includes(getSelectedTeam),
-            playedA = status[i] == "FINISHED" && awayTeam[i].includes(getSelectedTeam),
-            notPlayedA = status[i] == "SCHEDULED" && awayTeam[i].includes(getSelectedTeam);
+            playedH = state[i] == "FINISHED" && homeTeam[i].includes(getSelectedTeam),
+            notPlayedH = state[i] == "SCHEDULED" && homeTeam[i].includes(getSelectedTeam),
+            playedA = state[i] == "FINISHED" && awayTeam[i].includes(getSelectedTeam),
+            notPlayedA = state[i] == "SCHEDULED" && awayTeam[i].includes(getSelectedTeam);
 
         //If Team selected was playing  show get stats
-        if (winH) {
+        if ((matchDay[i] && homeTeam[i] == getSelectedTeam) && homeScore[i] > awayScore[i]) {
             print(homeScore[i] + "      " + awayScore[i]);
             homeWin++;
             if (awayScore[i] > 0) {
@@ -177,7 +172,7 @@ function getStats(getSelectedTeam) {
             if (homeScore[i] > 0) {
                 goalsConceded += homeScore[i];
             }
-        }
+        }else{}
         // Check if team played and get home or away stats
         if (playedH) {
             homeGames++;
@@ -212,8 +207,8 @@ function getStats(getSelectedTeam) {
     //Find average goals per game;
     avg = totalGoals / (homeGames + awayGames);
 
-    // Write to html tags
-    document.getElementById("played").innerHTML = "Home : " + homeGames + " -  Away: " + awayGames;
+    // Write to html 
+    document.getElementById("played").innerHTML = "Homes : " + homeGames + " -  Away: " + awayGames;
     document.getElementById("wins").innerHTML = "Home : " + homeWin + " -  Away: " + awayWin;
     document.getElementById("toPlay").innerHTML = "Home : " + toPlayHome + " -  Away: " + toPlayAway;
     document.getElementById("loss").innerHTML = "Home : " + homeLoss + " -  Away: " + awayLoss;
@@ -227,125 +222,129 @@ function getStats(getSelectedTeam) {
 
 }
 
-for (var i = 0; i < teams.length; i++) {
+createUI();
 
-    option = document.createElement("option");
-    option.value = teams[i];
-    option.id = "team" + (i + 1);
+function createUI() {
+    for (var i = 0; i < teams.length; i++) {
 
-    select.appendChild(option);
-    option.innerHTML = teams[i];
-    select.appendChild(option);
-    select.setAttribute("onchange", "getSelectedTeam();")
+        option = document.createElement("option");
+        option.value = teams[i];
+        option.id = "team" + (i + 1);
+        select.appendChild(option);
+        option.innerHTML = teams[i];
+        select.appendChild(option);
+        select.setAttribute("onchange", "getSelectedTeam();")
 
-}
-document.getElementById("formSelect").appendChild(select);
-
-//Create table tags
-for (var col = 0; col < matchDay.length; col++) {
-
-    var tr = document.createElement('tr'),
-        th, result, state, hTeam, aTeam, score, spanWin, spanLoss;
-
-    th = document.createElement('th');
-    th.scope = "row";
-    th.className = "matchDay";
-    state = document.createElement('td');
-    state.className = "matchState";
-    hTeam = document.createElement('td');
-    hTeam.className = "homeTeam";
-    aTeam = document.createElement('td');
-    aTeam.className = "awayTeam";
-    score = document.createElement('td');
-    score.className = "score";
-    spanWin = document.createElement("span");
-    spanWin.className = "win glyphicon glyphicon-flag";
-    spanLoss = document.createElement("span");
-    spanLoss.className = "loss glyphicon glyphicon-flag";
-
-    // Append new elements and pust to document
-    for (result = 0; result < matchDay.length; result++) {
-        tr.appendChild(th);
-        tr.appendChild(hTeam);
-        tr.appendChild(aTeam);
-        tr.appendChild(state);
-        tr.appendChild(score);
-
-
-        th.innerHTML = matchDay[col];
-        hTeam.innerHTML = homeTeam[col];
-        aTeam.innerHTML = awayTeam[col];
-        state.innerHTML = status[col];
-
-
-        //show results
-        if (homeScore[col] > awayScore[col]) {
-            showWin();
-            showResult();
-            score.innerHTML = homeScore[col] + " : " + awayScore[col];
-        }
-        else if (homeScore[col] < awayScore[col]) {
-            showLosser();
-            showResult();
-            score.innerHTML = homeScore[col] + " : " + awayScore[col];
-        }
-        else if (homeScore[col] == awayScore[col]) {
-            showDraw();
-            showResult();
-            score.innerHTML = homeScore[col] + " : " + awayScore[col];
-        }
-        else {
-            score.innerHTML = homeScore[col] + " : " + awayScore[col];
-        }
     }
-    document.getElementById('tableStriped').appendChild(tr);
+    document.getElementById("formSelect").appendChild(select);
 
+    //Create table tags
+    for (var col = 0; col < matchDay.length; col++) {
+
+        var tr = document.createElement('tr'),
+            th, result, state, hTeam, aTeam, score, spanWin, spanLoss;
+
+        th = document.createElement('th');
+        th.scope = "row";
+        th.className = "matchDay";
+        state = document.createElement('td');
+        state.className = "matchState";
+        hTeam = document.createElement('td');
+        hTeam.className = "homeTeam";
+        aTeam = document.createElement('td');
+        aTeam.className = "awayTeam";
+        score = document.createElement('td');
+        score.className = "score";
+        spanWin = document.createElement("span");
+        spanWin.className = "win glyphicon glyphicon-flag";
+        spanLoss = document.createElement("span");
+        spanLoss.className = "loss glyphicon glyphicon-flag";
+
+        // Append new elements and pust to document
+        for (result = 0; result < matchDay.length; result++) {
+            tr.appendChild(th);
+            tr.appendChild(hTeam);
+            tr.appendChild(aTeam);
+            tr.appendChild(state);
+            tr.appendChild(score);
+
+
+            th.innerHTML = matchDay[col];
+            hTeam.innerHTML = homeTeam[col];
+            aTeam.innerHTML = awayTeam[col];
+            state.innerHTML = state[col];
+
+
+            //show results
+            if (homeScore[col] > awayScore[col]) {
+                showWin();
+                showResult();
+                score.innerHTML = homeScore[col] + " : " + awayScore[col];
+            }
+            else if (homeScore[col] < awayScore[col]) {
+                showLosser();
+                showResult();
+                score.innerHTML = homeScore[col] + " : " + awayScore[col];
+            }
+            else if (homeScore[col] == awayScore[col]) {
+                showDraw();
+                showResult();
+                score.innerHTML = homeScore[col] + " : " + awayScore[col];
+            }
+            else {
+                score.innerHTML = homeScore[col] + " : " + awayScore[col];
+            }
+        }
+        document.getElementById('tableStriped').appendChild(tr);
+
+    }
+
+
+    //Apdatay css to winner colomn 
+    // show green flag if win
+    function showWin() {
+        aTeam.appendChild(spanLoss);
+        hTeam.appendChild(spanWin);
+        spanWin.style.color = "green";
+        spanLoss.style.color = "red";
+        spanLoss.style.fontSize = "8px";
+        spanWin.style.fontSize = "15px";
+
+    }
+
+    // show red flag loss
+    function showLosser() {
+        aTeam.appendChild(spanWin);
+        hTeam.appendChild(spanLoss);
+        spanLoss.style.color = "red";
+        spanWin.style.color = "green";
+        spanLoss.style.fontSize = "8px";
+        spanWin.style.fontSize = "15px";
+
+
+    }
+
+    function showDraw() {
+        aTeam.appendChild(spanWin);
+        hTeam.appendChild(spanLoss);
+        spanLoss.style.color = "blue";
+        spanWin.style.color = "blue";
+        spanLoss.style.fontSize = "8px";
+        spanWin.style.fontSize = "8px";
+
+
+    }
+
+    function showResult() {
+        score.style.textAlign = "center";
+        score.style.fontSize = "1.5em";
+        state.style.textAlign = "center";
+        th.style.textAlign = "center";
+        hTeam.style.textAlign = "center";
+        aTeam.style.textAlign = "center";
+    }
 }
 
-
-//Apdatay css to winner colomn 
-// show green flag if win
-function showWin() {
-    aTeam.appendChild(spanLoss);
-    hTeam.appendChild(spanWin);
-    spanWin.style.color = "green";
-    spanLoss.style.color = "red";
-    spanLoss.style.fontSize = "8px";
-    spanWin.style.fontSize = "15px";
-
-}
-
-// show red flag loss
-function showLosser() {
-    aTeam.appendChild(spanWin);
-    hTeam.appendChild(spanLoss);
-    spanLoss.style.color = "red";
-    spanWin.style.color = "green";
-    spanLoss.style.fontSize = "8px";
-    spanWin.style.fontSize = "15px";
-
-
-}
-
-function showDraw() {
-    aTeam.appendChild(spanWin);
-    hTeam.appendChild(spanLoss);
-    spanLoss.style.color = "blue";
-    spanWin.style.color = "blue";
-    spanLoss.style.fontSize = "8px";
-    spanWin.style.fontSize = "8px";
-
-
-}
-
-function showResult() {
-    score.style.textAlign = "center";
-    score.style.fontSize = "1.5em";
-    state.style.textAlign = "center";
-    th.style.textAlign = "center";
-    hTeam.style.textAlign = "center";
-    aTeam.style.textAlign = "center";
-}
 
 
 
