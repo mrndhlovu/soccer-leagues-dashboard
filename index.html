@@ -21,7 +21,7 @@
     <header>
         <h1 class="main-header">PL Soccer Dashborad</h1>
     </header>
- <!--   <div class="container">
+    <!--   <div class="container">
         <nav class="navbar navbar-default">
 
             <div class=" wrapper">
@@ -117,16 +117,14 @@
 
                 <!-- select tag for matchday-->
 
-                <div class="day">
-                    <p id=matchDaySelect>
+                <div class=" day ">
+                    <input class="form-control" type="range" value="19" min="1" max="38" id="userData" oninput="userInput.value = userData.value" /><br>
+                    <div class=" input-group-append">
+                        <input onchange="getSelectedDay();" id="userInput" value="19"></input>
 
-                        <input type="range" value="19" min="0" max="38" id="userData" oninput="userInput.value = userData.value" /><br>
-                        <input id="userInput" value="19"></input>
-                        <button>Pick Match Day</button>
-
-                    </p>
-
-                </div >
+                        <button class="btn btn-outline-secondary" id="dayButton" onclick "getSelectedDay();">Pick Match Day</button>
+                    </div>
+                </div>
 
                 <table class="table table-bordered ">
                     <thead class="thead-dark">
