@@ -35,7 +35,7 @@ function getData(query) {
 var data = getData("");
 print(data);
 
-// empty arrays
+// empty stats arrays
 var awayScore = [],
     homeScore = [],
     awayTeam = [],
@@ -44,6 +44,11 @@ var awayScore = [],
     status = [],
     toPlay = " - ",
     teams = [];
+
+function reseStats() {
+    awayScore.length = 0;
+    homeScore.length = 0;
+}
 
 //Loop through array and filter data using push to empty arrays
 function filter() {
@@ -100,83 +105,106 @@ select.id = "teamList";
 select.name = "teams";
 
 function getSelectedTeam() {
+
     var choice = document.getElementById("teamList").value;
-    print(choice);
-    
-   getStats(choice);
+
+    getStats(choice);
 }
 
 function getStats(getSelectedTeam) {
-    
+
+    //Stats variables
+    var avg = 0,
+        totalGoals = 0,
+        toPlayHome = 0,
+        toPlayAway = 0,
+        cleanSheets = 0,
+        homeGames = 0,
+        awayGames = 0,
+        goalsConceded = 0,
+        homeWin = 0,
+        homeLoss = 0,
+        awayWin = 0,
+        awayLoss = 0,
+        homeDraw = 0,
+        awayDraw = 0;
     // get team wins, losses, draws - home and
-    for (var i = 0; i < data.length; i++) {
-        print(getSelectedTeam +" : "+ homeTeam[i] );
-        if (homeTeam[i] == getSelectedTeam && homeScore[i] > awayScore[i]) {
+    print(getSelectedTeam);
+
+    for (var i = 0; i < matchDay.length; i++) {
+        var winH = (matchDay[i] && homeTeam[i] == getSelectedTeam) && homeScore[i] > awayScore[i],
+            lossH = (matchDay[i] && homeTeam[i] == getSelectedTeam) && homeScore[i] < awayScore[i],
+            winA = (matchDay[i] && awayTeam[i] == getSelectedTeam) && awayScore[i] > homeScore[i],
+            lossA = (matchDay[i] && awayTeam[i] == getSelectedTeam) && awayScore[i] < homeScore[i],
+            drawH = (matchDay[i] && homeTeam[i] == getSelectedTeam) && homeScore[i] == awayScore[i],
+            drawA = (matchDay[i] && awayTeam[i] == getSelectedTeam) && awayScore[i] == homeScore[i],
+            playedH = status[i] == "FINISHED" && homeTeam[i].includes(getSelectedTeam),
+            notPlayedH = status[i] == "SCHEDULED" && homeTeam[i].includes(getSelectedTeam),
+            playedA = status[i] == "FINISHED" && awayTeam[i].includes(getSelectedTeam),
+            notPlayedA = status[i] == "SCHEDULED" && awayTeam[i].includes(getSelectedTeam);
+
+        //If Team selected was playing  show get stats
+        if (winH) {
+            print(homeScore[i] + "      " + awayScore[i]);
             homeWin++;
             if (awayScore[i] > 0) {
                 goalsConceded += awayScore[i];
             }
-
         }
-        else if (homeTeam[i] == getSelectedTeam && awayScore[i] > homeScore[i]) {
+        else if (lossH) {
             homeLoss++;
-            if (awayScore[i] > 0) {
-                goalsConceded += awayScore[i];
-            }
+            goalsConceded += awayScore[i];
+            print("loss: " + homeScore[i] + "      " + awayScore[i]);
         }
-        else if (homeTeam[i] == getSelectedTeam && homeScore[i] == awayScore[i]) {
-            if (status[i] != "SCHEDULED") {
-                homeDraw++;
-            }
+        else if (winA) {
+            awayWin++;
             if (homeScore[i] > 0) {
-                totalGoals += homeScore[i];
-            }
-            if (awayScore[i] > 0) {
-                goalsConceded += awayScore[i];
+                goalsConceded += homeScore[i];
             }
         }
-        else if (awayTeam[i] == getSelectedTeam && homeScore[i] > awayScore[i]) {
-            awayLoss++;
-
-        }
-        if (homeScore[i] > 0) {
+        else if (lossA) {
+            awayLoss++
             goalsConceded += homeScore[i];
         }
-        else if (awayTeam[i] == getSelectedTeam && awayScore[i] == homeScore[i]) {
-            if (status[i] != "SCHEDULED") {
-                awayDraw++;
+        else if (drawH) {
+            homeDraw++;
+            if (awayScore[i] > 0) {
+                goalsConceded += awayScore[i];
             }
-            if (homeScore[i] > 0) {
-                totalGoals += homeScore[i];
-            }
-
         }
-
-        // Check if team played on a particullar day and get home or away
-        if (status[i] == "FINISHED" && homeTeam[i].includes(getSelectedTeam)) {
+        else if (drawA) {
+            awayDraw++
+            if (homeScore[i] > 0) {
+                goalsConceded += homeScore[i];
+            }
+        }
+        // Check if team played and get home or away stats
+        if (playedH) {
             homeGames++;
+            totalGoals += homeScore[i];
             if (homeScore[i] > 0) {
                 totalGoals += homeScore[i];
             }
             if (awayScore[i] == 0) {
                 cleanSheets++;
             }
-
+            if (playedA && awayTeam[i] == 0) {
+                cleanSheets++;
+            }
         }
-        else if (status[i] == "SCHEDULED" && homeTeam[i].includes(getSelectedTeam)) {
-
+        else if (notPlayedH) {
             toPlayHome++;
         }
-        else if (status[i] == "FINISHED" && awayTeam[i].includes(getSelectedTeam)) {
+        else if (playedA) {
             awayGames++;
             if (awayScore[i] > 0) {
                 totalGoals += awayScore[i];
             }
-            if (homeScore[i] == 0) {
+            if (playedA && homeScore[i] == 0) {
                 cleanSheets++;
             }
         }
-        else if (status[i] == "SCHEDULED" && awayTeam[i].includes(getSelectedTeam)) {
+        else if (notPlayedA) {
             toPlayAway++;
         }
         else {}
@@ -195,7 +223,7 @@ function getStats(getSelectedTeam) {
     document.getElementById("cleanSheets").innerHTML = cleanSheets;
     document.getElementById("goalsConc").innerHTML = goalsConceded;
 
-    print(teams[0]);
+    //print(teams[0]);
 
 }
 
@@ -319,20 +347,6 @@ function showResult() {
     aTeam.style.textAlign = "center";
 }
 
-//Stats variables
-var avg = 0,
-    totalGoals = 0,
-    toPlayHome = 0,
-    toPlayAway = 0,
-    cleanSheets = 0,
-    homeGames = 0,
-    awayGames = 0,
-    goalsConceded = 0,
-    homeWin = 0,
-    homeLoss = 0,
-    awayWin = 0,
-    awayLoss = 0,
-    homeDraw = 0,
-    awayDraw = 0;
+
 
 // Get number of games played per team home and away
