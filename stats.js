@@ -120,6 +120,9 @@ function getSelectedTeam() {
 }
 
 
+var toPlayHome = 0,
+    toPlayAway = 0;
+
 function getStats(getSelectedTeam) {
 
     //Stats variables
@@ -233,13 +236,15 @@ function getStats(getSelectedTeam) {
 
 }
 var query = document.getElementById("userInput").value;
-function getNextMatchDay(query){
+
+function getNextMatchDay(query) {
     p(query);
-    for(var q = 0; q < data.length; q++){
-        if (data[q].status == "FINISHED"){
+    for (var q = 0; q < data.length; q++) {
+        if (data[q].status == "FINISHED") {
             query = matchDay[q] + 1;
-        }else{
-            
+        }
+        else {
+
         }
     }
     return query;
@@ -263,7 +268,7 @@ function buildTable(query) {
     for (var d = 0; d < matchDay.length; d++) {
 
         var tr = document.createElement('tr'),
-            th, state, hTeam, aTeam, score, spanWin, spanLoss;
+            th, state, hTeam, aTeam, score, spanWin, spanLoss, date;
 
         if (query == matchDay[d]) { //Create table rows and colums
             th = document.createElement('th');
@@ -280,18 +285,22 @@ function buildTable(query) {
             spanWin = document.createElement("span");
             spanWin.className = "win glyphicon glyphicon-flag";
             spanLoss = document.createElement("span");
+            date = document.createElement('td');
+            date.id = "matchDate";
 
             tr.appendChild(th);
             tr.appendChild(hTeam);
             tr.appendChild(aTeam);
             tr.appendChild(state);
             tr.appendChild(score);
+            tr.appendChild(date);
 
             // Use data to build table
             th.innerHTML = matchDay[d];
             hTeam.innerHTML = homeTeam[d];
             state.innerHTML = data[d].status;
             aTeam.innerHTML = awayTeam[d];
+            date.innerHTML = data[d].utcDate;
 
 
             //show results
@@ -299,7 +308,6 @@ function buildTable(query) {
                 showWin();
                 showResult();
                 score.innerHTML = homeScore[d] + " : " + awayScore[d];
-
             }
             else if (homeScore[d] < awayScore[d]) {
                 showLosser();
@@ -359,5 +367,6 @@ function buildTable(query) {
         th.style.textAlign = "center";
         hTeam.style.textAlign = "center";
         aTeam.style.textAlign = "center";
+        date.style.textAlign = "center";
     }
 }
