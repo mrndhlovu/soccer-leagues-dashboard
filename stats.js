@@ -3,22 +3,11 @@ function p(data) {
     console.log(data);
 }
 
-var query = 19;
-var day = "https://api.football-data.org/v2/competitions/PL/matches?matchday=" + query;
 var season = "https://api.football-data.org/v2/competitions/PL/matches";
 var key = { 'X-Auth-Token': '5d791d1818c3415d9b1a4b323c899bf4' };
 
-
 start(season);
 document.getElementById("dayButton").addEventListener("click", getSelectedDay);
-
-function getSelectedDay() {
-    query = document.getElementById("userInput").value;
-    day = "https://api.football-data.org/v2/competitions/PL/matches?matchday=" + query;
-    console.log(query);
-    start(day);
-}
-
 
 function start(season) {
     $.extend({
@@ -81,10 +70,6 @@ function filter() {
     });
 }
 
-
-
-
-
 filter();
 
 // Filter teams array and remove dublicates
@@ -126,8 +111,6 @@ function listTeams() {
     document.getElementById("formSelect").appendChild(select);
 }
 
-
-
 document.getElementById("dayButton").addEventListener("click", getSelectedDay);
 
 function getSelectedDay() {
@@ -135,7 +118,6 @@ function getSelectedDay() {
     console.log(dayClick);
     return dayClick
 }
-
 
 function getSelectedTeam() {
     var choice = document.getElementById("teamList").value;
@@ -255,10 +237,7 @@ function getStats(getSelectedTeam) {
     document.getElementById("cleanSheets").innerHTML = cleanSheets;
     document.getElementById("goalsConc").innerHTML = goalsConceded;
 
-    //print(teams[0]);
-
 }
-
 
 var w = 200;
 var h = 200;
@@ -314,73 +293,73 @@ function drawSvg() {
         .attr("fill", "white")
 }
 
+var query = document.getElementById("userInput").value;
 
-buildTable();
+function getSelectedDay() {
+    var query = document.getElementById("userInput").value;
+    buildTable(query)
+}
 
-function buildTable() {
 
-    //Create table tags
-    for (var col = 0; col < matchDay.length; col++) {
+buildTable(query);
+
+function buildTable(query) {
+
+    for (var d = 0; d < matchDay.length; d++) {
 
         var tr = document.createElement('tr'),
             th, result, state, hTeam, aTeam, score, spanWin, spanLoss;
 
-        th = document.createElement('th');
-        th.scope = "row";
-        th.className = "matchDay";
-        state = document.createElement('td');
-        state.className = "matchState";
-        hTeam = document.createElement('td');
-        hTeam.className = "homeTeam";
-        aTeam = document.createElement('td');
-        aTeam.className = "awayTeam";
-        score = document.createElement('td');
-        score.className = "score";
-        spanWin = document.createElement("span");
-        spanWin.className = "win glyphicon glyphicon-flag";
-        spanLoss = document.createElement("span");
-        spanLoss.className = "loss glyphicon glyphicon-flag";
+        if (query == matchDay[d]) { //Create table rows and colums
+            th = document.createElement('th');
+            th.scope = "row";
+            th.className = "matchDay";
+            state = document.createElement('td');
+            state.className = "matchState";
+            hTeam = document.createElement('td');
+            hTeam.className = "homeTeam";
+            aTeam = document.createElement('td');
+            aTeam.className = "awayTeam";
+            score = document.createElement('td');
+            score.className = "score";
+            spanWin = document.createElement("span");
+            spanWin.className = "win glyphicon glyphicon-flag";
+            spanLoss = document.createElement("span");
 
-        // Append new elements and pust to document
-        for (result = 0; result < matchDay.length; result++) {
             tr.appendChild(th);
             tr.appendChild(hTeam);
             tr.appendChild(aTeam);
             tr.appendChild(state);
             tr.appendChild(score);
 
-
-            th.innerHTML = matchDay[col];
-            hTeam.innerHTML = homeTeam[col];
-            aTeam.innerHTML = awayTeam[col];
-            state.innerHTML = state[col];
-
+            // Use data to build table
+            th.innerHTML = matchDay[d];
+            hTeam.innerHTML = homeTeam[d];
+            aTeam.innerHTML = awayTeam[d];
+            state.innerHTML = state[d];
 
             //show results
-            if (homeScore[col] > awayScore[col]) {
+            if (homeScore[d] > awayScore[d]) {
                 showWin();
                 showResult();
-                score.innerHTML = homeScore[col] + " : " + awayScore[col];
+                score.innerHTML = homeScore[d] + " : " + awayScore[d];
             }
-            else if (homeScore[col] < awayScore[col]) {
+            else if (homeScore[d] < awayScore[d]) {
                 showLosser();
                 showResult();
-                score.innerHTML = homeScore[col] + " : " + awayScore[col];
+                score.innerHTML = homeScore[d] + " : " + awayScore[d];
             }
-            else if (homeScore[col] == awayScore[col]) {
+            else if (homeScore[d] == awayScore[d]) {
                 showDraw();
                 showResult();
-                score.innerHTML = homeScore[col] + " : " + awayScore[col];
+                score.innerHTML = homeScore[d] + " : " + awayScore[d];
             }
             else {
-                score.innerHTML = homeScore[col] + " : " + awayScore[col];
+                score.innerHTML = homeScore[d] + " : " + awayScore[d];
             }
         }
         document.getElementById('tableStriped').appendChild(tr);
-
     }
-
-
     //Apdatay css to winner colomn 
     // show green flag if win
     function showWin() {
