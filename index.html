@@ -120,9 +120,9 @@
                 <!-- select tag for matchday-->
 
                 <div class=" day ">
-                    <input class="form-control" type="range" value="19" min="1" max="38" id="userData" oninput="userInput.value = userData.value" /><br>
+                    <input class="form-control" type="range" value="1" min="1" max="38" id="userData" oninput="userInput.value = userData.value" /><br>
                     <div class=" input-group-append">
-                        <input onchange="getSelectedDay();" id="userInput" value="19"></input>
+                        <input onchange="getSelectedDay();" id="userInput" value="1"></input>
 
                         <button class="btn btn-outline-secondary" id="dayButton" onclick "getSelectedDay();">Pick Match Day</button>
                     </div>
@@ -136,6 +136,7 @@
                             <th class="t-headers " scope="col ">Away Team</th>
                             <th class="t-headers " scope="col ">Status</th>
                             <th class="t-headers " scope="col ">Result</th>
+                            <th class="t-headers " scope="col ">Date</th>
 
                         </tr>
                     </thead>

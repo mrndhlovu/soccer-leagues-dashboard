@@ -113,20 +113,12 @@ function listTeams() {
 
 document.getElementById("dayButton").addEventListener("click", getSelectedDay);
 
-function getSelectedDay() {
-    var dayClick = document.getElementById("userInput").value;
-    console.log(dayClick);
-    return dayClick
-}
 
 function getSelectedTeam() {
     var choice = document.getElementById("teamList").value;
     getStats(choice);
 }
 
-
-var toPlayHome = 0,
-    toPlayAway = 0;
 
 function getStats(getSelectedTeam) {
 
@@ -240,62 +232,20 @@ function getStats(getSelectedTeam) {
     document.getElementById("goalsConc").innerHTML = goalsConceded;
 
 }
-
-var w = 200;
-var h = 200;
-var barPadding = 1;
-var numberOfBars = 5;
-var dataset = [
-    450, 100, 100, 279, 500, 25, 350, 120, 80, 130,
-    110, 102, 375, 200, 175, 168, 180, 230, 205,
-];
-
-drawSvg();
-
-function drawSvg() {
-    var colWidth = w / dataset.length;
-    var barWidth = colWidth - barPadding;
-
-    var svg = d3.select("#drawHere")
-        .append("svg")
-        .attr("height", h)
-        .attr("width", w);
-
-
-    svg.selectAll("rect")
-        .data(dataset)
-        .enter()
-        .append("rect")
-        .attr("x", function(d, i) {
-            return i * colWidth;
-        })
-        .attr("y", function(d) {
-            return h - d;
-        })
-        .attr("height", function(d) {
-            return d;
-        })
-        .attr("width", barWidth);
-    svg.selectAll("text")
-        .data(dataset)
-        .enter()
-        .append("text")
-        .text(function(d) {
-            return d;
-        })
-        .attr("text-anchor", "middle")
-        .attr("x", function(d, i) {
-            return i * colWidth + barWidth / 2;
-        })
-        .attr("y", function(d) {
-            return h - d + 14;
-        })
-        .attr("font-family", "sans-serif")
-        .attr("font-size", "11px")
-        .attr("fill", "white")
+var query = document.getElementById("userInput").value;
+function getNextMatchDay(query){
+    p(query);
+    for(var q = 0; q < data.length; q++){
+        if (data[q].status == "FINISHED"){
+            query = matchDay[q] + 1;
+        }else{
+            
+        }
+    }
+    return query;
 }
 
-var query = document.getElementById("userInput").value;
+query = getNextMatchDay();
 
 function getSelectedDay() {
     var query = document.getElementById("userInput").value;
@@ -305,8 +255,6 @@ function getSelectedDay() {
     }
     buildTable(query)
 }
-p(state[0]);
-
 
 buildTable(query);
 
