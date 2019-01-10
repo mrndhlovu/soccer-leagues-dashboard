@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta content="utf-8" http-equiv="encoding">
+  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
@@ -18,7 +18,7 @@
 
 </head>
 
-<body <!--onload="onload();-->">
+<body>
     <header>
         <h1 class="main-header">PL Soccer Dashborad</h1>
     </header>
@@ -55,28 +55,28 @@
 
                 <!-- select tag to pick teams-->
                 <div>
-                    <div id="statsHead">
-                        <h3 id="">Pick a Team</h3>
+                    <div class="statsContainer">
+                        <h3 class="statsHead">Pick a Team</h3>
                         <div class="teams">
                             <form id="formSelect">
                             </form>
                         </div>
                     </div>
-                    <div id="statsHead">
-                        <h3 id="">Games Played</h3>
+                    <div class="statsContainer">
+                        <h3 class="statsHead">Games Played</h3>
                         <p id="played"></p>
                     </div>
 
-                    <div id="statsHead">
-                        <h3 id="">Wins</h3>
+                    <div class="statsContainer">
+                        <h3 class="statsHead">Wins</h3>
                         <p id="wins"></p>
                     </div>
-                    <div id="statsHead">
-                        <h3 id="">Loss</h3>
+                    <div class="statsContainer">
+                        <h3 class="statsHead">Loss</h3>
                         <p id="loss"></p>
                     </div>
-                    <div id="statsHead">
-                        <h3 id="">Draw</h3>
+                    <div class="statsContainer">
+                        <h3 class="statsHead">Draw</h3>
                         <p id="draw"></p>
                     </div>
 
@@ -87,25 +87,25 @@
             <div class="col-xs-12 col-sm-12 col-md-4 child-2" id="seasonHead2">
                 <h2 class="headerText">Season Team Statistics</h2>
                 <div>
-                    <div id="statsHead">
-                        <h3 id="">Average Goals Per Match</h3>
+                    <div class="statsContainer">
+                        <h3 class="statsHead">Average Goals Per Match</h3>
                         <p id="goalPerMatch"></p>
                     </div>
-                    <div id="statsHead">
-                        <h3 id="">Games to Played</h3>
+                    <div class="statsContainer">
+                        <h3 class="statsHead">Games to Played</h3>
                         <p id="toPlay"></p>
                     </div>
-                    <div id="statsHead">
-                        <h3 id="">Total Season Goals</h3>
+                    <div class="statsContainer">
+                        <h3 class="statsHead">Total Season Goals</h3>
                         <p id="totalGoal"></p>
                     </div>
 
-                    <div id="statsHead">
-                        <h3 id="">Cleans Sheets</h3>
+                    <div class="statsContainer">
+                        <h3 class="statsHead">Cleans Sheets</h3>
                         <p id="cleanSheets"></p>
                     </div>
-                    <div id="statsHead">
-                        <h3 id="">Goals Conceded</h3>
+                    <div class="statsContainer">
+                        <h3 class="statsHead">Goals Conceded</h3>
                         <p id="goalsConc"></p>
                     </div>
 
@@ -117,41 +117,37 @@
 
                 <h2 class="headerText">Fixtures</h2>
 
-                <!-- select tag for matchday-->
-
+                <!-- Slide for matchday-->
                 <div class=" day ">
-                    <input onchange="getSelectedDay();" class="form-control" type="range" value="1" min="1" max="38" id="userData" oninput="userInput.value = userData.value" /><br>
                     <div class=" input-group-append">
-                        <input id="userInput" value="1"></input>
+                        Pick Match Day: <input id="userInput" value="1"/>
+                        <input onchange="getSelectedDay();" class="form-control" type="range" value="1" min="1" max="38" id="userData" oninput="userInput.value = userData.value" /><br>
 
                     </div>
                 </div>
 
-                <table class="table table-bordered >
-                    <thead class=" thead-dark ">
-                        <tr>
-                            <th class="t-headers " scope="col ">Match Day</th>
-                            <th class="t-headers " scope="col ">Home Team</th>
-                            <th class="t-headers " scope="col ">Away Team</th>
-                            <th class="t-headers " scope="col ">Status</th>
-                            <th class="t-headers " scope="col ">Result</th>
-                            <th class="t-headers " scope="col ">Date</th>
+                <div>
+                    <table class="table table-bordered">
+                        <thead class=" thead-dark ">
+                            <tr>
+                                <th class="t-headers " scope="col">Match Day</th>
+                                <th class="t-headers " scope="col">Home Team</th>
+                                <th class="t-headers " scope="col">Away Team</th>
+                                <th class="t-headers " scope="col">Status</th>
+                                <th class="t-headers " scope="col">Result</th>
+                                <th class="t-headers " scope="col">Date</th>
+                            </tr>
+                        </thead>
 
-                        </tr>
-                    </thead>
-<div id=" ">
-    <tbody class="table-striped " id='tableStriped'>
-
-
-    </tbody>
-
-</div>
+                        <tbody class="table-striped " id='tableStriped'></tbody>
                     </table>
+                </div>
             </div>
-
         </div>
 
     </div>
+
+
     <script src="https://code.jquery.com/jquery-3.3.1.js " integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin=" anonymous "></script>
     <script src="stats.js "></script>
 </body>

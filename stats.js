@@ -228,7 +228,7 @@ function getStats(getSelectedTeam) {
     document.getElementById("toPlay").innerHTML = "Home : " + toPlayHome + " -  Away: " + toPlayAway;
     document.getElementById("loss").innerHTML = "Home : " + homeLoss + " -  Away: " + awayLoss;
     document.getElementById("draw").innerHTML = "Home : " + homeDraw + " -  Away : " + awayDraw;
-    document.getElementById("totalGoal").innerHTML = totalGoals;
+    document.getElementById("totalGoal").innerHTML = avg;
     document.getElementById("goalPerMatch").innerHTML = avg.toFixed(0);
     document.getElementById("cleanSheets").innerHTML = cleanSheets;
     document.getElementById("goalsConc").innerHTML = goalsConceded;
