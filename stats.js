@@ -31,7 +31,7 @@ function start(season) {
 }
 
 var data = start(season);
-//print(data);
+p(data);
 
 // empty stats arrays
 var awayScore = [],

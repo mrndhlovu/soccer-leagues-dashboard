@@ -1,7 +1,8 @@
 body {
     font-family: 'Century Gothic';
-    
+
 }
+
 
 .main-header {
     text-align: center
@@ -16,135 +17,56 @@ body {
     text-align: center;
 }
 
-.headers li {
-    text-decoration: none;
-}
-
-.info-box {
-    height: auto;
-
-}
-
-.data {
-    height: auto;
-    background-color: white;
-}
-
-#canvas {
-    height: 400px;
-    width: auto;
-}
-
-.t-headers {
-    text-align: center;
-    font-size: 1.5em;
-    border: 1px solid #000;
-}
-
-.resultInfo {
-    font-size: 12px;
-}
-
-.wrapper {
-    text-align: center;
-    background-color: #0095ff;
-    height: 100px;
-}
-
-.menuLi {
-    font-size: 1.5em;
-    text-decoration: none;
-    color: white;
-    padding-top: 30px;
-    display: inline-block;
-    width: 15%;
-}
-
-.liText {
-    color: white;
-}
-
-.liText:hover {
-    color: white;
-    background-color: #07C;
-}
-
-#seasonHead {
-    text-align: center;
-    width: 50%;
-    border: 1px solid black;
-    height: inherit;
-    color: white;
-    
-}
-
 .headerText {
-    /*padding-top: 8px;*/
     font-size: 2em;
     padding-bottom: 10px;
-    position: inherit;
-    display: block;
     text-align: center;
 }
 
-.table-container {
-    height: 75vh;
+.main-container {
+    /*background-color: lightgrey;*/
+}
+
+.cards-container {
     display: flex;
-    border: 1px solid black;
-
+   /* background-color: green;*/
+    align-items: center;
+    justify-content: between;
 }
 
-.parent {
-    /*display: flex;*/
-    
-    width: 100%;
-    margin-left: 3px;
-    
-    
+.table {
+    height: 100vh;
+    /*background-color: #f0ad4e;*/
+    overflow: scroll;
+   /* position: sticky !important;*/
 }
 
-.child-1 {
-    height: 75vh;
-    
-    text-align: center;
-    
-}
-
-.child-2 {
-    height: 75vh;
-    overflow: auto;
-    border-right: 1px solid black
+.cardsSplit1 {
+    flex:1;
+   /* background-color: blue;*/
+    flex: 0 0 50%;
+    margin: 0 auto;
     
 }
-.child-3 {
-    background-color: #eee;
-    
-    height: 75vh;
-    overflow: auto;
-    background-color: #f5f5f5;
+.cardsSplit2 {
+    flex: 1;
+    /*background-color: pink;*/
+    flex: 0 0 50%;
     
 }
 
-.teams {
-    width: 100%;
-}
-
-.statsContainer {
-  border: 1px solid black;
-  margin-bottom: 5px;
+.card {
+    margin-bottom: 5px;
     color: red;
-    height: 100px;
+    height: 150px;
+    width: 80%;
+    margin: 10px 10%;
     text-align: center;
+    /*background-color: #ccc;*/
+    border: 1px solid black;
 }
 
-#wins{
-    color: green;
+#formSelect{
+    color: black;
+    font-size: 15px;
 }
-
-#drawHere{
-    
-}
-
-
-
-   

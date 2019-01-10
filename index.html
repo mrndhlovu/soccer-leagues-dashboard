@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-  
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.7.0/d3.js" charset="utf-8"></script>
 
-    <title>PL Score Dashborad</title>
+    <title>PL Score DashBorad</title>
 
 
 </head>
@@ -22,131 +22,100 @@
     <header>
         <h1 class="main-header">PL Soccer Dashboard</h1>
     </header>
-    <!--   <div class="container">
-        <nav class="navbar navbar-default">
-
-            <div class=" wrapper">
-                <ul>
-                    <li class="menuLi" onclick="showNames()"><a class="liText" href="#">All Games</a></li>
-
-                    <li class="menuLi" onclick="showNames()"><a class="liText" href="#">Scorers</a></li>
-
-                    <li class="menuLi" onclick="showHouse()"><a class="liText" href="#">Wins</a></li>
-
-                    <li class="menuLi" onclick="showGender()"><a class="liText" href="#">Losses</a></li>
-
-                    <li class="menuLi" onclick="showBook()"><a class="liText" href="#">Draw</a></li>
-
-                    <li class="menuLi" onclick="clearData()"><a class="liText" href="#">Reset</a></li>
-
-                </ul>
-            </div>
-        </nav>
-
-    </div>-->
-    <div id="drawHere"></div>
-    <div class="container-fluid table-container ">
-
-        <div class="row parent">
-
-            <div class="col-xs-12 col-sm-12  col-md-4 child-1" id="seasonHead1">
-
-                <h2 class="headerText">Season Team Statistics</h2>
-
-                <!-- select tag to pick teams-->
-                <div>
-                    <div class="statsContainer">
+    <div class="container-fluid">
+        <div class="row main-container ">
+            <div class="col-md-7 col-lg-7 cards-container">
+                <div class="cardsSplit1">
+                    <h2 class="headerText">Season Team Statistics</h2>
+                    <div class="card">
                         <h3 class="statsHead">Pick a Team</h3>
                         <div class="teams">
                             <form id="formSelect">
                             </form>
                         </div>
                     </div>
-                    <div class="statsContainer">
+                    <div class="card">
                         <h3 class="statsHead">Matches Played</h3>
                         <p id="played"></p>
                     </div>
 
-                    <div class="statsContainer">
+                    <div class="card">
                         <h3 class="statsHead">Wins</h3>
                         <p id="wins"></p>
                     </div>
-                    <div class="statsContainer">
+                    <div class="card">
                         <h3 class="statsHead">Losses</h3>
                         <p id="loss"></p>
                     </div>
-                    <div class="statsContainer">
+
+
+
+                    <div class="card">
                         <h3 class="statsHead">Draw</h3>
                         <p id="draw"></p>
                     </div>
 
-
                 </div>
 
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-4 child-2" id="seasonHead2">
-                <h2 class="headerText">Season Team Statistics</h2>
-                <div>
-                    <div class="statsContainer">
+                <div class="cardsSplit2">
+                    <h2 class="headerText">Season Team Statistics</h2>
+                    <div class="card">
                         <h3 class="statsHead">Average Goals Per Match</h3>
                         <p id="goalPerMatch"></p>
                     </div>
-                    <div class="statsContainer">
+                    <div class="card">
                         <h3 class="statsHead">Matches To Play</h3>
                         <p id="toPlay"></p>
                     </div>
-                    <div class="statsContainer">
+                    <div class="card">
                         <h3 class="statsHead">Total Season Goals</h3>
                         <p id="totalGoal"></p>
                     </div>
 
-                    <div class="statsContainer">
+                    <div class="card">
                         <h3 class="statsHead">Cleans Sheets</h3>
                         <p id="cleanSheets"></p>
                     </div>
-                    <div class="statsContainer">
+                    <div class="card">
                         <h3 class="statsHead">Goals Conceded</h3>
                         <p id="goalsConc"></p>
                     </div>
 
                 </div>
-
+                <!-- select tag to pick teams-->
             </div>
 
-            <div class="col-xs-12 col-sm-12 col-md-4 child-3" id="seasonHead3">
-
-                <h2 class="headerText">Fixtures</h2>
-
-                <!-- Slide for matchday-->
-                <div class=" day ">
-                    <div class=" input-group-append">
-                        Pick Match Day: <input id="userInput" value="1"/>
-                        <input onchange="getSelectedDay();" class="form-control" type="range" value="1" min="1" max="38" id="userData" oninput="userInput.value = userData.value" /><br>
-
+            <div class=" col-md-5 col-lg-5">
+                <div class="table">
+                    <h2 class="headerText">Fixtures</h2>
+                    <!-- Slide for matchday-->
+                    <div class=" day ">
+                        <div class=" input-group-append">
+                            Pick Match Day: <input id="userInput" value="1" />
+                            <input onchange="getSelectedDay();" class="form-control" type="range" value="1" min="1" max="38" id="userData" oninput="userInput.value = userData.value" /><br>
+                        </div>
                     </div>
-                </div>
 
-                <div>
-                    <table class="table table-bordered">
-                        <thead class=" thead-dark ">
-                            <tr>
-                                <th class="t-headers " scope="col">Match Day</th>
-                                <th class="t-headers " scope="col">Home Team</th>
-                                <th class="t-headers " scope="col">Away Team</th>
-                                <th class="t-headers " scope="col">Status</th>
-                                <th class="t-headers " scope="col">Result</th>
-                                <th class="t-headers " scope="col">Date</th>
-                            </tr>
-                        </thead>
-
-                        <tbody class="table-striped " id='tableStriped'></tbody>
-                    </table>
+                    <div>
+                        <table class="table table-bordered">
+                            <thead class=" thead-dark ">
+                                <tr>
+                                    <th class="t-headers " scope="col">Match Day</th>
+                                    <th class="t-headers " scope="col">Home Team</th>
+                                    <th class="t-headers " scope="col">Away Team</th>
+                                    <th class="t-headers " scope="col">Status</th>
+                                    <th class="t-headers " scope="col">Result</th>
+                                    <th class="t-headers " scope="col">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-striped " id='tableStriped'></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
 
     </div>
-
 
     <script src="https://code.jquery.com/jquery-3.3.1.js " integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin=" anonymous "></script>
     <script src="stats.js "></script>
