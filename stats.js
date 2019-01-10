@@ -299,22 +299,10 @@ var query = document.getElementById("userInput").value;
 
 function getSelectedDay() {
     var query = document.getElementById("userInput").value;
-
-    window.toggleTable = function(id) {
-        var p = document.getElementById(id);
-
-        if (p.style.display == 'table-row') {
-            p.style.display = 'none';
-            var inputs = p.getElementsByTagName('input');
-            for (var i = 0; i < inputs.length; i++) {
-                inputs[i].value = "";
-            }
-        }
-
-        else {
-            p.style.display = 'table-row';
-        }
-    };
+    var oldData = document.getElementById("tableStriped");
+    while (oldData.firstChild) {
+        oldData.removeChild(oldData.firstChild);
+    }
     buildTable(query)
 }
 p(state[0]);
