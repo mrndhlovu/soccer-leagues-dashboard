@@ -7,7 +7,6 @@ var season = "https://api.football-data.org/v2/competitions/PL/matches";
 var key = { 'X-Auth-Token': '5d791d1818c3415d9b1a4b323c899bf4' };
 
 start(season);
-document.getElementById("dayButton").addEventListener("click", getSelectedDay);
 
 function start(season) {
     $.extend({
@@ -111,7 +110,7 @@ function listTeams() {
     document.getElementById("formSelect").appendChild(select);
 }
 
-document.getElementById("dayButton").addEventListener("click", getSelectedDay);
+document.getElementById("userInput").addEventListener("change", getSelectedDay);
 
 
 function getSelectedTeam() {
