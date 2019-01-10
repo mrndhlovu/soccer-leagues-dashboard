@@ -124,13 +124,15 @@ function getSelectedTeam() {
     getStats(choice);
 }
 
+
+var toPlayHome = 0,
+    toPlayAway = 0;
+
 function getStats(getSelectedTeam) {
 
     //Stats variables
     var avg = 0,
         totalGoals = 0,
-        toPlayHome = 0,
-        toPlayAway = 0,
         cleanSheets = 0,
         homeGames = 0,
         awayGames = 0,
@@ -297,8 +299,25 @@ var query = document.getElementById("userInput").value;
 
 function getSelectedDay() {
     var query = document.getElementById("userInput").value;
+
+    window.toggleTable = function(id) {
+        var p = document.getElementById(id);
+
+        if (p.style.display == 'table-row') {
+            p.style.display = 'none';
+            var inputs = p.getElementsByTagName('input');
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].value = "";
+            }
+        }
+
+        else {
+            p.style.display = 'table-row';
+        }
+    };
     buildTable(query)
 }
+p(state[0]);
 
 
 buildTable(query);
@@ -308,7 +327,7 @@ function buildTable(query) {
     for (var d = 0; d < matchDay.length; d++) {
 
         var tr = document.createElement('tr'),
-            th, result, state, hTeam, aTeam, score, spanWin, spanLoss;
+            th, state, hTeam, aTeam, score, spanWin, spanLoss;
 
         if (query == matchDay[d]) { //Create table rows and colums
             th = document.createElement('th');
@@ -335,14 +354,16 @@ function buildTable(query) {
             // Use data to build table
             th.innerHTML = matchDay[d];
             hTeam.innerHTML = homeTeam[d];
+            state.innerHTML = data[d].status;
             aTeam.innerHTML = awayTeam[d];
-            state.innerHTML = state[d];
+
 
             //show results
             if (homeScore[d] > awayScore[d]) {
                 showWin();
                 showResult();
                 score.innerHTML = homeScore[d] + " : " + awayScore[d];
+
             }
             else if (homeScore[d] < awayScore[d]) {
                 showLosser();
