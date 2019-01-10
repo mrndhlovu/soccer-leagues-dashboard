@@ -3,18 +3,19 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta content="utf-8" http-equiv="encoding">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
-
 
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.7.0/d3.js" charset="utf-8"></script>
 
     <title>PL Score Dashborad</title>
+
+
 </head>
 
 <body <!--onload="onload();-->">
@@ -43,8 +44,9 @@
         </nav>
 
     </div>-->
-
+    <div id="drawHere"></div>
     <div class="container-fluid table-container ">
+
         <div class="row parent">
 
             <div class="col-xs-12 col-sm-12  col-md-4 child-1" id="seasonHead1">
@@ -147,7 +149,7 @@
         </div>
 
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="stats.js"></script>
 </body>
 
