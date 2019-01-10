@@ -19,8 +19,12 @@
 </head>
 
 <body>
-    <header>
+    <nav class="nav navbar">
         <h1 class="main-header">PL Soccer Dashboard</h1>
+    </nav>
+    
+    <header>
+        
     </header>
     <div class="container-fluid">
         <div class="row main-container ">
@@ -36,23 +40,23 @@
                     </div>
                     <div class="card">
                         <h3 class="statsHead">Matches Played</h3>
-                        <p id="played"></p>
+                        <p class="cardText" id="played"></p>
                     </div>
 
                     <div class="card">
                         <h3 class="statsHead">Wins</h3>
-                        <p id="wins"></p>
+                        <p class="cardText" id="wins"></p>
                     </div>
                     <div class="card">
                         <h3 class="statsHead">Losses</h3>
-                        <p id="loss"></p>
+                        <p class="cardText" id="loss"></p>
                     </div>
 
 
 
                     <div class="card">
                         <h3 class="statsHead">Draw</h3>
-                        <p id="draw"></p>
+                        <p class="cardText" id="draw"></p>
                     </div>
 
                 </div>
@@ -61,24 +65,24 @@
                     <h2 class="headerText">Season Team Statistics</h2>
                     <div class="card">
                         <h3 class="statsHead">Average Goals Per Match</h3>
-                        <p id="goalPerMatch"></p>
+                        <p class="cardText" id="goalPerMatch"></p>
                     </div>
                     <div class="card">
                         <h3 class="statsHead">Matches To Play</h3>
-                        <p id="toPlay"></p>
+                        <p class="cardText" id="toPlay"></p>
                     </div>
                     <div class="card">
                         <h3 class="statsHead">Total Season Goals</h3>
-                        <p id="totalGoal"></p>
+                        <p class="cardText" id="totalGoal"></p>
                     </div>
 
                     <div class="card">
                         <h3 class="statsHead">Cleans Sheets</h3>
-                        <p id="cleanSheets"></p>
+                        <p class="cardText" id="cleanSheets"></p>
                     </div>
                     <div class="card">
                         <h3 class="statsHead">Goals Conceded</h3>
-                        <p id="goalsConc"></p>
+                        <p class="cardText" id="goalsConc"></p>
                     </div>
 
                 </div>
@@ -91,13 +95,13 @@
                     <!-- Slide for matchday-->
                     <div class=" day ">
                         <div class=" input-group-append">
-                            Pick Match Day: <input id="userInput" value="1" />
+                            <span id="inputText">Pick Match Day:</span> <input id="userInput" value="1" />
                             <input onchange="getSelectedDay();" class="form-control" type="range" value="1" min="1" max="38" id="userData" oninput="userInput.value = userData.value" /><br>
                         </div>
                     </div>
 
                     <div>
-                        <table class="table table-bordered">
+                        <table class="table">
                             <thead class=" thead-dark ">
                                 <tr>
                                     <th class="t-headers " scope="col">Match Day</th>
@@ -108,7 +112,7 @@
                                     <th class="t-headers " scope="col">Date</th>
                                 </tr>
                             </thead>
-                            <tbody class="table-striped " id='tableStriped'></tbody>
+                            <tbody class="table-hover table-striped" id='tableStriped'></tbody>
                         </table>
                     </div>
                 </div>

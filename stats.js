@@ -6,7 +6,7 @@ function p(data) {
 var season = "https://api.football-data.org/v2/competitions/PL/matches";
 var key = { 'X-Auth-Token': '5d791d1818c3415d9b1a4b323c899bf4' };
 
-start(season);
+
 
 function start(season) {
     $.extend({
@@ -87,7 +87,7 @@ teams.sort();
 
 // Fill option seletor with list of teams
 
-listTeams();
+
 
 function listTeams() {
 
@@ -109,6 +109,8 @@ function listTeams() {
     }
     document.getElementById("formSelect").appendChild(select);
 }
+
+listTeams();
 
 document.getElementById("userInput").addEventListener("change", getSelectedDay);
 
@@ -152,7 +154,6 @@ function getStats(getSelectedTeam) {
 
         //If Team selected was playing  show get stats
         if (winH) {
-
             homeWin++;
             if (awayScore[i] > 0) {
                 goalsConceded += awayScore[i];
@@ -185,7 +186,7 @@ function getStats(getSelectedTeam) {
                 goalsConceded += homeScore[i];
             }
         }
-        else {}
+        
         // Check if team played and get home or away stats
         if (playedH) {
             homeGames++;
@@ -215,7 +216,6 @@ function getStats(getSelectedTeam) {
         else if (notPlayedA) {
             toPlayAway++;
         }
-        else {}
     }
     //Find average goals per game;
     avg = totalGoals / (homeGames + awayGames);
@@ -232,10 +232,12 @@ function getStats(getSelectedTeam) {
     document.getElementById("goalsConc").innerHTML = goalsConceded;
 
 }
+
+
 var query = document.getElementById("userInput").value;
 
 function getNextMatchDay(query) {
-    p(query);
+
     for (var q = 0; q < data.length; q++) {
         if (data[q].status == "FINISHED") {
             query = matchDay[q] + 1;
@@ -258,7 +260,7 @@ function getSelectedDay() {
     buildTable(query)
 }
 
-buildTable(query);
+
 
 function buildTable(query) {
 
@@ -367,3 +369,4 @@ function buildTable(query) {
         date.style.textAlign = "center";
     }
 }
+buildTable(query);
