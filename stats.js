@@ -118,16 +118,14 @@ function getSelectedTeam() {
     getStats(choice);
 }
 
-
-var toPlayHome = 0,
-    toPlayAway = 0;
-
 function getStats(getSelectedTeam) {
 
     //Stats variables
     var avg = 0,
         totalGoals = 0,
         cleanSheets = 0,
+        toPlayHome = 0,
+        toPlayAway = 0,
         homeGames = 0,
         awayGames = 0,
         goalsConceded = 0,
@@ -153,7 +151,7 @@ function getStats(getSelectedTeam) {
             notPlayedA = state[i] == "SCHEDULED" && awayTeam[i].includes(getSelectedTeam);
 
         //If Team selected was playing  show get stats
-        if ((matchDay[i] && homeTeam[i] == getSelectedTeam) && homeScore[i] > awayScore[i]) {
+        if (winH) {
 
             homeWin++;
             if (awayScore[i] > 0) {
@@ -228,7 +226,7 @@ function getStats(getSelectedTeam) {
     document.getElementById("toPlay").innerHTML = "Home : " + toPlayHome + " -  Away: " + toPlayAway;
     document.getElementById("loss").innerHTML = "Home : " + homeLoss + " -  Away: " + awayLoss;
     document.getElementById("draw").innerHTML = "Home : " + homeDraw + " -  Away : " + awayDraw;
-    document.getElementById("totalGoal").innerHTML = avg;
+    document.getElementById("totalGoal").innerHTML = totalGoals;
     document.getElementById("goalPerMatch").innerHTML = avg.toFixed(0);
     document.getElementById("cleanSheets").innerHTML = cleanSheets;
     document.getElementById("goalsConc").innerHTML = goalsConceded;
