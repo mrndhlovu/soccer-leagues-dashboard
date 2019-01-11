@@ -315,13 +315,15 @@ function buildTable(query) {
                 showResult();
                 score.innerHTML = homeScore[d] + " : " + awayScore[d];
             }
-            else if (homeScore[d] == awayScore[d]) {
+            else if ((homeScore[d] == awayScore[d] && data[d].status  == "FINISHED") || ( awayScore[d] == homeScore[d] && data[d].status  == "FINISHED") ) {
                 showDraw();
                 showResult();
                 score.innerHTML = homeScore[d] + " : " + awayScore[d];
+            }else if (homeScore[d] == awayScore[d] && data[d].status  == "SCHEDULED"){
+                score.innerHTML = "--"+ ' : '+'--';
             }
-            else {
-                score.innerHTML = homeScore[d] + " : " + awayScore[d];
+            else if (awayScore[d] == homeScore[d] && data[d].status  == "SCHEDULED"){
+                score.innerHTML = score.innerHTML = "--"+ ' : '+'--';
             }
         }
         document.getElementById('tableStriped').appendChild(tr);
