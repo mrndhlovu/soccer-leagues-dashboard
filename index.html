@@ -93,12 +93,10 @@
                             <h3 class="statsHead">Cleans Sheets</h3>
                             <p class="cardText" id="cleanSheets"></p>
                         </div>
-                         <div class="card">
+                        <div class="card">
                             <h3 class="statsHead">Goals Conceded</h3>
                             <p class="cardText" id="goalsConc"></p>
                         </div>
-                    </div>
-                    <div class="card-wrapper2">
                         <div class="card">
                             <h3 class="statsHead">Matches To Play</h3>
                             <p class="cardText" id="toPlay"></p>
@@ -108,19 +106,45 @@
                             <h3 class="statsHead">Matches Played</h3>
                             <p class="cardText" id="played"></p>
                         </div>
-                       
                         <div class="card">
                             <h3 class="statsHead">Average Goals Per Match</h3>
                             <p class="cardText" id="goalPerMatch"></p>
                         </div>
                     </div>
+                    <div class="card-wrapper2">
+                        <div class="team-games"></div>
 
+
+                        <div class="table">
+                            <!-- Slide for matchday-->
+                            <div>
+                                <table class="table">
+                                    <thead class=" thead-dark ">
+                                        <tr>
+                                            <th class="t-headers " scope="col">Match Day</th>
+                                            <th class="t-headers " scope="col">Home Team</th>
+                                            <th class="t-headers " scope="col">VS</th>
+                                            <th class="t-headers " scope="col">Away Team</th>
+                                            <th class="t-headers " scope="col">Result</th>
+                                            <th class="t-headers " scope="col">Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-hover table-striped" id='gameStriped'></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </div>
                 </div>
+
             </div>
         </div>
+    </div>
 
     </div>
-    </div>
+
+
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.js " integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin=" anonymous "></script>

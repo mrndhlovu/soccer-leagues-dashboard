@@ -264,8 +264,6 @@ function getSelectedDay() {
 
 function buildTable(query) {
 
-
-
     for (var d = 0; d < matchDay.length; d++) {
         var gameDate = new Date(data[d].utcDate);
         var tr = document.createElement('tr'),
@@ -315,19 +313,20 @@ function buildTable(query) {
                 showResult();
                 score.innerHTML = homeScore[d] + " : " + awayScore[d];
             }
-            else if ((homeScore[d] == awayScore[d] && data[d].status  == "FINISHED") || ( awayScore[d] == homeScore[d] && data[d].status  == "FINISHED") ) {
+            else if ((homeScore[d] == awayScore[d] && data[d].status == "FINISHED") || (awayScore[d] == homeScore[d] && data[d].status == "FINISHED")) {
                 showDraw();
                 showResult();
                 score.innerHTML = homeScore[d] + " : " + awayScore[d];
-            }else if (homeScore[d] == awayScore[d] && data[d].status  == "SCHEDULED"){
-                score.innerHTML = "-"+ ' : '+'-';
             }
-            else if (awayScore[d] == homeScore[d] && data[d].status  == "SCHEDULED"){
-                score.innerHTML = score.innerHTML = "-"+ ' : '+'-';
+            else if (homeScore[d] == awayScore[d] && data[d].status == "SCHEDULED") {
+                score.innerHTML = "-" + ' : ' + '-';
+            }
+            else if (awayScore[d] == homeScore[d] && data[d].status == "SCHEDULED") {
+                score.innerHTML = score.innerHTML = "-" + ' : ' + '-';
             }
         }
         document.getElementById('tableStriped').appendChild(tr);
-    }p(gameDate.toDateString());
+    }
     //Apdatay css to winner colomn 
     // show green flag if win
     function showWin() {
@@ -375,30 +374,65 @@ function buildTable(query) {
 }
 buildTable(query);
 
-var defaultStatus = teams[0]
+var defaultStatus = teams[1]
 
 function showTeamGames(team) {
-    for(var t = 0; t < data.length; t++){
+    for (var t = 0; t < data.length; t++) {
+        var gameDate = new Date(data[t].utcDate);
         team = defaultStatus;
-        if((team == awayTeam[t] || team == homeTeam[t]) && state[t] == "FINISHED"){
-            p("PLAYED: " + awayTeam[t] +"  "+ awayScore[t] + " VS " + homeTeam[t]+"  " + homeScore[t]);
+        var tr = document.createElement('tr'),
+            th, vs, hTeam, aTeam, score, date;
+
+        if((team == homeTeam[t] || team == awayTeam[t]) && state[t] == "FINISHED") { //Create table rows and colums
+            th = document.createElement('th');
+            th.scope = "row";
+            th.className = "gameDay";
+            vs = document.createElement('td');
+            vs.className = "gameVS";
+            hTeam = document.createElement('td');
+            hTeam.className = "gameHome";
+            aTeam = document.createElement('td');
+            aTeam.className = "gameAway";
+            score = document.createElement('td');
+            score.className = "scores";
+            date = document.createElement('td');
+            date.id = "gameDate";
+
+            tr.appendChild(th);
+            tr.appendChild(hTeam);
+            tr.appendChild(vs);
+            tr.appendChild(aTeam);
+            tr.appendChild(score);
+            tr.appendChild(date);
+
+            // Use data to build table
+            th.innerHTML = matchDay[t];
+            hTeam.innerHTML = homeTeam[t];
+            vs.innerHTML = " VS ";
+            aTeam.innerHTML = awayTeam[t];
+            date.innerHTML = gameDate.toDateString();
+
+            //show results
+            if ((team == homeTeam[t] || team == awayTeam[t]) && state[t] == "FINISHED") {
+
+                score.innerHTML = homeScore[t] + " : " + awayScore[t];
+            }
         }
-        if((team == awayTeam[t] || team == homeTeam[t]) && state[t] == "SCHEDULED"){
-            p("TO PLAY: "+ awayTeam[t] +"  "+ awayScore[t] + " VS " + homeTeam[t]+"  " + homeScore[t]);
-        }
-        
+        document.getElementById('gameStriped').appendChild(tr);
+
     }
+
+
 }
 
 showTeamGames();
 
 
-function loadDefaultStats() {
-    ;
+function loadDefaultStats() {;
     getStats(defaultStatus);
 }
 
 
-window.onload = function(){
+window.onload = function() {
     loadDefaultStats();
 }
