@@ -186,7 +186,7 @@ function getStats(getSelectedTeam) {
                 goalsConceded += homeScore[i];
             }
         }
-        
+
         // Check if team played and get home or away stats
         if (playedH) {
             homeGames++;
@@ -264,8 +264,10 @@ function getSelectedDay() {
 
 function buildTable(query) {
 
-    for (var d = 0; d < matchDay.length; d++) {
 
+
+    for (var d = 0; d < matchDay.length; d++) {
+        var gameDate = new Date(data[d].utcDate);
         var tr = document.createElement('tr'),
             th, state, hTeam, aTeam, score, spanWin, spanLoss, date;
 
@@ -299,7 +301,7 @@ function buildTable(query) {
             hTeam.innerHTML = homeTeam[d];
             state.innerHTML = data[d].status;
             aTeam.innerHTML = awayTeam[d];
-            date.innerHTML = data[d].utcDate;
+            date.innerHTML = gameDate.toDateString();
 
 
             //show results
@@ -323,7 +325,7 @@ function buildTable(query) {
             }
         }
         document.getElementById('tableStriped').appendChild(tr);
-    }
+    }p(gameDate.toDateString());
     //Apdatay css to winner colomn 
     // show green flag if win
     function showWin() {
@@ -332,7 +334,7 @@ function buildTable(query) {
         spanWin.style.color = "green";
         spanLoss.style.color = "red";
         spanLoss.style.fontSize = "8px";
-        spanWin.style.fontSize = "8px";
+        spanWin.style.fontSize = "15px";
 
     }
 
@@ -343,7 +345,7 @@ function buildTable(query) {
         spanLoss.style.color = "red";
         spanWin.style.color = "green";
         spanLoss.style.fontSize = "8px";
-        spanWin.style.fontSize = "8px";
+        spanWin.style.fontSize = "15px";
 
 
     }
