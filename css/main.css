@@ -7,22 +7,13 @@ body {
     text-align: center;
     font-size: 26px;
     margin-top: 10px;
-    color: 218, 220, 224;
+    color: rgb(255, 255, 255);
 }
 
 .nav {
     background-color: #1565c0;
     height: 32px;
     color: 218, 220, 224;
-}
-
-.headers {
-    display: inline-block;
-    font-size: 1.5em;
-    border: 1px solid black;
-    border-radius: 5px;
-    padding-right: 5px;
-    text-align: center;
 }
 
 .headerText {
@@ -33,10 +24,6 @@ body {
     border-bottom: 1px solid #dadce0;
 }
 
-.main-container {
-    /*background-color: lightgrey;*/
-}
-
 .cards-container {
     display: flex;
     /* background-color: green;*/
@@ -44,71 +31,82 @@ body {
     justify-content: between;
 }
 
-.table {
-    height: 100vh;
-    /*background-color: #f0ad4e;*/
-    overflow: scroll;
-    
-    /* position: sticky !important;*/
-}
-
-.cardsSplit1 {
-    flex: 1;
-    /* background-color: blue;*/
-    flex: 0 0 50%;
-    margin: 0 auto;
-
-}
-
-.cardsSplit2 {
-    flex: 1;
-    /*background-color: pink;*/
-    flex: 0 0 50%;
-
-}
-
 .card {
-    margin-bottom: 5px;
-    color: #1565c0;
-    height: 150px;
-    width: 80%;
-    margin: 10px 10%;
+    margin: 0 auto;
+    height: 180px;
+    width: 90%;
     text-align: center;
-    background-color: white;
     -webkit-box-shadow: 0px 1px 26px -1px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 1px 26px -1px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 1px 26px -1px rgba(0, 0, 0, 0.75);
-
 }
 
 #formSelect {
-    color: rgba(0, 0, 0, .87);
+    color: #333;
     font-size: 15px;
-}
-
-.cardText {
-    color: #1565c0;
-    font-size: 30px;
-    padding-bottom: 10px;
+    border-radius: 10px;
 }
 
 .statsHead {
-    font-size: 13px;
+    font-size: 24px;
     top: 10px;
     padding: 50px 0 10px 0;
-    color: #202124;
+    color: #fff;
 }
 
-.headerText {
-    color: #1565c0;
-}
-
-.day {
+.head{
+    display: flex;
+    width: 100%;
+    height: 208px;
     background-color: #1565c0;
+    display: flex;
+    justify-content: space-around;
 }
 
-thread{
-    font-size: 10px;
-    vertical-align: inherit;
+.head-cards {
+    height: 208px;
+    width: 1200px;
+    margin: 0 auto;
 }
 
+.container-main {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.cards-container {
+    display: flex;
+    border: 1px solid #ccc;
+    
+    margin: 0 auto;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    box-shadow: rgba(0, 0, 0, 0.14) 0px 2px 2px 0px;
+}
+
+.cards {
+    background-color: rgb(255, 255, 255);
+    width: 350px;
+    margin: 10px 10px;
+    box-shadow: rgba(0, 0, 0, 0.14) 0px 2px 2px 0px;
+    height: 464px;
+}
+
+.table {
+    width: 400px;
+    height: 80vh;
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    background-color: inherit;
+    margin-right: 25px;
+    
+}
+
+.tab-head {
+    font-size: 24px;
+    color: #000;
+    padding-left: 10px;
+    padding-top: 15px;
+    
+}
