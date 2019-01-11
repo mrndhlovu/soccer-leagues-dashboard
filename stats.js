@@ -320,10 +320,10 @@ function buildTable(query) {
                 showResult();
                 score.innerHTML = homeScore[d] + " : " + awayScore[d];
             }else if (homeScore[d] == awayScore[d] && data[d].status  == "SCHEDULED"){
-                score.innerHTML = "--"+ ' : '+'--';
+                score.innerHTML = "-"+ ' : '+'-';
             }
             else if (awayScore[d] == homeScore[d] && data[d].status  == "SCHEDULED"){
-                score.innerHTML = score.innerHTML = "--"+ ' : '+'--';
+                score.innerHTML = score.innerHTML = "-"+ ' : '+'-';
             }
         }
         document.getElementById('tableStriped').appendChild(tr);
