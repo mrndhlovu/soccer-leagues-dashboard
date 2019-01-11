@@ -372,3 +372,31 @@ function buildTable(query) {
     }
 }
 buildTable(query);
+
+var defaultStatus = teams[0]
+
+function showTeamGames(team) {
+    for(var t = 0; t < data.length; t++){
+        team = defaultStatus;
+        if((team == awayTeam[t] || team == homeTeam[t]) && state[t] == "FINISHED"){
+            p("PLAYED: " + awayTeam[t] +"  "+ awayScore[t] + " VS " + homeTeam[t]+"  " + homeScore[t]);
+        }
+        if((team == awayTeam[t] || team == homeTeam[t]) && state[t] == "SCHEDULED"){
+            p("TO PLAY: "+ awayTeam[t] +"  "+ awayScore[t] + " VS " + homeTeam[t]+"  " + homeScore[t]);
+        }
+        
+    }
+}
+
+showTeamGames();
+
+
+function loadDefaultStats() {
+    ;
+    getStats(defaultStatus);
+}
+
+
+window.onload = function(){
+    loadDefaultStats();
+}
