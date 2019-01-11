@@ -112,8 +112,15 @@ function listTeams() {
 
 listTeams();
 
-document.getElementById("userInput").addEventListener("change", getSelectedDay);
+//Show default team stats onload
 
+
+
+buildTable(query);
+
+
+
+document.getElementById("userInput").addEventListener("change", getSelectedDay);
 
 function getSelectedTeam() {
     var choice = document.getElementById("teamList").value;
@@ -141,6 +148,7 @@ function getStats(getSelectedTeam) {
 
 
     for (var i = 0; i < matchDay.length; i++) {
+
         var winH = (matchDay[i] && homeTeam[i] == getSelectedTeam) && homeScore[i] > awayScore[i],
             lossH = (matchDay[i] && homeTeam[i] == getSelectedTeam) && homeScore[i] < awayScore[i],
             winA = (matchDay[i] && awayTeam[i] == getSelectedTeam) && awayScore[i] > homeScore[i],
@@ -233,6 +241,10 @@ function getStats(getSelectedTeam) {
 
 }
 
+function loadDefaultStats() {
+    var defaultStatus = teams[0];
+    getStats(defaultStatus);
+}
 
 var query = document.getElementById("userInput").value;
 
@@ -325,7 +337,8 @@ function buildTable(query) {
             }
         }
         document.getElementById('tableStriped').appendChild(tr);
-    }p(gameDate.toDateString());
+    }
+    p(gameDate.toDateString());
     //Apdatay css to winner colomn 
     // show green flag if win
     function showWin() {
@@ -371,4 +384,7 @@ function buildTable(query) {
         date.style.textAlign = "center";
     }
 }
-buildTable(query);
+
+window.onload = function(){
+    loadDefaultStats();
+}
