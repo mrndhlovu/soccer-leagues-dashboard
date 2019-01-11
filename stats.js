@@ -332,7 +332,7 @@ function buildTable(query) {
         spanWin.style.color = "green";
         spanLoss.style.color = "red";
         spanLoss.style.fontSize = "8px";
-        spanWin.style.fontSize = "15px";
+        spanWin.style.fontSize = "8px";
 
     }
 
@@ -343,7 +343,7 @@ function buildTable(query) {
         spanLoss.style.color = "red";
         spanWin.style.color = "green";
         spanLoss.style.fontSize = "8px";
-        spanWin.style.fontSize = "15px";
+        spanWin.style.fontSize = "8px";
 
 
     }
