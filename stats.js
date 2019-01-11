@@ -31,7 +31,7 @@ function start(season) {
 }
 
 var data = start(season);
-p(data);
+
 
 // empty stats arrays
 var awayScore = [],
@@ -276,9 +276,11 @@ function buildTable(query) {
             state = document.createElement('td');
             state.className = "matchState";
             hTeam = document.createElement('td');
-            hTeam.className = "homeTeam";
+            hTeam.className = "tableTeam";
+            hTeam.setAttribute('onclick', 'tableTeamOnClick();') ;
             aTeam = document.createElement('td');
-            aTeam.className = "awayTeam";
+            aTeam.className = "tableTeam";
+            aTeam.setAttribute('onclick', 'tableTeamOnClick();') ;
             score = document.createElement('td');
             score.className = "score";
             spanWin = document.createElement("span");
@@ -435,4 +437,12 @@ function loadDefaultStats() {;
 
 window.onload = function() {
     loadDefaultStats();
+}
+
+document.getElementById("userInput").addEventListener("change", tableTeamOnClick);
+
+var teamClick = document.getElementsByClassName('tableTeam').innerHTML;
+function tableTeamOnClick(){
+    
+    p(teamClick);
 }

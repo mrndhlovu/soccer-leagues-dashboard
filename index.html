@@ -39,7 +39,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-5 col-lg-5 col-sm-12">
-                <p class="tab-head">Fixtures</p>
+                <h3 class="tab-head">Fixtures</h3>
                 <div class="table">
 
                     <div class="table">
@@ -70,10 +70,34 @@
                 </div>
             </div>
             <div class="col-md-7 col-lg-7 col-sm-12">
-                <p class="tab-head">Team Statistics</p>
+               
                 <div class="cards-container">
                     <div class=" card-wrapper1">
+
+                        <div class="table">
+                            <h3>Past Game results</h3>
+                            <div>
+                                <table class="table">
+                                    <thead class=" thead-dark ">
+                                        <tr>
+                                            <th class="t-headers " scope="col">Match Day</th>
+                                            <th class="t-headers " scope="col">Home Team</th>
+                                            <th class="t-headers " scope="col">VS</th>
+                                            <th class="t-headers " scope="col">Away Team</th>
+                                            <th class="t-headers " scope="col">Result</th>
+                                            <th class="t-headers " scope="col">Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-hover table-striped" id='gameStriped'></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-wrapper2">
+                        <h3 class="tab-head">Team Statistics</h3>
                         <div class=" col-4 card">
+                             
                             <h3 class="statsHead">Wins</h3>
                             <p class="cardText" id="wins"></p>
                         </div>
@@ -110,30 +134,6 @@
                             <h3 class="statsHead">Average Goals Per Match</h3>
                             <p class="cardText" id="goalPerMatch"></p>
                         </div>
-                    </div>
-                    <div class="card-wrapper2">
-                        <div class="team-games"></div>
-
-
-                        <div class="table">
-                            <!-- Slide for matchday-->
-                            <div>
-                                <table class="table">
-                                    <thead class=" thead-dark ">
-                                        <tr>
-                                            <th class="t-headers " scope="col">Match Day</th>
-                                            <th class="t-headers " scope="col">Home Team</th>
-                                            <th class="t-headers " scope="col">VS</th>
-                                            <th class="t-headers " scope="col">Away Team</th>
-                                            <th class="t-headers " scope="col">Result</th>
-                                            <th class="t-headers " scope="col">Date</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="table-hover table-striped" id='gameStriped'></tbody>
-                                </table>
-                            </div>
-                        </div>
-
 
                     </div>
                 </div>
