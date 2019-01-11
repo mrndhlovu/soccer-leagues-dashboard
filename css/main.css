@@ -25,16 +25,25 @@ body {
 }
 
 .cards-container {
-    display: flex;
+    
     /* background-color: green;*/
     align-items: center;
-    justify-content: between;
+   
 }
 
-.card {
+.head-card{
     margin: 0 auto;
-    height: 180px;
-    width: 90%;
+    height: 208px;
+    width: 208px;
+    text-align: center;
+    -webkit-box-shadow: 0px 1px 26px -1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 1px 26px -1px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 1px 26px -1px rgba(0, 0, 0, 0.75);
+}
+.card {
+    
+    height: 208px;
+    width: 208px;
     text-align: center;
     -webkit-box-shadow: 0px 1px 26px -1px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 1px 26px -1px rgba(0, 0, 0, 0.75);
@@ -49,50 +58,23 @@ body {
 }
 
 .head {
-    display: flex;
     width: 100%;
     height: 208px;
-    background-color: #1565c0;
-    display: flex;
-    justify-content: space-around;
 }
 
 .head-cards {
     height: 208px;
-    width: 1200px;
-    margin: 0 auto;
-}
-
-.container-main {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-.cards-container {
-    display: flex;
-    border: 1px solid #ccc;
-
-    margin: 0 auto;
-   
-    box-shadow: rgba(0, 0, 0, 0.14) 0px 2px 2px 0px;
+    
 }
 
 .cards {
     background-color: rgb(255, 255, 255);
-    width: 350px;
-    margin: 10px 10px;
     box-shadow: rgba(0, 0, 0, 0.14) 0px 2px 2px 0px;
-    height: 464px;
 }
 
 .table {
-    width: 400px;
-    height: 80vh;
     background-color: inherit;
-    margin-right: 25px;
-    color: #fff;
-    bottom: 5px;
+    color: #000;
 }
 
 .tab-head {
@@ -121,6 +103,7 @@ body {
 .cardText{
     color: #000;
 }
+
 
 
 

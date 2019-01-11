@@ -27,69 +27,18 @@
 
     </header>
     <div class="container">
-        <div class="head">
-            <div class="card">
+        <div class="head head-card">
                 <h3 class="statsHead">Pick a Team</h3>
                 <div class="teams">
                     <form id="formSelect">
                     </form>
                 </div>
-            </div>
-            <div class="card">
-                <h3 class="statsHead">Wins</h3>
-                <p class="cardText" id="wins"></p>
-            </div>
-            <div class="card">
-                <h3 class="statsHead">Losses</h3>
-                <p class="cardText" id="loss"></p>
-            </div>
-            <div class="card">
-                <h3 class="statsHead">Draws</h3>
-                <p class="cardText" id="draw"></p>
-            </div>
         </div>
-        <div class="container-main">
-            <div class="head-cards">
-                <div class="row cards-container">
-                    <div class="col-md-12 col-lg-4 col-sm-12 cards">
-                       
-                        <div class="card">
-                            <h3 class="statsHead">Total Season Goals</h3>
-                            <p class="cardText" id="totalGoal"></p>
-                        </div>
-                        <div class="card">
-                            <h3 class="statsHead">Cleans Sheets</h3>
-                            <p class="cardText" id="cleanSheets"></p>
-                        </div>
-                    </div>
-                    <div class="col-md-12 col-lg-4 col-sm-12 cards">
-                       
-                        <div class="card">
-                            <h3 class="statsHead">Matches To Play</h3>
-                            <p class="cardText" id="toPlay"></p>
-                        </div>
+    </div>
 
-                        <div class="card">
-                            <h3 class="statsHead">Matches Played</h3>
-                            <p class="cardText" id="played"></p>
-                        </div>
-                    </div>
-                    <div class="col-md-12 col-lg-4 col-sm-12 cards">
-                       
-                        <div class="card">
-                            <h3 class="statsHead">Goals Conceded</h3>
-                            <p class="cardText" id="goalsConc"></p>
-                        </div>
-                        <div class="card">
-                            <h3 class="statsHead">Average Goals Per Match</h3>
-                            <p class="cardText" id="goalPerMatch"></p>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-            <div class="table">
+    <div class="container">
+        <div class="row">
+            <div class="table col-md-4 col-lg-4 col-sm-6">
                 <p class="tab-head">Fixtures</p>
                 <div class="table">
                     <!-- Slide for matchday-->
@@ -117,9 +66,63 @@
                     </div>
                 </div>
             </div>
-        </div>
+            <div class="col-md-4 col-lg-4 col-sm-6">
+                <div class="row">
+                    <p class="tab-head">Team Statistics</p>
 
+                    <div class="col-md-12 col-lg-4 col-sm-12 cards">
+                        <div class="card">
+                            <h3 class="statsHead">Wins</h3>
+                            <p class="cardText" id="wins"></p>
+                        </div>
+                        <div class="card">
+                            <h3 class="statsHead">Losses</h3>
+                            <p class="cardText" id="loss"></p>
+                        </div>
+                        <div class="card">
+                            <h3 class="statsHead">Draws</h3>
+                            <p class="cardText" id="draw"></p>
+                        </div>
+                        <div class="card">
+                            <h3 class="statsHead">Total Season Goals</h3>
+                            <p class="cardText" id="totalGoal"></p>
+                        </div>
+                        <div class="card">
+                            <h3 class="statsHead">Cleans Sheets</h3>
+                            <p class="cardText" id="cleanSheets"></p>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-4 col-sm-12 cards">
+
+                        <div class="card">
+                            <h3 class="statsHead">Matches To Play</h3>
+                            <p class="cardText" id="toPlay"></p>
+                        </div>
+
+                        <div class="card">
+                            <h3 class="statsHead">Matches Played</h3>
+                            <p class="cardText" id="played"></p>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-4 col-sm-12 cards">
+
+                        <div class="card">
+                            <h3 class="statsHead">Goals Conceded</h3>
+                            <p class="cardText" id="goalsConc"></p>
+                        </div>
+                        <div class="card">
+                            <h3 class="statsHead">Average Goals Per Match</h3>
+                            <p class="cardText" id="goalPerMatch"></p>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            
+        </div>
     </div>
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.js " integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin=" anonymous "></script>
     <script src="stats.js "></script>
