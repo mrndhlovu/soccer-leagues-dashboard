@@ -277,10 +277,10 @@ function buildTable(query) {
             state.className = "matchState";
             hTeam = document.createElement('td');
             hTeam.className = "tableTeam";
-            hTeam.setAttribute('onclick', 'tableTeamOnClick();') ;
+            hTeam.setAttribute('onclick', 'tableTeamOnClick(this.innerHTML)') ;
             aTeam = document.createElement('td');
             aTeam.className = "tableTeam";
-            aTeam.setAttribute('onclick', 'tableTeamOnClick();') ;
+            aTeam.setAttribute('onclick', 'tableTeamOnClick(this.innerHTML)');
             score = document.createElement('td');
             score.className = "score";
             spanWin = document.createElement("span");
@@ -439,10 +439,11 @@ window.onload = function() {
     loadDefaultStats();
 }
 
-document.getElementById("userInput").addEventListener("change", tableTeamOnClick);
+document.getElementById("userInput").addEventListener("onclick", tableTeamOnClick);
 
-var teamClick = document.getElementsByClassName('tableTeam').innerHTML;
-function tableTeamOnClick(){
+
+function tableTeamOnClick(team){
+   
     
-    p(teamClick);
+    p((team));
 }
