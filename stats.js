@@ -277,7 +277,7 @@ function buildTable(query) {
             state.className = "matchState";
             hTeam = document.createElement('td');
             hTeam.className = "tableTeam";
-            hTeam.setAttribute('onclick', 'tableTeamOnClick(this.innerHTML)') ;
+            hTeam.setAttribute('onclick', 'tableTeamOnClick(this.innerHTML)');
             aTeam = document.createElement('td');
             aTeam.className = "tableTeam";
             aTeam.setAttribute('onclick', 'tableTeamOnClick(this.innerHTML)');
@@ -376,16 +376,16 @@ function buildTable(query) {
 }
 buildTable(query);
 
-var defaultStatus = teams[1]
+var teamClick  = teams[0];
 
-function showTeamGames(team) {
+function showTeamGames(teamClick) {
     for (var t = 0; t < data.length; t++) {
         var gameDate = new Date(data[t].utcDate);
-        team = defaultStatus;
+        
         var tr = document.createElement('tr'),
             th, vs, hTeam, aTeam, score, date;
 
-        if((team == homeTeam[t] || team == awayTeam[t]) && state[t] == "FINISHED") { //Create table rows and colums
+        if ((teamClick == homeTeam[t] || teamClick == awayTeam[t]) && state[t] == "FINISHED") { //Create table rows and colums
             th = document.createElement('th');
             th.scope = "row";
             th.className = "gameDay";
@@ -415,7 +415,7 @@ function showTeamGames(team) {
             date.innerHTML = gameDate.toDateString();
 
             //show results
-            if ((team == homeTeam[t] || team == awayTeam[t]) && state[t] == "FINISHED") {
+            if ((teamClick == homeTeam[t] || teamClick == awayTeam[t]) && state[t] == "FINISHED") {
 
                 score.innerHTML = homeScore[t] + " : " + awayScore[t];
             }
@@ -427,7 +427,7 @@ function showTeamGames(team) {
 
 }
 
-showTeamGames();
+showTeamGames(teamClick);
 
 
 function loadDefaultStats() {;
@@ -442,8 +442,26 @@ window.onload = function() {
 document.getElementById("userInput").addEventListener("onclick", tableTeamOnClick);
 
 
-function tableTeamOnClick(team){
-   
-    
-    p((team));
+/*function tableTeamOnClick(team) {
+var teamClick = document.getElementById("userInput").addEventListener("onclick", tableTeamOnClick);
+
+    p((teamClick));
 }
+*/
+function tableTeamOnClick(team) {
+    getTeamGames();
+    showTeamGames(team);
+    p(team);
+}
+ teamClick = tableTeamOnClick;
+
+
+
+function getTeamGames() {
+    var oldData = document.getElementById("gameStriped");
+    while (oldData.firstChild) {
+        oldData.removeChild(oldData.firstChild);
+    }
+    showTeamGames(teamClick);
+}
+/*showTeamGames(teamClick);*/
