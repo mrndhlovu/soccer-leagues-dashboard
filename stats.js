@@ -103,6 +103,7 @@ function listTeams() {
         option.id = "team" + (i + 1);
         select.appendChild(option);
         option.innerHTML = teams[i];
+        option.setAttribute('onclick', 'tableTeamOnClick(this.innerHTML)');
         select.appendChild(option);
         select.setAttribute("onchange", "getSelectedTeam();")
 
@@ -230,7 +231,6 @@ function getStats(getSelectedTeam) {
     document.getElementById("goalPerMatch").innerHTML = avg.toFixed(0);
     document.getElementById("cleanSheets").innerHTML = cleanSheets;
     document.getElementById("goalsConc").innerHTML = goalsConceded;
-
 }
 
 
@@ -306,18 +306,18 @@ function buildTable(query) {
 
             //show results
             if (homeScore[d] > awayScore[d]) {
-                showWin();
-                showResult();
+               // showWin();
+                //showResult();
                 score.innerHTML = homeScore[d] + " : " + awayScore[d];
             }
             else if (homeScore[d] < awayScore[d]) {
-                showLosser();
-                showResult();
+                //showLosser();
+                //showResult();
                 score.innerHTML = homeScore[d] + " : " + awayScore[d];
             }
             else if ((homeScore[d] == awayScore[d] && data[d].status == "FINISHED") || (awayScore[d] == homeScore[d] && data[d].status == "FINISHED")) {
-                showDraw();
-                showResult();
+                //showDraw();
+                //showResult();
                 score.innerHTML = homeScore[d] + " : " + awayScore[d];
             }
             else if (homeScore[d] == awayScore[d] && data[d].status == "SCHEDULED") {
@@ -331,7 +331,7 @@ function buildTable(query) {
     }
     //Apdatay css to winner colomn 
     // show green flag if win
-    function showWin() {
+    /*function showWin() {
         aTeam.appendChild(spanLoss);
         hTeam.appendChild(spanWin);
         spanWin.style.color = "green";
@@ -372,7 +372,7 @@ function buildTable(query) {
         hTeam.style.textAlign = "center";
         aTeam.style.textAlign = "center";
         date.style.textAlign = "center";
-    }
+    }*/
 }
 buildTable(query);
 
@@ -416,22 +416,21 @@ function showTeamGames(teamClick) {
 
             //show results
             if ((teamClick == homeTeam[t] || teamClick == awayTeam[t]) && state[t] == "FINISHED") {
-
+                score.innerHTML = homeScore[t] + " : " + awayScore[t];
+            }else if ((teamClick == homeTeam[t] || teamClick == awayTeam[t]) && state[t] == "SCHEDULED") {
                 score.innerHTML = homeScore[t] + " : " + awayScore[t];
             }
         }
         document.getElementById('gameStriped').appendChild(tr);
 
     }
-
-
 }
 
 showTeamGames(teamClick);
 
 
 function loadDefaultStats() {;
-    getStats(defaultStatus);
+    getStats(teamClick());
 }
 
 
@@ -441,21 +440,12 @@ window.onload = function() {
 
 document.getElementById("userInput").addEventListener("onclick", tableTeamOnClick);
 
-
-/*function tableTeamOnClick(team) {
-var teamClick = document.getElementById("userInput").addEventListener("onclick", tableTeamOnClick);
-
-    p((teamClick));
-}
-*/
 function tableTeamOnClick(team) {
     getTeamGames();
     showTeamGames(team);
     p(team);
 }
  teamClick = tableTeamOnClick;
-
-
 
 function getTeamGames() {
     var oldData = document.getElementById("gameStriped");
