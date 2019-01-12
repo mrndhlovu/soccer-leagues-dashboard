@@ -93,7 +93,7 @@ body {
 
 /*.................End Header CSS..............................*/
 
-.side-bar-menu{
+.side-bar-menu {
     width: 300px;
     position: fixed;
     left: 0;
@@ -102,10 +102,85 @@ body {
     background-color: #fff;
     overflow-y: auto;
     border-right: 1px solid #ccc;
+
 }
 
-.logo{
+.logo {
     height: 75px;
     background-color: #f5f5f5;
     border: 1px solid #ccc;
+}
+
+.card-wrapper2 {
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+/*.....................................................*/
+
+.table {
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+th {
+    background: #333;
+    font-size: 16px;
+    color: #fff;
+    vertical-align: middle;
+    font-weight: 400;
+    text-transform: capitalize;
+    line-height: 1;
+    padding: 22px 40px;
+    white-space: nowrap;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #fff;
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+    background-color: #f5f5f5;
+}
+
+/*********************************************************/
+
+.main-container {
+    padding-top: 100px;
+    min-height: 100vh;
+    background-color: lightgreen;
+}
+
+.content-section {
+    position: relative;
+    margin: 0 auto;
+    z-index: 1;
+    padding: 0 30px;
+}
+
+.stats-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.col-md-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+.tab-head {
+    text-transform: capitalize;
+    font-weight: 400;
+    font-size: 30px;
 }
