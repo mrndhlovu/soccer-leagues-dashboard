@@ -442,6 +442,7 @@ document.getElementById("userInput").addEventListener("onclick", tableTeamOnClic
 
 function tableTeamOnClick(team) {
     getTeamGames();
+    getStats(teamClick);
     showTeamGames(team);
     p(team);
 }
@@ -454,4 +455,4 @@ function getTeamGames() {
     }
     showTeamGames(teamClick);
 }
-/*showTeamGames(teamClick);*/
+
