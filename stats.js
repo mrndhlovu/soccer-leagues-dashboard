@@ -113,12 +113,13 @@ listTeams();
 document.getElementById("userInput").addEventListener("change", getSelectedDay);
 
 
-function getSelectedTeam() {
+function getSelectedTeam(choice) {
     var choice = document.getElementById("teamList").value;
     getStats(choice);
 }
 
-function getStats(getSelectedTeam) {
+
+function getStats(getSelectedTeam){
 
     //Stats variables
     var avg = 0,
@@ -367,6 +368,7 @@ function showTeamGames(teamClick) {
 
         var tr = document.createElement('tr'),
             th, hTeam, aTeam, score, date;
+            
 
         if ((teamClick == homeTeam[t] || teamClick == awayTeam[t]) && state[t] == "FINISHED") { //Create table rows and colums
 
