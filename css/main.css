@@ -235,7 +235,9 @@ th {
 
 .table-report {}
 
-.stats-cards-wrapper {}
+.stats-cards-wrapper {
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+}
 
 .stats-cards {
     height: 10.74em;
