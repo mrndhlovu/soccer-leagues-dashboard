@@ -41,23 +41,50 @@
                 <div class="cards-wrapper col-md-3">
                     <div class=" stats-blocks">
                         <div class="row stats-cards-wrapper">
-                            <div class="col-md-6 stats-cards"></div>
-                            <div class="col-md-6 stats-cards"></div>
+                            <div class="col-md-6 stats-cards">
+                                <h3 class="statsHead">Wins</h3>
+                                <p class="cardText" id="wins"></p>
+                            </div>
+                            <div class="col-md-6 stats-cards">
+                                <h3 class="statsHead">Losses</h3>
+                                <p class="cardText" id="loss"></p>
+                            </div>
                         </div>
                         <div class="row stats-cards-wrapper">
-                            <div class="col-md-6 stats-cards"></div>
-                            <div class="col-md-6 stats-cards"></div>
+                            <div class="col-md-6 stats-cards">
+                                <h3 class="statsHead">Draws</h3>
+                                <p class="cardText" id="draw"></p>
+                            </div>
+                            <div class="col-md-6 stats-cards">
+                                <h3 class="statsHead">Cleans Sheets</h3>
+                                <p class="cardText" id="cleanSheets"></p>
+                            </div>
                         </div>
                         <div class="row stats-cards-wrapper">
-                            <div class="col-md-6 stats-cards"></div>
-                            <div class="col-md-6 stats-cards"></div>
+                            <div class="col-md-6 stats-cards">
+                                <h3 class="statsHead">Goals Conceded</h3>
+                                <p class="cardText" id="goalsConc"></p>
+                            </div>
+                            <div class="col-md-6 stats-cards">
+                                <h3 class="statsHead">Matches Played</h3>
+                                <p class="cardText" id="played"></p>
+                            </div>
                         </div>
                         <div class="row stats-cards-wrapper">
-                            <div class="col-md-6 stats-cards"></div>
-                            <div class="col-md-6 stats-cards"></div>
+                            <div class="col-md-6 stats-cards">
+                                <h3 class="statsHead">Matches To Play</h3>
+                                <p class="cardText" id="toPlay"></p>
+                            </div>
+                            <div class="col-md-6 stats-cards">
+                                <h3 class="statsHead">Avg Goals Per Match</h3>
+                                <p class="cardText" id="goalPerMatch"></p>
+                            </div>
                         </div>
                         <div class="row stats-cards-wrapper">
-                            <div class="col-md-12 stats-cards last-rect-card"></div>
+                            <div class="col-md-12 stats-cards last-rect-card">
+                                <h3 class="statsHead">Total Season Goals</h3>
+                                <p class="cardText" id="totalGoal"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -67,24 +94,59 @@
                         <div class="row table-containers">
                             <div class="tables-container col-md-6">
                                 <div class="table-report">
-                                     <h3 class="dash-headers">Fixtures</h3>   
+                                    <h3 class="dash-headers">Fixtures</h3>
+                                    <div class="day">
+                                        <div class=" input-group-append">
+                                            <span id="inputText">Pick Match Day:</span> <input id="userInput" value="1" />
+                                            <input onchange="getSelectedDay();" class="form-control" type="range" value="1" min="1" max="38" id="userData" oninput="userInput.value = userData.value" /><br>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <table class="table">
+                                            <thead class=" thead-dark ">
+                                                <tr>
+                                                    <th class="t-headers " scope="col">Home Team</th>
+                                                    <th class="t-headers " scope="col">Away Team</th>
+                                                    <th class="t-headers " scope="col">Status</th>
+                                                    <th class="t-headers " scope="col">Result</th>
+                                                    <th class="t-headers " scope="col">Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="table-hover table-striped" id='tableStriped'></tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                             <div class="tables-container col-md-6">
                                 <div class="table-report">
                                     <h3 class="dash-headers">Past Game results</h3>
+                                    <div class="table2">
+                                        <div class="table">
+                                            <table class="table">
+                                                <thead class=" thead-dark ">
+                                                    <tr>
+                                                        <th class="t-headers " scope="col">Home Team</th>
+                                                        <th class="t-headers " scope="col">VS</th>
+                                                        <th class="t-headers " scope="col">Away Team</th>
+                                                        <th class="t-headers " scope="col">Result</th>
+                                                        <th class="t-headers " scope="col">Date</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="table-hover table-striped" id='gameStriped'></tbody>
+                                            </table </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row ">
+                    <div class="row ">
 
+                    </div>
                 </div>
             </div>
-        </div>
-        <script src="https://code.jquery.com/jquery-3.3.1.js " integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin=" anonymous "></script>
-        <script src="stats.js "></script>
+            <script src="https://code.jquery.com/jquery-3.3.1.js " integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin=" anonymous "></script>
+            <script src="stats.js "></script>
 
 </body>
 

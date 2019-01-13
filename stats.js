@@ -87,8 +87,6 @@ teams.sort();
 
 // Fill option seletor with list of teams
 
-
-
 function listTeams() {
 
     var select = document.createElement("select"),
@@ -106,7 +104,6 @@ function listTeams() {
         option.setAttribute('onclick', 'tableTeamOnClick(this.innerHTML)');
         select.appendChild(option);
         select.setAttribute("onchange", "getSelectedTeam();")
-
     }
     document.getElementById("formSelect").appendChild(select);
 }
@@ -138,9 +135,8 @@ function getStats(getSelectedTeam) {
         awayLoss = 0,
         homeDraw = 0,
         awayDraw = 0;
+        
     // get team wins, losses, draws - home and
-
-
     for (var i = 0; i < matchDay.length; i++) {
         var winH = (matchDay[i] && homeTeam[i] == getSelectedTeam) && homeScore[i] > awayScore[i],
             lossH = (matchDay[i] && homeTeam[i] == getSelectedTeam) && homeScore[i] < awayScore[i],
@@ -233,7 +229,6 @@ function getStats(getSelectedTeam) {
     document.getElementById("goalsConc").innerHTML = goalsConceded;
 }
 
-
 var query = document.getElementById("userInput").value;
 
 function getNextMatchDay(query) {
@@ -266,13 +261,13 @@ function buildTable(query) {
 
     for (var d = 0; d < matchDay.length; d++) {
         var gameDate = new Date(data[d].utcDate);
+        
         var tr = document.createElement('tr'),
             th, state, hTeam, aTeam, score, spanWin, spanLoss, date;
 
-        if (query == matchDay[d]) { //Create table rows and colums
-            th = document.createElement('th');
-            th.scope = "row";
-            th.className = "matchDay";
+        if (query == matchDay[d]) { 
+            
+            //Create table rows and colums
             state = document.createElement('td');
             state.className = "matchState";
             hTeam = document.createElement('td');
@@ -289,7 +284,7 @@ function buildTable(query) {
             date = document.createElement('td');
             date.id = "matchDate";
 
-            tr.appendChild(th);
+           
             tr.appendChild(hTeam);
             tr.appendChild(aTeam);
             tr.appendChild(state);
@@ -297,27 +292,25 @@ function buildTable(query) {
             tr.appendChild(date);
 
             // Use data to build table
-            th.innerHTML = matchDay[d];
             hTeam.innerHTML = homeTeam[d];
             state.innerHTML = data[d].status;
             aTeam.innerHTML = awayTeam[d];
             date.innerHTML = gameDate.toDateString();
 
-
             //show results
             if (homeScore[d] > awayScore[d]) {
-               // showWin();
-                //showResult();
+               showWin();
+                showResult();
                 score.innerHTML = homeScore[d] + " : " + awayScore[d];
             }
             else if (homeScore[d] < awayScore[d]) {
-                //showLosser();
-                //showResult();
+                showLosser();
+                showResult();
                 score.innerHTML = homeScore[d] + " : " + awayScore[d];
             }
             else if ((homeScore[d] == awayScore[d] && data[d].status == "FINISHED") || (awayScore[d] == homeScore[d] && data[d].status == "FINISHED")) {
-                //showDraw();
-                //showResult();
+                showDraw();
+                showResult();
                 score.innerHTML = homeScore[d] + " : " + awayScore[d];
             }
             else if (homeScore[d] == awayScore[d] && data[d].status == "SCHEDULED") {
@@ -331,7 +324,7 @@ function buildTable(query) {
     }
     //Apdatay css to winner colomn 
     // show green flag if win
-    /*function showWin() {
+    function showWin() {
         aTeam.appendChild(spanLoss);
         hTeam.appendChild(spanWin);
         spanWin.style.color = "green";
@@ -372,23 +365,22 @@ function buildTable(query) {
         hTeam.style.textAlign = "center";
         aTeam.style.textAlign = "center";
         date.style.textAlign = "center";
-    }*/
+    }
 }
 buildTable(query);
 
 var teamClick  = teams[0];
 
 function showTeamGames(teamClick) {
-    for (var t = 0; t < data.length; t++) {
+  
+    for (var t = 0; t < data.length; t++ ) {
         var gameDate = new Date(data[t].utcDate);
         
         var tr = document.createElement('tr'),
             th, vs, hTeam, aTeam, score, date;
 
         if ((teamClick == homeTeam[t] || teamClick == awayTeam[t]) && state[t] == "FINISHED") { //Create table rows and colums
-            th = document.createElement('th');
-            th.scope = "row";
-            th.className = "gameDay";
+            
             vs = document.createElement('td');
             vs.className = "gameVS";
             hTeam = document.createElement('td');
@@ -400,7 +392,6 @@ function showTeamGames(teamClick) {
             date = document.createElement('td');
             date.id = "gameDate";
 
-            tr.appendChild(th);
             tr.appendChild(hTeam);
             tr.appendChild(vs);
             tr.appendChild(aTeam);
@@ -408,7 +399,6 @@ function showTeamGames(teamClick) {
             tr.appendChild(date);
 
             // Use data to build table
-            th.innerHTML = matchDay[t];
             hTeam.innerHTML = homeTeam[t];
             vs.innerHTML = " VS ";
             aTeam.innerHTML = awayTeam[t];
