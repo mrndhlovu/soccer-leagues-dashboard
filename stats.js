@@ -135,7 +135,7 @@ function getStats(getSelectedTeam) {
         awayLoss = 0,
         homeDraw = 0,
         awayDraw = 0;
-        
+
     // get team wins, losses, draws - home and
     for (var i = 0; i < matchDay.length; i++) {
         var winH = (matchDay[i] && homeTeam[i] == getSelectedTeam) && homeScore[i] > awayScore[i],
@@ -261,12 +261,12 @@ function buildTable(query) {
 
     for (var d = 0; d < matchDay.length; d++) {
         var gameDate = new Date(data[d].utcDate);
-        
-        var tr = document.createElement('tr'),
-            th, state, hTeam, aTeam, score, spanWin, spanLoss, date;
 
-        if (query == matchDay[d]) { 
-            
+        var tr = document.createElement('tr'),
+            th, state, hTeam, aTeam, score, flagWin, flagLoss, flagDraw, date;
+
+        if (query == matchDay[d]) {
+
             //Create table rows and colums
             state = document.createElement('td');
             state.className = "matchState";
@@ -278,13 +278,11 @@ function buildTable(query) {
             aTeam.setAttribute('onclick', 'tableTeamOnClick(this.innerHTML)');
             score = document.createElement('td');
             score.className = "score";
-            spanWin = document.createElement("span");
-            spanWin.className = "win glyphicon glyphicon-flag";
-            spanLoss = document.createElement("span");
+            
             date = document.createElement('td');
             date.id = "matchDate";
 
-           
+
             tr.appendChild(hTeam);
             tr.appendChild(aTeam);
             tr.appendChild(state);
@@ -299,22 +297,26 @@ function buildTable(query) {
 
             //show results
             if (homeScore[d] > awayScore[d]) {
-               showWin();
-                showResult();
                 score.innerHTML = homeScore[d] + " : " + awayScore[d];
+                /*showWin();
+                showResult();*/
+                
             }
             else if (homeScore[d] < awayScore[d]) {
-                showLosser();
-                showResult();
                 score.innerHTML = homeScore[d] + " : " + awayScore[d];
+              /*  showLoss();
+                showResult();
+                */
             }
             else if ((homeScore[d] == awayScore[d] && data[d].status == "FINISHED") || (awayScore[d] == homeScore[d] && data[d].status == "FINISHED")) {
-                showDraw();
-                showResult();
                 score.innerHTML = homeScore[d] + " : " + awayScore[d];
+                /*showDraw();
+                showResult();*/
+                
             }
             else if (homeScore[d] == awayScore[d] && data[d].status == "SCHEDULED") {
                 score.innerHTML = "-" + ' : ' + '-';
+                //showDraw();
             }
             else if (awayScore[d] == homeScore[d] && data[d].status == "SCHEDULED") {
                 score.innerHTML = score.innerHTML = "-" + ' : ' + '-';
@@ -322,46 +324,33 @@ function buildTable(query) {
         }
         document.getElementById('tableStriped').appendChild(tr);
     }
-    //Apdatay css to winner colomn 
-    // show green flag if win
+    
+    // Apply css to winner colomn 
+    // Show green flag if win
+    
     function showWin() {
-        aTeam.appendChild(spanLoss);
-        hTeam.appendChild(spanWin);
-        spanWin.style.color = "green";
-        spanLoss.style.color = "red";
-        spanLoss.style.fontSize = "8px";
-        spanWin.style.fontSize = "15px";
-
+        homeTeam.style.color = "green";
+        awayTeam.style.color = "red";
+        flagLoss.style.fontSize = "8px";
+        flagWin.style.fontSize = "15px";
     }
 
     // show red flag loss
-    function showLosser() {
-        aTeam.appendChild(spanWin);
-        hTeam.appendChild(spanLoss);
-        spanLoss.style.color = "red";
-        spanWin.style.color = "green";
-        spanLoss.style.fontSize = "8px";
-        spanWin.style.fontSize = "15px";
-
-
+    function showLoss() {
+        homeTeam.style.color = "red";
+        awayTeam.style.color = "green";
     }
 
     function showDraw() {
-        aTeam.appendChild(spanWin);
-        hTeam.appendChild(spanLoss);
-        spanLoss.style.color = "blue";
-        spanWin.style.color = "blue";
-        spanLoss.style.fontSize = "8px";
-        spanWin.style.fontSize = "8px";
-
-
+        awayScore.style.color = "blue";
+        homeScore.style.color = "blue";
+        flagLoss.style.fontSize = "8px";
+        flagWin.style.fontSize = "8px";
     }
 
     function showResult() {
         score.style.textAlign = "center";
-        score.style.fontSize = "1.5em";
         state.style.textAlign = "center";
-        th.style.textAlign = "center";
         hTeam.style.textAlign = "center";
         aTeam.style.textAlign = "center";
         date.style.textAlign = "center";
@@ -369,18 +358,18 @@ function buildTable(query) {
 }
 buildTable(query);
 
-var teamClick  = teams[0];
+var teamClick = teams[0];
 
 function showTeamGames(teamClick) {
-  
-    for (var t = 0; t < data.length; t++ ) {
+
+    for (var t = 0; t < data.length; t++) {
         var gameDate = new Date(data[t].utcDate);
-        
+
         var tr = document.createElement('tr'),
             th, vs, hTeam, aTeam, score, date;
 
         if ((teamClick == homeTeam[t] || teamClick == awayTeam[t]) && state[t] == "FINISHED") { //Create table rows and colums
-            
+
             vs = document.createElement('td');
             vs.className = "gameVS";
             hTeam = document.createElement('td');
@@ -407,7 +396,8 @@ function showTeamGames(teamClick) {
             //show results
             if ((teamClick == homeTeam[t] || teamClick == awayTeam[t]) && state[t] == "FINISHED") {
                 score.innerHTML = homeScore[t] + " : " + awayScore[t];
-            }else if ((teamClick == homeTeam[t] || teamClick == awayTeam[t]) && state[t] == "SCHEDULED") {
+            }
+            else if ((teamClick == homeTeam[t] || teamClick == awayTeam[t]) && state[t] == "SCHEDULED") {
                 score.innerHTML = homeScore[t] + " : " + awayScore[t];
             }
         }
@@ -436,7 +426,7 @@ function tableTeamOnClick(team) {
     showTeamGames(team);
     p(team);
 }
- teamClick = tableTeamOnClick;
+teamClick = tableTeamOnClick;
 
 function getTeamGames() {
     var oldData = document.getElementById("gameStriped");
@@ -445,4 +435,3 @@ function getTeamGames() {
     }
     showTeamGames(teamClick);
 }
-

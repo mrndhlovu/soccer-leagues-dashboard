@@ -29,12 +29,20 @@
 
                 </div>
                 <div class="main-heading">
-                    <h1 class="main-header-text">PL Soccer Dashboard</h1>
+                    <!---->
+                    <div class="day">
+                        <div class=" input-group-append">
+                            <span id="inputText">Pick Match Day:</span> <input id="userInput" value="1" />
+                            <input onchange="getSelectedDay();" class="form-control" type="range" value="1" min="1" max="38" id="userData" oninput="userInput.value = userData.value" /><br>
+                        </div>
+                    </div>
                 </div>
             </div>
         </header>
         <aside class="side-bar-menu ">
-            <div class="logo"></div>
+            <div class="logo">
+                <h1 class="main-header-text">PL Soccer Dashboard</h1>
+            </div>
         </aside>
         <div class="dash-container">
             <div class="row cards-block">
@@ -95,12 +103,6 @@
                             <div class="tables-container col-md-6">
                                 <div class="table-report">
                                     <h3 class="dash-headers">Fixtures</h3>
-                                    <div class="day">
-                                        <div class=" input-group-append">
-                                            <span id="inputText">Pick Match Day:</span> <input id="userInput" value="1" />
-                                            <input onchange="getSelectedDay();" class="form-control" type="range" value="1" min="1" max="38" id="userData" oninput="userInput.value = userData.value" /><br>
-                                        </div>
-                                    </div>
                                     <div>
                                         <table class="table">
                                             <thead class=" thead-dark ">
