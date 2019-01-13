@@ -19,13 +19,13 @@ body {
 
 #teamList {
     line-height: inherit;
-    width: 28em;
+    width: 25em;
     border-radius: 43px;
-    height: 37px;
+    height: 32px;
     text-align: center;
     padding-left: 2em;
     font-size: 12px;
-    font-weight: 500;
+    font-weight: 700;
 }
 
 .header-form {
@@ -34,10 +34,10 @@ body {
 
 .header-input {
     line-height: 43px;
-    font-size: 14px;
-    color: #666;
+    font-size: 17px;
+    color: #800080;
     padding: 0 17px;
-    min-width: 46em;
+    min-width: 35em;
 }
 
 .glyphicon {
@@ -56,11 +56,15 @@ body {
     font-size: 2em;
     font-weight: 700;
     padding-left: 10px;
+    color: purple;
+
+
 }
 
 .main-heading {
     display: flex;
     padding-bottom: 10px;
+
 }
 
 .container-fluid {
@@ -81,6 +85,13 @@ body {
     border-radius: 3px;
     background: #4272d7;
     margin-left: -3px;
+}
+
+#userInput {
+    border-radius: 3px;
+    text-align: center;
+    width: 118px;
+    font-weight: 700;
 }
 
 
@@ -211,7 +222,8 @@ th {
 }
 
 .cards-bottom {
-    height: 100vh;}
+    height: 100vh;
+}
 
 .tables-container {
     height: 100vh;
@@ -251,7 +263,7 @@ th {
     text-transform: capitalize;
     font-weight: 700;
     text-align: center;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #333;
     padding-bottom: 5px
 }
 
