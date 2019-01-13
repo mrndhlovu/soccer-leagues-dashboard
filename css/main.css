@@ -207,20 +207,13 @@ th {
 }
 
 .cards-wrapper {
-
-
     height: 100vh;
-
 }
 
 .cards-bottom {
-
-    height: 100vh;
-}
+    height: 100vh;}
 
 .tables-container {
-
-
     height: 100vh;
     width: 473px;
 }
@@ -231,9 +224,12 @@ th {
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
 }
 
-.table-report {}
+.table-report {
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+}
 
 .stats-cards-wrapper {
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
@@ -266,11 +262,13 @@ th {
 .statsHead {
     font-size: 14px;
     font-weight: 700;
+    color: #2e6da4;
 }
 
 .cardText {
     font-size: 3.5em;
     text-align: center;
+    color: purple;
 }
 
 
