@@ -366,12 +366,10 @@ function showTeamGames(teamClick) {
         var gameDate = new Date(data[t].utcDate);
 
         var tr = document.createElement('tr'),
-            th, vs, hTeam, aTeam, score, date;
+            th, hTeam, aTeam, score, date;
 
         if ((teamClick == homeTeam[t] || teamClick == awayTeam[t]) && state[t] == "FINISHED") { //Create table rows and colums
 
-            vs = document.createElement('td');
-            vs.className = "gameVS";
             hTeam = document.createElement('td');
             hTeam.className = "gameHome";
             aTeam = document.createElement('td');
@@ -382,14 +380,13 @@ function showTeamGames(teamClick) {
             date.id = "gameDate";
 
             tr.appendChild(hTeam);
-            tr.appendChild(vs);
-            tr.appendChild(aTeam);
             tr.appendChild(score);
+            tr.appendChild(aTeam);
             tr.appendChild(date);
 
             // Use data to build table
             hTeam.innerHTML = homeTeam[t];
-            vs.innerHTML = " VS ";
+            
             aTeam.innerHTML = awayTeam[t];
             date.innerHTML = gameDate.toDateString();
 
@@ -410,7 +407,7 @@ showTeamGames(teamClick);
 
 
 function loadDefaultStats() {;
-    getStats(teamClick());
+    getStats(teamClick);
 }
 
 

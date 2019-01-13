@@ -266,3 +266,25 @@ th {
     font-size: 3.5em;
     text-align: center;
 }
+
+
+.scores {
+    padding-top: 17px !important;
+    background-color: #ccc;
+    color: #d35400;
+    padding-left: 14px !important;
+}
+
+.gameHome {
+    background-color: #95a5a6 !important;
+    padding-top: 14px !important;
+    text-align: center;
+    color: #2c3e50;
+}
+
+.gameAway {
+    background-color: #bdc3c7 !important;
+    padding-top: 14px !important;
+    text-align: center;
+    color: #2c3e50;
+}
