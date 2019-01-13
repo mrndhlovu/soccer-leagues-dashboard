@@ -218,11 +218,11 @@ function getStats(getSelectedTeam) {
     avg = totalGoals / (homeGames + awayGames);
 
     // Write to html 
-    document.getElementById("played").innerHTML = "Homes : " + homeGames + " -  Away: " + awayGames;
-    document.getElementById("wins").innerHTML = "Home : " + homeWin + " -  Away: " + awayWin;
-    document.getElementById("toPlay").innerHTML = "Home : " + toPlayHome + " -  Away: " + toPlayAway;
-    document.getElementById("loss").innerHTML = "Home : " + homeLoss + " -  Away: " + awayLoss;
-    document.getElementById("draw").innerHTML = "Home : " + homeDraw + " -  Away : " + awayDraw;
+    document.getElementById("played").innerHTML = homeGames +  awayGames;
+    document.getElementById("wins").innerHTML =  homeWin +  awayWin;
+    document.getElementById("toPlay").innerHTML = toPlayHome +  toPlayAway;
+    document.getElementById("loss").innerHTML = homeLoss + awayLoss;
+    document.getElementById("draw").innerHTML = homeDraw +  awayDraw;
     document.getElementById("totalGoal").innerHTML = totalGoals;
     document.getElementById("goalPerMatch").innerHTML = avg.toFixed(0);
     document.getElementById("cleanSheets").innerHTML = cleanSheets;
@@ -423,6 +423,7 @@ document.getElementById("userInput").addEventListener("onclick", tableTeamOnClic
 function tableTeamOnClick(team) {
     getTeamGames();
     getStats(teamClick);
+    getStats(team)
     showTeamGames(team);
     p(team);
 }
