@@ -2,9 +2,9 @@ body {
     background-color: #e5e5e5;
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
-    line-height: 1.625;
+    ;
     color: #777;
-    font-size: 16px;
+    font-size: 13px;
 }
 
 .main-header {
@@ -149,8 +149,16 @@ th {
     background-color: #fff;
 }
 
-.table-striped tbody tr:nth-of-type(even) {
+.table-striped tbody tr {
     background-color: #f5f5f5;
+}
+
+.table>tbody>tr>td {
+    padding: 8px;
+    line-height: 0.428571;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+    font-size: 10px;
 }
 
 /*********************************************************/
@@ -183,4 +191,78 @@ th {
     text-transform: capitalize;
     font-weight: 400;
     font-size: 30px;
+}
+
+.container {
+    width: 1100px !important;
+}
+
+th {
+    background: #333;
+    font-size: 11px;
+    color: #fff;
+    vertical-align: middle;
+    font-weight: 400;
+    text-transform: capitalize;
+    line-height: 1;
+    padding: 22px 40px;
+    white-space: nowrap;
+}
+
+/*................................................*/
+
+/*.................................................*/
+
+.cards-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 75px;
+    padding-left: 315px;
+}
+
+.cards-top {
+    border: 1px solid black;
+    background-color: lightgreen;
+    height: 85vh;
+   
+}
+
+.cards-bottom {
+    border: 1px solid black;
+    background-color: lightblue;
+    height: 85vh;
+}
+
+.tables-container {
+    background-color: lightgrey;
+    border: 1px solid black;
+    height: 85vh;
+    width: 473px;
+}
+
+.tables-wrapper {}
+
+.table-containers {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stats-cards-wrapper {
+    display: flex;
+    border: 1px solid black;
+    
+}
+
+.stats-cards {
+    height: 131px;
+    
+    border: 1px solid black;
+    background-color: purple;
+}
+
+.stats-blocks {
+    width: 100%;
+    margin: 10px 0;
 }
