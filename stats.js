@@ -284,9 +284,9 @@ function buildTable(query) {
 
 
             tr.appendChild(hTeam);
+            tr.appendChild(score);
             tr.appendChild(aTeam);
             tr.appendChild(state);
-            tr.appendChild(score);
             tr.appendChild(date);
 
             // Use data to build table

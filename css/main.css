@@ -106,7 +106,7 @@ body {
 
 .logo {
     height: 75px;
-    background-color: #f5f5f5;
+
     border: 1px solid #ccc;
 }
 
@@ -125,7 +125,7 @@ body {
 }
 
 .table-striped tbody tr {
-    background-color: #f5f5f5;
+
     line-height: 0.9;
 }
 
@@ -181,6 +181,18 @@ th {
     white-space: nowrap;
 }
 
+.table>thead>tr>th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #777;
+    border-radius: 26px !important;
+}
+
+.table>tbody>tr>td {
+    padding: 8px;
+    line-height: 1.00000;
+    border-top: 1px solid #ddd;
+}
+
 /*................................................*/
 
 /*.................................................*/
@@ -195,21 +207,20 @@ th {
 }
 
 .cards-wrapper {
-    border: 1px solid black;
-    background-color: pink;
+
+
     height: 100vh;
 
 }
 
 .cards-bottom {
-    border: 1px solid black;
-    background-color: pink;
+
     height: 100vh;
 }
 
 .tables-container {
-    background-color: lightgrey;
-    border: 1px solid black;
+
+
     height: 100vh;
     width: 473px;
 }
@@ -224,18 +235,11 @@ th {
 
 .table-report {}
 
-.stats-cards-wrapper {
-
-    border: 1px solid black;
-
-
-}
+.stats-cards-wrapper {}
 
 .stats-cards {
     height: 10.74em;
 
-    border: 1px solid black;
-    background-color: purple;
 }
 
 .last-rect-card {}
@@ -269,7 +273,7 @@ th {
 
 
 .scores {
-    padding-top: 17px !important;
+    vertical-align: middle !important;
     background-color: #ccc;
     color: #d35400;
     padding-left: 14px !important;
@@ -277,14 +281,23 @@ th {
 
 .gameHome {
     background-color: #95a5a6 !important;
-    padding-top: 14px !important;
+    vertical-align: middle !important;
     text-align: center;
     color: #2c3e50;
 }
 
-.gameAway {
+.gameAway,
+.tableTeam,
+.matchState,
+.score,
+#matchDate {
     background-color: #bdc3c7 !important;
-    padding-top: 14px !important;
+
     text-align: center;
     color: #2c3e50;
+    vertical-align: middle !important;
+}
+
+.t-headers {
+    text-align: center;
 }
