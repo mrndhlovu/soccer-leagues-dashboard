@@ -400,6 +400,7 @@ function showTeamGames(teamClick) {
             document.getElementById('gameStriped').appendChild(tr);
         }
     }
+
 }
 
 showTeamGames(teamClick);
@@ -409,9 +410,6 @@ function loadDefaultStats() {;
 }
 
 
-window.onload = function() {
-    loadDefaultStats();
-}
 
 document.getElementById('userInput').addEventListener('onclick', tableTeamOnClick);
 
@@ -431,4 +429,8 @@ function getTeamGames() {
         oldData.removeChild(oldData.firstChild);
     }
     showTeamGames(teamClick);
+}
+
+window.onload = function() {
+    loadDefaultStats();
 }
