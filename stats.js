@@ -119,7 +119,7 @@ function getSelectedTeam(choice) {
 }
 
 
-function getStats(getSelectedTeam){
+function getStats(getSelectedTeam) {
 
     //Stats variables
     var avg = 0,
@@ -219,11 +219,11 @@ function getStats(getSelectedTeam){
     avg = totalGoals / (homeGames + awayGames);
 
     // Write to html 
-    document.getElementById("played").innerHTML = homeGames +  awayGames;
-    document.getElementById("wins").innerHTML =  homeWin +  awayWin;
-    document.getElementById("toPlay").innerHTML = toPlayHome +  toPlayAway;
+    document.getElementById("played").innerHTML = homeGames + awayGames;
+    document.getElementById("wins").innerHTML = homeWin + awayWin;
+    document.getElementById("toPlay").innerHTML = toPlayHome + toPlayAway;
     document.getElementById("loss").innerHTML = homeLoss + awayLoss;
-    document.getElementById("draw").innerHTML = homeDraw +  awayDraw;
+    document.getElementById("draw").innerHTML = homeDraw + awayDraw;
     document.getElementById("totalGoal").innerHTML = totalGoals;
     document.getElementById("goalPerMatch").innerHTML = avg.toFixed(0);
     document.getElementById("cleanSheets").innerHTML = cleanSheets;
@@ -279,7 +279,7 @@ function buildTable(query) {
             aTeam.setAttribute('onclick', 'tableTeamOnClick(this.innerHTML)');
             score = document.createElement('td');
             score.className = "score";
-            
+
             date = document.createElement('td');
             date.id = "matchDate";
 
@@ -301,19 +301,19 @@ function buildTable(query) {
                 score.innerHTML = homeScore[d] + " : " + awayScore[d];
                 /*showWin();
                 showResult();*/
-                
+
             }
             else if (homeScore[d] < awayScore[d]) {
                 score.innerHTML = homeScore[d] + " : " + awayScore[d];
-              /*  showLoss();
-                showResult();
-                */
+                /*  showLoss();
+                  showResult();
+                  */
             }
             else if ((homeScore[d] == awayScore[d] && data[d].status == "FINISHED") || (awayScore[d] == homeScore[d] && data[d].status == "FINISHED")) {
                 score.innerHTML = homeScore[d] + " : " + awayScore[d];
                 /*showDraw();
                 showResult();*/
-                
+
             }
             else if (homeScore[d] == awayScore[d] && data[d].status == "SCHEDULED") {
                 score.innerHTML = "-" + ' : ' + '-';
@@ -325,10 +325,10 @@ function buildTable(query) {
         }
         document.getElementById('tableStriped').appendChild(tr);
     }
-    
+
     // Apply css to winner colomn 
     // Show green flag if win
-    
+
     function showWin() {
         homeTeam.style.color = "green";
         awayTeam.style.color = "red";
@@ -362,15 +362,12 @@ buildTable(query);
 var teamClick = teams[0];
 
 function showTeamGames(teamClick) {
-
-    for (var t = 0; t < data.length; t++) {
-        var gameDate = new Date(data[t].utcDate);
-
+    var counter = 10;
+    for (var i = data.length - 10; i--;) {
         var tr = document.createElement('tr'),
-            th, hTeam, aTeam, score, date;
-            
-
-        if ((teamClick == homeTeam[t] || teamClick == awayTeam[t]) && state[t] == "FINISHED") { //Create table rows and colums
+            hTeam, aTeam, score, date;
+            var gameDate = new Date(data[i].utcDate);
+        if (((teamClick == homeTeam[i] || teamClick == awayTeam[i]) && state[i] == "FINISHED") && counter > 0) { //Create table rows and colums
 
             hTeam = document.createElement('td');
             hTeam.className = "gameHome";
@@ -387,26 +384,29 @@ function showTeamGames(teamClick) {
             tr.appendChild(date);
 
             // Use data to build table
-            hTeam.innerHTML = homeTeam[t];
-            
-            aTeam.innerHTML = awayTeam[t];
+            hTeam.innerHTML = homeTeam[i];
+
+            aTeam.innerHTML = awayTeam[i];
             date.innerHTML = gameDate.toDateString();
 
             //show results
-            if ((teamClick == homeTeam[t] || teamClick == awayTeam[t]) && state[t] == "FINISHED") {
-                score.innerHTML = homeScore[t] + " : " + awayScore[t];
+            if ((teamClick == homeTeam[i] || teamClick == awayTeam[i]) && state[i] == "FINISHED") {
+                score.innerHTML = homeScore[i] + " : " + awayScore[i];
             }
-            else if ((teamClick == homeTeam[t] || teamClick == awayTeam[t]) && state[t] == "SCHEDULED") {
-                score.innerHTML = homeScore[t] + " : " + awayScore[t];
+            else if ((teamClick == homeTeam[i] || teamClick == awayTeam[i]) && state[i] == "SCHEDULED") {
+                score.innerHTML = homeScore[i] + " : " + awayScore[i];
             }
-        }
-        document.getElementById('gameStriped').appendChild(tr);
+            counter--;
+            document.getElementById('gameStriped').appendChild(tr);
 
+        }
+        
     }
+
 }
 
-showTeamGames(teamClick);
 
+showTeamGames(teamClick);
 
 function loadDefaultStats() {;
     getStats(teamClick);
@@ -424,8 +424,9 @@ function tableTeamOnClick(team) {
     getStats(teamClick);
     getStats(team)
     showTeamGames(team);
-    p(team);
+
 }
+
 teamClick = tableTeamOnClick;
 
 function getTeamGames() {
