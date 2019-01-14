@@ -366,7 +366,7 @@ function showTeamGames(teamClick) {
     for (var i = data.length - 10; i--;) {
         var tr = document.createElement('tr'),
             hTeam, aTeam, score, date;
-            var gameDate = new Date(data[i].utcDate);
+        var gameDate = new Date(data[i].utcDate);
         if (((teamClick == homeTeam[i] || teamClick == awayTeam[i]) && state[i] == "FINISHED") && counter > 0) { //Create table rows and colums
 
             hTeam = document.createElement('td');
@@ -398,13 +398,9 @@ function showTeamGames(teamClick) {
             }
             counter--;
             document.getElementById('gameStriped').appendChild(tr);
-
         }
-        
     }
-
 }
-
 
 showTeamGames(teamClick);
 

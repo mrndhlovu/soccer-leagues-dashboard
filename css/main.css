@@ -12,7 +12,6 @@ body {
     right: 0;
     margin-left: 300px;
     height: 75px;
-
 }
 
 #teamList {
@@ -21,7 +20,7 @@ body {
     border-radius: 43px;
     height: 32px;
     text-align: center;
-    padding-left: 2em;
+    padding-left: 1em;
     font-size: 12px;
     font-weight: 700;
 }
@@ -65,7 +64,6 @@ body {
 .main-heading {
     display: flex;
     padding-bottom: 10px;
-
 }
 
 .page-container {
@@ -89,7 +87,7 @@ body {
     position: relative;
     right: 0;
     min-width: 65px;
-    line-height: 43px;
+    line-height: 33px;
     border: 1px solid #e5e5e5;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -109,8 +107,6 @@ body {
     color: #c0392b;
 }
 
-
-
 .day {
     width: 100%;
     padding: 0 50px 10px 50px;
@@ -122,7 +118,14 @@ body {
     font-size: 12px;
 }
 
+.logo {
+    height: 75px;
+    border: 1px solid #ccc;
+}
+
+
 /*.................End Header CSS..............................*/
+
 
 .side-bar-menu {
     width: 300px;
@@ -134,14 +137,6 @@ body {
     overflow-y: auto;
     border-right: 1px solid #ccc;
     height: 94vh;
-
-
-}
-
-.logo {
-    height: 75px;
-
-    border: 1px solid #ccc;
 }
 
 .card-wrapper2 {
@@ -152,7 +147,46 @@ body {
     margin-left: -15px;
 }
 
-/*.....................................................*/
+.stats-cards-wrapper {
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+}
+
+.stats-cards {
+    height: 9.5em;
+
+}
+
+.stats-blocks {
+    width: 85%;
+    padding-top: 14px;
+    margin-left: 26px;
+}
+
+.statsHead {
+    font-size: 14px;
+    font-weight: 700;
+    color: #2980b9;
+}
+
+.cardText {
+    font-size: 3.5em;
+    text-align: center;
+    color: #c0392b;
+}
+
+.stats-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.badge-container {
+    width: 260px;
+    padding: 74% 20px 020px;
+}
+
+
+/*.........................End ASIDE CSS.......................*/
 
 .table {
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
@@ -165,38 +199,6 @@ body {
 
 .table>tbody>tr>td {
     font-size: 10px;
-}
-
-/*********************************************************/
-
-.dash-container {}
-
-.content-section {
-    position: relative;
-    margin: 0 auto;
-    z-index: 1;
-    padding: 0 30px;
-}
-
-.stats-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.col-md-12 {
-    flex: 0 0 100%;
-    max-width: 100%;
-}
-
-.tab-head {
-    text-transform: capitalize;
-    font-weight: 400;
-    font-size: 30px;
-}
-
-.container {
-    width: 1100px !important;
 }
 
 th {
@@ -218,7 +220,7 @@ th {
 }
 
 .table>tbody>tr>td {
-    padding: 8px;
+    padding: 10px;
     line-height: 1.00000;
     border-top: 1px solid #ddd;
 }
@@ -231,14 +233,6 @@ th {
 .table {
     background-color: #ccc !important;
 }
-
-/*................................................*/
-
-.cards-block {}
-
-.cards-wrapper {}
-
-.cards-bottom {}
 
 .tables-container {
     width: 100%;
@@ -256,21 +250,8 @@ th {
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
 }
 
-.stats-cards-wrapper {
-    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
-}
-
-.stats-cards {
-    height: 9.5em;
-
-}
-
-.last-rect-card {}
-
-.stats-blocks {
-    width: 85%;
-    padding-top: 14px;
-    margin-left: 26px;
+.glyphicon-flag {
+    padding-left: 5px;
 }
 
 .dash-headers {
@@ -281,40 +262,11 @@ th {
     padding-bottom: 13px;
 }
 
-.glyphicon-flag {
-    padding-left: 5px;
-}
-
-.statsHead {
-    font-size: 14px;
-    font-weight: 700;
-    color: #2980b9;
-}
-
-.cardText {
-    font-size: 3.5em;
-    text-align: center;
-    color: #c0392b;
-}
-
-
 .scores {
     vertical-align: middle !important;
     background-color: #c0392b !important;
     color: #fff !important;
     padding-left: 14px !important;
-
-}
-
-.gameDate {
-    background-color: #ccc !important;
-}
-
-.gameHome {
-    background-color: #f5f5f5 !important;
-    vertical-align: middle !important;
-    text-align: center;
-    color: #2c3e50;
 }
 
 .gameAway,
@@ -336,28 +288,44 @@ th {
     text-align: center;
 }
 
-.imageTeam {
-    width: 260px;
+.gameDate {
+    background-color: #ccc !important;
 }
 
-.team-badge>div {
-    display: none;
-
-}
-
-.team-badge:hover>div {
-    display: block;
-}
-
-.badge-container {
-    width: 260px;
-    padding: 74% 20px 020px;
+.gameHome {
+    background-color: #f5f5f5 !important;
+    vertical-align: middle !important;
+    text-align: center;
+    color: #2c3e50;
 }
 
 .info {
     font-size: 9px;
     color: #c0392b;
 }
+
+
+/*.....................End Table CSS..........................*/
+
+.content-section {
+    position: relative;
+    margin: 0 auto;
+    z-index: 1;
+    padding: 0 30px;
+}
+
+.tab-head {
+    text-transform: capitalize;
+    font-weight: 400;
+    font-size: 30px;
+}
+
+.container {
+    width: 1100px !important;
+}
+
+
+/*.....................End Main Content CSS...........................*/
 
 .footer {
     height: 75px;
@@ -367,3 +335,4 @@ th {
     text-align: right;
     padding: 10px 10px 0 0;
 }
+/*................END Footer CSS....................*/
