@@ -6,11 +6,11 @@ body {
 }
 
 .main-header {
+    padding-top: 20px;
     background-color: #f5f5f5;
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
-    position: fixed;
     right: 0;
-    left: 300px;
+    margin-left: 300px;
     height: 75px;
 
 }
@@ -41,12 +41,13 @@ body {
 .glyphicon {
     padding-top: 9px;
     padding-right: 7px;
+    color: #c0392b;
 }
 
 .nav-section {
     overflow: visible;
     position: absolute;
-    top: 17%;
+    top: 23%;
     display: flex
 }
 
@@ -55,14 +56,26 @@ body {
     font-weight: 700;
     padding-left: 10px;
     color: #c0392b;
+}
 
-
+.nav {
+    padding-left: 0 !important;
 }
 
 .main-heading {
     display: flex;
     padding-bottom: 10px;
 
+}
+
+.page-container {
+    height: 85vh;
+    margin-left: 300px;
+}
+
+.row {
+    margin-left: 0;
+    margin-right: 0 !important
 }
 
 .container-fluid {
@@ -88,10 +101,20 @@ body {
 #userInput {
     border-radius: 3px;
     text-align: center;
-    width: 118px;
+    width: 100px;
     font-weight: 700;
 }
 
+#inputText{
+    color: #c0392b;
+}
+
+
+
+.day {
+    width: 100%;
+    padding: 0 50px 10px 50px;
+}
 
 .main-heading {}
 
@@ -103,13 +126,15 @@ body {
 
 .side-bar-menu {
     width: 300px;
-    position: fixed;
+    position: absolute;
     left: 0;
     top: 0;
     bottom: 0;
     background-color: #fff;
     overflow-y: auto;
     border-right: 1px solid #ccc;
+    height: 94vh;
+
 
 }
 
@@ -144,11 +169,7 @@ body {
 
 /*********************************************************/
 
-.main-container {
-    padding-top: 100px;
-    min-height: 100vh;
-
-}
+.dash-container {}
 
 .content-section {
     position: relative;
@@ -213,35 +234,20 @@ th {
 
 /*................................................*/
 
-/*.................................................*/
+.cards-block {}
 
-.cards-block {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-top: 100px;
-    padding-left: 315px;
+.cards-wrapper {}
 
-}
-
-.cards-wrapper {
-    height: 100vh;
-}
-
-.cards-bottom {
-    height: 100vh;
-}
+.cards-bottom {}
 
 .tables-container {
-    height: 100vh;
-    width: 473px;
+    width: 100%;
 }
 
 .tables-wrapper {}
 
 .table-containers {
     display: flex;
-    align-items: center;
     justify-content: center;
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
 }
@@ -255,7 +261,7 @@ th {
 }
 
 .stats-cards {
-    height: 9.9em;
+    height: 9.5em;
 
 }
 
@@ -263,7 +269,7 @@ th {
 
 .stats-blocks {
     width: 85%;
-    padding-top: 13px;
+    padding-top: 14px;
     margin-left: 26px;
 }
 
@@ -272,7 +278,7 @@ th {
     font-weight: 700;
     text-align: center;
     border-bottom: 1px solid #333;
-    padding-bottom: 5px
+    padding-bottom: 13px;
 }
 
 .glyphicon-flag {
@@ -321,7 +327,8 @@ th {
     color: #2c3e50;
     vertical-align: middle !important;
 }
-.gameAway{
+
+.gameAway {
     background-color: #f5f5f5 !important;
 }
 
@@ -350,4 +357,13 @@ th {
 .info {
     font-size: 9px;
     color: #c0392b;
+}
+
+.footer {
+    height: 75px;
+    background-color: #34495e;
+    width: 100%;
+    color: #f5f5f5;
+    text-align: right;
+    padding: 10px 10px 0 0;
 }
