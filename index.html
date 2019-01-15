@@ -19,138 +19,140 @@
 </head>
 
 <body>
-    <header class="main-header mobile-header">
-        <div class="row ">
-            <div class="logo col-md-4 col-sm-6 col-xs-12">
-                <h1 class="main-header-text">PL Soccer Dashboard</h1>
-            </div>
-            <div class=" col-md-4 col-sm-6 col-xs-12">
-                <form class="header-form header-input" id="formSelect">
-                    <i class="glyphicon glyphicon-chevron-right"></i>
-                </form>
+    <div class="container-fluid main-container">
+        <header class="main-header">
+            <div class="row ">
+                <div class="logo col-md-4 col-sm-6 col-xs-12">
+                    <h1 class="main-header-text">PL Soccer Dashboard</h1>
+                </div>
+                <div class=" col-md-4 col-sm-6 col-xs-12">
+                    <form class="header-form header-input" id="formSelect">
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </form>
 
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <!---->
-                <div class="day">
-                    <div class=" input-group-append">
-                        <span id="inputText">Pick Match Day:</span> <input id="userInput" value="1" />
-                        <input onchange="getSelectedDay();" class="form-control" type="range" value="1" min="1" max="38" id="userData" oninput="userInput.value = userData.value" /><br>
-                    </div>
                 </div>
-            </div>
-        </div>
-    </header>
-
-    <aside class="side-bar-menu ">
-
-        <div class=" stats-blocks">
-            <h3 class="dash-headers">Team Stats</h3>
-            <div class="row stats-cards-wrapper">
-                <div class="col-md-6 stats-cards">
-                    <h3 class="statsHead">Wins</h3>
-                    <p class="cardText" id="wins"></p>
-                </div>
-                <div class="col-md-6 stats-cards">
-                    <h3 class="statsHead">Losses</h3>
-                    <p class="cardText" id="loss"></p>
-                </div>
-            </div>
-            <div class="row stats-cards-wrapper">
-                <div class="col-md-6 stats-cards">
-                    <h3 class="statsHead">Draws</h3>
-                    <p class="cardText" id="draw"></p>
-                </div>
-                <div class="col-md-6 stats-cards">
-                    <h3 class="statsHead">Clean Sheets</h3>
-                    <p class="cardText" id="cleanSheets"></p>
-                </div>
-            </div>
-            <div class="row stats-cards-wrapper">
-                <div class="col-md-6 stats-cards">
-                    <h3 class="statsHead">Goals Conceded</h3>
-                    <p class="cardText" id="goalsConc"></p>
-                </div>
-                <div class="col-md-6 stats-cards">
-                    <h3 class="statsHead">Matches Played</h3>
-                    <p class="cardText" id="played"></p>
-                </div>
-            </div>
-            <div class="row stats-cards-wrapper">
-                <div class="col-md-6 stats-cards">
-                    <h3 class="statsHead">Matches To Play</h3>
-                    <p class="cardText" id="toPlay"></p>
-                </div>
-                <div class="col-md-6 stats-cards">
-                    <h3 class="statsHead">Avg Goals Per Match</h3>
-                    <p class="cardText" id="goalPerMatch"></p>
-                </div>
-            </div>
-            <div class="row stats-cards-wrapper">
-                <div class="col-md-12 stats-cards last-rect-card">
-                    <h3 class="statsHead">Total Season Goals</h3>
-                    <p class="cardText" id="totalGoal"></p>
-                </div>
-            </div>
-        </div>
-    </aside>
-    <div class="page-container">
-
-        <div class="dash-container">
-            <div class="row table-containers">
-                <div class="tables-container col-md-6 col-sm-12 col-xs-12">
-                    <div class="table-report">
-                        <h3 class="dash-headers">Fixtures</h3>
-                        <div>
-                            <table class="table">
-                                <thead class=" thead-dark ">
-                                    <tr>
-                                        <th class="t-headers " scope="col">Home Team</th>
-                                        <th class="t-headers " scope="col">Score</th>
-                                        <th class="t-headers " scope="col">Away Team</th>
-                                        <th class="t-headers " scope="col">Status</th>
-                                        <th class="t-headers " scope="col">Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-hover table-striped" id='tableStriped'></tbody>
-                            </table>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <!---->
+                    <div class="day">
+                        <div class=" input-group-append">
+                            <span id="inputText">Pick Match Day:</span> <input id="userInput" value="1" />
+                            <input onchange="getSelectedDay();" class="form-control" type="range" value="1" min="1" max="38" id="userData" oninput="userInput.value = userData.value" /><br>
                         </div>
-                        <p class="info"> Click on team to view team past games***</p>
                     </div>
                 </div>
-                <div class="tables-container col-md-6 col-sm-12 col-xs-12">
-                    <div class="table-report">
-                        <h3 class="dash-headers">Past 10 Games</h3>
-                        <div class="table2">
-                            <div class="table">
+            </div>
+        </header>
+
+        <aside class="side-bar-menu ">
+
+            <div class=" stats-blocks">
+                <h3 class="dash-headers">Team Stats</h3>
+                <div class="row stats-cards-wrapper">
+                    <div class="col-md-6 stats-cards">
+                        <h3 class="statsHead">Wins</h3>
+                        <p class="cardText" id="wins"></p>
+                    </div>
+                    <div class="col-md-6 stats-cards">
+                        <h3 class="statsHead">Losses</h3>
+                        <p class="cardText" id="loss"></p>
+                    </div>
+                </div>
+                <div class="row stats-cards-wrapper">
+                    <div class="col-md-6 stats-cards">
+                        <h3 class="statsHead">Draws</h3>
+                        <p class="cardText" id="draw"></p>
+                    </div>
+                    <div class="col-md-6 stats-cards">
+                        <h3 class="statsHead">Clean Sheets</h3>
+                        <p class="cardText" id="cleanSheets"></p>
+                    </div>
+                </div>
+                <div class="row stats-cards-wrapper">
+                    <div class="col-md-6 stats-cards">
+                        <h3 class="statsHead">Goals Conceded</h3>
+                        <p class="cardText" id="goalsConc"></p>
+                    </div>
+                    <div class="col-md-6 stats-cards">
+                        <h3 class="statsHead">Matches Played</h3>
+                        <p class="cardText" id="played"></p>
+                    </div>
+                </div>
+                <div class="row stats-cards-wrapper">
+                    <div class="col-md-6 stats-cards">
+                        <h3 class="statsHead">Matches To Play</h3>
+                        <p class="cardText" id="toPlay"></p>
+                    </div>
+                    <div class="col-md-6 stats-cards">
+                        <h3 class="statsHead">Avg Goals Per Match</h3>
+                        <p class="cardText" id="goalPerMatch"></p>
+                    </div>
+                </div>
+                <div class="row stats-cards-wrapper">
+                    <div class="col-md-12 stats-cards last-rect-card">
+                        <h3 class="statsHead">Total Season Goals</h3>
+                        <p class="cardText" id="totalGoal"></p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <div class="page-container">
+
+            <div class="dash-container">
+                <div class="row table-containers">
+                    <div class="tables-container col-md-6 col-sm-12 col-xs-12">
+                        <div class="table-report">
+                            <h3 class="dash-headers">Fixtures</h3>
+                            <div>
                                 <table class="table">
                                     <thead class=" thead-dark ">
                                         <tr>
                                             <th class="t-headers " scope="col">Home Team</th>
                                             <th class="t-headers " scope="col">Score</th>
                                             <th class="t-headers " scope="col">Away Team</th>
+                                            <th class="t-headers " scope="col">Status</th>
                                             <th class="t-headers " scope="col">Date</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="table-hover table-striped" id='gameStriped'></tbody>
-                                </table </div>
+                                    <tbody class="table-hover table-striped" id='tableStriped'></tbody>
+                                </table>
+                            </div>
+                            <p class="info"> Click on team to view team past games***</p>
+                        </div>
+                    </div>
+                    <div class="tables-container col-md-6 col-sm-12 col-xs-12">
+                        <div class="table-report">
+                            <h3 class="dash-headers">Past 10 Games</h3>
+                            <div class="table2">
+                                <div class="table">
+                                    <table class="table">
+                                        <thead class=" thead-dark ">
+                                            <tr>
+                                                <th class="t-headers " scope="col">Home Team</th>
+                                                <th class="t-headers " scope="col">Score</th>
+                                                <th class="t-headers " scope="col">Away Team</th>
+                                                <th class="t-headers " scope="col">Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="table-hover table-striped" id='gameStriped'></tbody>
+                                    </table </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
 
-    </div>
+
+        <footer class="footer">
+            <p>Premiere League Soccer Dashboard</p>
+            <qoute>By Mduduzi Ndhlovu</quote>
+        </footer>
 
     </div>
-    <footer class="footer">
-        <p>Premiere League Soccer Dashboard</p>
-        <qoute>By Mduduzi Ndhlovu</quote>
-    </footer>
     <script src="https://code.jquery.com/jquery-3.3.1.js " integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin=" anonymous "></script>
     <script src="stats.js "></script>
-
 </body>
 
 </html>
