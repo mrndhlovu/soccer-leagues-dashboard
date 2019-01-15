@@ -60,6 +60,7 @@ body {
     color: #c0392b;
     text-transform: uppercase;
     text-align: center;
+    padding-top: 6px;
 
 }
 
@@ -137,7 +138,7 @@ body {
     background-color: #fff;
     overflow-y: auto;
     border-right: 1px solid #ccc;
-    height: 85vh;
+    height: 52vh;
 }
 
 .card-wrapper2 {
@@ -216,7 +217,7 @@ th {
 
 .table>thead>tr>th {
     border-bottom: 2px solid #777;
-    
+
 }
 
 .table>tbody>tr>td {
@@ -231,9 +232,7 @@ th {
     font-weight: 700;
 }
 
-.table {
-    
-}
+.table {}
 
 .tables-container {
     width: 100%;
@@ -284,11 +283,11 @@ th {
     background-color: #e8e8e8 !important;
 }
 
-.score{
+.score {
     background-color: #fff !important;
 }
 
-.matchState{
+.matchState {
     background-color: #eee !important;
 }
 
@@ -422,13 +421,13 @@ th {
 @media (max-width: 796px) {
 
     .side-bar-menu {
-        height: auto;
+        height: 73vh;
+        border: 1px solid #ccc;
     }
     .main-header-text {
         font-size: 1.5em;
         padding-top: 8px;
     }
-    .side-bar-menu {}
     .stats-cards {
         height: 3em;
     }
@@ -444,7 +443,7 @@ th {
         min-width: 0;
         font-size: 17px;
         color: #000;
-        padding: 0rem 0rem;
+        padding: 2rem 0rem;
     }
 }
 
@@ -458,7 +457,7 @@ th {
     }
     .table {
         margin-bottom: 0;
-        
+
     }
 
 }
