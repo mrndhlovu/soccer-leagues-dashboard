@@ -138,7 +138,7 @@ body {
     background-color: #fff;
     overflow-y: auto;
     border-right: 1px solid #ccc;
-    height: 52vh;
+    height: 100vh;
 }
 
 .card-wrapper2 {
@@ -192,6 +192,10 @@ body {
 
 .table {
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+}
+
+.form-control {
+    /*padding: 2rem 32rem;*/
 }
 
 .table-striped tbody tr {
@@ -378,7 +382,7 @@ th {
     }
     .stats-blocks {
         padding-top: 0px;
-        width: 95%;
+        width: 91%;
         margin-left: 17px;
     }
     .stats-cards-wrapper {
@@ -386,9 +390,7 @@ th {
         padding-right: 10px;
     }
     #teamList {
-        width: 100%;
         text-align: center;
-        padding-left: 6em;
         font-size: 0.7em;
         font-weight: 700;
 
@@ -448,9 +450,6 @@ th {
 }
 
 @media only screen and (max-width: 600px) {
-    body {
-        /*background-color: pink;*/
-    }
     .tables-container {
         padding-left: 0 !important;
         padding-right: 0;
@@ -460,4 +459,19 @@ th {
 
     }
 
+}
+
+@media only screen and (max-width: 768px) {
+    .side-bar-menu {
+        right: 1em;
+        border: 1px solid #ccc;
+        height: 86vh;
+        top: 6em;
+    }
+    .header-input {
+        padding: 0rem 4rem 1em;
+    }
+    .tables-container {
+       padding-top: 1.4em;
+    }
 }
