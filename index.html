@@ -21,13 +21,16 @@
 <body>
     <header class="main-header mobile-header">
         <div class="row ">
-            <div class=" col-md-6 ">
+            <div class="logo col-md-4 col-sm-6 col-xs-12">
+                <h1 class="main-header-text">PL Soccer Dashboard</h1>
+            </div>
+            <div class=" col-md-4 col-sm-6 col-xs-12">
                 <form class="header-form header-input" id="formSelect">
                     <i class="glyphicon glyphicon-chevron-right"></i>
                 </form>
 
             </div>
-            <div class="col-md-6 ">
+            <div class="col-md-4 col-sm-6 col-xs-12">
                 <!---->
                 <div class="day">
                     <div class=" input-group-append">
@@ -38,10 +41,9 @@
             </div>
         </div>
     </header>
+
     <aside class="side-bar-menu ">
-        <div class="logo">
-            <h1 class="main-header-text">PL Soccer Dashboard</h1>
-        </div>
+
         <div class=" stats-blocks">
             <h3 class="dash-headers">Team Stats</h3>
             <div class="row stats-cards-wrapper">
@@ -95,57 +97,51 @@
     <div class="page-container">
 
         <div class="dash-container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="tables-wrapper">
-                        <div class="row table-containers">
-                            <div class="tables-container col-md-6">
-                                <div class="table-report">
-                                    <h3 class="dash-headers">Fixtures</h3>
-                                    <div>
-                                        <table class="table">
-                                            <thead class=" thead-dark ">
-                                                <tr>
-                                                    <th class="t-headers " scope="col">Home Team</th>
-                                                    <th class="t-headers " scope="col">Score</th>
-                                                    <th class="t-headers " scope="col">Away Team</th>
-                                                    <th class="t-headers " scope="col">Status</th>
-                                                    <th class="t-headers " scope="col">Date</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="table-hover table-striped" id='tableStriped'></tbody>
-                                        </table>
-                                    </div>
-                                    <p class="info"> Click on team to view team past games***</p>
-                                </div>
-                            </div>
-                            <div class="tables-container col-md-6">
-                                <div class="table-report">
-                                    <h3 class="dash-headers">Past 10 Games</h3>
-                                    <div class="table2">
-                                        <div class="table">
-                                            <table class="table">
-                                                <thead class=" thead-dark ">
-                                                    <tr>
-                                                        <th class="t-headers " scope="col">Home Team</th>
-                                                        <th class="t-headers " scope="col">Score</th>
-                                                        <th class="t-headers " scope="col">Away Team</th>
-                                                        <th class="t-headers " scope="col">Date</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="table-hover table-striped" id='gameStriped'></tbody>
-                                            </table </div>
-                                        </div>
-                                    </div>
-                                </div>
+            <div class="row table-containers">
+                <div class="tables-container col-md-6 col-sm-12 col-xs-12">
+                    <div class="table-report">
+                        <h3 class="dash-headers">Fixtures</h3>
+                        <div>
+                            <table class="table">
+                                <thead class=" thead-dark ">
+                                    <tr>
+                                        <th class="t-headers " scope="col">Home Team</th>
+                                        <th class="t-headers " scope="col">Score</th>
+                                        <th class="t-headers " scope="col">Away Team</th>
+                                        <th class="t-headers " scope="col">Status</th>
+                                        <th class="t-headers " scope="col">Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-hover table-striped" id='tableStriped'></tbody>
+                            </table>
+                        </div>
+                        <p class="info"> Click on team to view team past games***</p>
+                    </div>
+                </div>
+                <div class="tables-container col-md-6 col-sm-12 col-xs-12">
+                    <div class="table-report">
+                        <h3 class="dash-headers">Past 10 Games</h3>
+                        <div class="table2">
+                            <div class="table">
+                                <table class="table">
+                                    <thead class=" thead-dark ">
+                                        <tr>
+                                            <th class="t-headers " scope="col">Home Team</th>
+                                            <th class="t-headers " scope="col">Score</th>
+                                            <th class="t-headers " scope="col">Away Team</th>
+                                            <th class="t-headers " scope="col">Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-hover table-striped" id='gameStriped'></tbody>
+                                </table </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
+
+    </div>
 
     </div>
     <footer class="footer">
