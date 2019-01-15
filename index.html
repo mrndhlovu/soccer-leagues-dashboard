@@ -31,15 +31,7 @@
                     </form>
 
                 </div>
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <!---->
-                    <div class="day">
-                        <div class=" input-group-append">
-                            <span id="inputText">Pick Match Day:</span> <input id="userInput" value="1" />
-                            <input onchange="getSelectedDay();" class="form-control" type="range" value="1" min="1" max="38" id="userData" oninput="userInput.value = userData.value" /><br>
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </header>
 
@@ -100,24 +92,29 @@
             <div class="dash-container">
                 <div class="row table-containers">
                     <div class="tables-container col-md-6 col-sm-12 col-xs-12">
-                        <div class="table-report">
-                            <h3 class="dash-headers">Fixtures</h3>
-                            <div>
-                                <table class="table">
-                                    <thead class=" thead-dark ">
-                                        <tr>
-                                            <th class="t-headers " scope="col">Home Team</th>
-                                            <th class="t-headers " scope="col">Score</th>
-                                            <th class="t-headers " scope="col">Away Team</th>
-                                            <th class="t-headers " scope="col">Status</th>
-                                            <th class="t-headers " scope="col">Date</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="table-hover table-striped" id='tableStriped'></tbody>
-                                </table>
+                        <h3 class="dash-headers">Fixtures</h3>
+                        <div class="day">
+                            <div class=" input-group-append">
+                                <span id="inputText">Pick Match Day:</span> <input id="userInput" value="1" />
+                                <input onchange="getSelectedDay();" class="form-control" type="range" value="1" min="1" max="38" id="userData" oninput="userInput.value = userData.value" /><br>
                             </div>
-                            <p class="info"> Click on team to view team past games***</p>
                         </div>
+                        <div>
+                            <table class="table">
+                                <thead class=" thead-dark ">
+                                    <tr>
+                                        <th class="t-headers " scope="col">Home Team</th>
+                                        <th class="t-headers " scope="col">Score</th>
+                                        <th class="t-headers " scope="col">Away Team</th>
+                                        <th class="t-headers " scope="col">State</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody class="table-hover table-striped" id='tableStriped'></tbody>
+                            </table>
+                        </div>
+                        <p class="info"> Click on team to view team past games***</p>
+
                     </div>
                     <div class="tables-container col-md-6 col-sm-12 col-xs-12">
                         <div class="table-report">

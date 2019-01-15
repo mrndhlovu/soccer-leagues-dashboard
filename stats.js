@@ -288,13 +288,13 @@ function buildTable(query) {
             tr.appendChild(score);
             tr.appendChild(aTeam);
             tr.appendChild(state);
-            tr.appendChild(date);
+            //tr.appendChild(date);
 
             // Use data to build table
             hTeam.innerHTML = homeTeam[d];
-            state.innerHTML = data[d].status;
+            state.innerHTML = data[d].status + "<br>" + gameDate.toDateString() ;
             aTeam.innerHTML = awayTeam[d];
-            date.innerHTML = gameDate.toDateString();
+            
 
             //show results
             if (homeScore[d] > awayScore[d]) {
