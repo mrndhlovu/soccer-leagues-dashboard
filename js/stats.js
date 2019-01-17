@@ -2,36 +2,31 @@
 function p(data) {
     console.log(data);
 }
-
+var standingsURL = 'https://api.football-data.org/v2/competitions/2021/standings';
+var scorersURL = 'https://api.football-data.org/v2/competitions/PL/scorers';
+var playersURL = 'https://api.football-data.org/v2/players/44';
 var season = 'https://api.football-data.org/v2/competitions/PL/matches';
 var key = { 'X-Auth-Token': '5d791d1818c3415d9b1a4b323c899bf4' };
 
-
-
-function start(season) {
-    $.extend({
-        getValues: function(url) {
-            var result = null;
-            $.ajax({
-                headers: key,
-                url: url,
-                type: 'get',
-                dataType: 'json',
-                async: false,
-                cache: false,
-                success: function(data) {
-                    result = data;
-                }
-            });
-            return result.matches;
-        }
-    });
-    var result = $.getValues(season);
-    return result;
+var ajaxGet = function(season) {
+   var data =  $.ajax({
+        headers: key,
+        url: season,
+        dataType: 'json',
+        type: 'GET',
+        async: false,
+        }).done(function(response) {
+       
+    }).responseJSON;
+        return data;
 }
 
-var data = start(season);
-
+var data  = ajaxGet(season).matches;
+var playerScorers = ajaxGet(scorersURL).scorers;
+var stand = ajaxGet(standingsURL).standings[0].table;
+var player = ajaxGet(playersURL);
+//p(data);
+p(stand);
 
 // empty stats arrays
 var awayScore = [],
@@ -292,9 +287,9 @@ function buildTable(query) {
 
             // Use data to build table
             hTeam.innerHTML = homeTeam[d];
-            state.innerHTML = data[d].status + "<br>" + gameDate.toDateString() ;
+            state.innerHTML = data[d].status + "<br>" + gameDate.toDateString();
             aTeam.innerHTML = awayTeam[d];
-            
+
 
             //show results
             if (homeScore[d] > awayScore[d]) {
@@ -434,3 +429,11 @@ function getTeamGames() {
 window.onload = function() {
     loadDefaultStats();
 }
+
+/*queue()
+    .defer(d3.json, data)
+    .await(makeGraph);
+
+function makeGraph(error, data) {
+
+}*/
