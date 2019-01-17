@@ -111,6 +111,7 @@ document.getElementById('userInput').addEventListener('change', getSelectedDay);
 function getSelectedTeam(choice) {
     var choice = document.getElementById('teamList').value;
     getStats(choice);
+    getTeamGames(choice);
 }
 
 
@@ -400,8 +401,11 @@ function showTeamGames(teamClick) {
 
 showTeamGames(teamClick);
 
-function loadDefaultStats() {;
-    getStats(teamClick);
+
+
+function loadDefaultStats() {
+    var statsDefault = teams[0];
+    getStats(statsDefault);
 }
 
 
@@ -410,7 +414,6 @@ document.getElementById('userInput').addEventListener('onclick', tableTeamOnClic
 
 function tableTeamOnClick(team) {
     getTeamGames();
-    getStats(teamClick);
     getStats(team)
     showTeamGames(team);
 
@@ -418,7 +421,7 @@ function tableTeamOnClick(team) {
 
 teamClick = tableTeamOnClick;
 
-function getTeamGames() {
+function getTeamGames(teamClick) {
     var oldData = document.getElementById('gameStriped');
     while (oldData.firstChild) {
         oldData.removeChild(oldData.firstChild);
