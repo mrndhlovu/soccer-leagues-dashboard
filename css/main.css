@@ -497,3 +497,25 @@ th {
     }
 
 }
+/*.....................Charts CSS.........................*/
+
+.dataBox{
+    height: 300px;
+    width: 100%;
+    border: 1px solid black;
+}
+
+.chartWrapper{
+   display: flex;
+}
+
+h3{
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+#compareTwoTeamsWrapper{
+    border: 1px solid black;
+    height:300px;
+}

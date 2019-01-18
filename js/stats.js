@@ -4,29 +4,27 @@ function p(data) {
 }
 var standingsURL = 'https://api.football-data.org/v2/competitions/2021/standings';
 var scorersURL = 'https://api.football-data.org/v2/competitions/PL/scorers';
-var playersURL = 'https://api.football-data.org/v2/players/44';
+
 var season = 'https://api.football-data.org/v2/competitions/PL/matches';
 var key = { 'X-Auth-Token': '5d791d1818c3415d9b1a4b323c899bf4' };
 
-var ajaxGet = function(season) {
-   var data =  $.ajax({
+function ajaxGet(queryURL) {
+    var data = $.ajax({
         headers: key,
-        url: season,
+        url: queryURL,
         dataType: 'json',
         type: 'GET',
         async: false,
-        }).done(function(response) {
-       
+    }).done(function(response) {
+
     }).responseJSON;
-        return data;
+    return data;
 }
 
-var data  = ajaxGet(season).matches;
+var data = ajaxGet(season).matches;
 var playerScorers = ajaxGet(scorersURL).scorers;
-var stand = ajaxGet(standingsURL).standings[0].table;
-var player = ajaxGet(playersURL);
-//p(data);
-p(stand);
+var currentTablestandings = ajaxGet(standingsURL).standings[0].table;
+
 
 // empty stats arrays
 var awayScore = [],
@@ -433,10 +431,32 @@ window.onload = function() {
     loadDefaultStats();
 }
 
-/*queue()
-    .defer(d3.json, data)
-    .await(makeGraph);
 
-function makeGraph(error, data) {
+p(currentTablestandings);
 
-}*/
+
+function graphWinAndloss() {
+    
+    for (var i = 0; i < teams.length; i++) {
+      
+        var ndx = crossfilter(currentTablestandings);
+        var gamesLost = ndx.dimension(dc.pluck('lost'));
+        var gameWon = gamesLost.group().reduceSum(dc.pluck('won'));
+        dc.barChart('#wonGamesChart')
+            .width(300)
+            .height(200)
+            .margins({ top: 10, right: 50, bottom: 30, left: 30 })
+            .dimension(gamesLost)
+            .group(gameWon)
+            .transitionDuration(500)
+            .x(d3.scale.ordinal())
+            .xUnits(dc.units.ordinal)
+            .xAxisLabel("Lost")
+            .yAxisLabel("Won")
+            .yAxis().ticks(4);
+
+    }
+
+    dc.renderAll();
+}
+graphWinAndloss();
