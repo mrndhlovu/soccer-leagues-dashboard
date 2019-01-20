@@ -691,7 +691,7 @@ function donutChart(stand) {
         })
         .attr("dy", "0.15em")
         .text(function(d) {
-            return d.data.team.name.substring(0, 3);
+            return d.data.team.name.substring(0, 5);
         })
         // Mouse over bar effect
         .on("mouseover", function(d) {

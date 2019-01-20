@@ -415,80 +415,7 @@ th {
     }
 }
 
-/*..........................End Mobile Media Query CSS.........................*/
 
-/*@media (max-width: 796px) {
-
-    .side-bar-menu {
-        height: 73vh;
-        border: 1px solid #ccc;
-    }
-    .main-header-text {
-        font-size: 1.5em;
-        padding-top: 8px;
-    }
-    .stats-cards {
-        height: 3em;
-    }
-    .cardText {
-        font-size: 1.5em;
-        text-align: right;
-
-    }
-    .stats-cards-wrapper {
-        padding-bottom: 22px;
-    }
-    .header-input {
-        min-width: 0;
-        font-size: 17px;
-        color: #000;
-        padding: 2rem 0rem;
-    }
-}
-
-@media only screen and (max-width: 600px) {
-    .tables-container {
-        padding-left: 0 !important;
-        padding-right: 0;
-    }
-    .table {
-        margin-bottom: 0;
-
-    }
-
-}*/
-
-/*
-@media only screen and (max-width: 768px) {
-    .side-bar-menu {
-        right: 1em;
-        border: 1px solid #ccc;
-        height: 86vh;
-        top: 6em;
-    }
-    .header-input {
-        padding: 0rem 4rem 1em;
-    }
-    .tables-container {
-        padding-top: 1.4em;
-    }
-}
-
-@media only screen and (max-width: 385px) {
-    .side-bar-menu {
-        right: 1em;
-        border: 1px solid #ccc;
-        height: 86vh;
-        top: 6em;
-    }
-    .header-input {
-        padding: 0rem 4rem 1em;
-    }
-    .tables-container {
-        padding-top: 1.4em;
-    }
-}
-*/
 
 @media (min-width: 768px) and (max-width: 1024px) {
     .header-input {
@@ -501,10 +428,10 @@ th {
 
 .dataBox {
     padding: 10px 0 10px 0;
-    border: 1px solid black;
     display: flex;
     justify-content: space-around;
-    height: 350px
+    height: 350px;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
 }
 
 .chartWrapper {}
