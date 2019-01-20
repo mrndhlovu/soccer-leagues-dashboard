@@ -442,37 +442,28 @@ p(stand[0]);
 
 /*......................D3 functions...........................*/
 
-
-function graphTeamWinsLosses() {
-
-    //Graph margin and scaling
-    var margin = { top: 20, right: 20, bottom: 100, left: 20 },
-        width = 350 - margin.left - margin.right,
-        height = 300 - margin.top - margin.bottom,
-        x = d3.scale.ordinal().rangeRoundBands([0, width], 0.1),
-        y = d3.scale.linear().range([height, 0]);
-
-    // Create  axis
-    var xAxis = d3.svg.axis()
-        .scale(x)
-        .orient("bottom")
+//Graph margin and scaling
+var margin = { top: 20, right: 20, bottom: 100, left: 20 },
+    width = 350 - margin.left - margin.right,
+    height = 300 - margin.top - margin.bottom,
+    x = d3.scale.ordinal().rangeRoundBands([0, width], 0.1),
+    y = d3.scale.linear().range([height, 0]);
 
 
-    var yAxis = d3.svg.axis()
-        .scale(y)
-        .orient("left")
-        .ticks(5)
-        .innerTickSize(-width)
-        .outerTickSize(0)
-        .tickPadding(10);
 
-    // Point where to draw graph
-    var svg = d3.select("#wonGamesChart")
-        .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+// Point where to draw graph
+var svg = d3.select("#wonGamesChart")
+    .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var barPoint = svg.append("g")
+    .attr("class", "chartPointTool1")
+    .style("display", "none");
+
+function graphTeamWins() {
 
     // X axis text strings
     x.domain(teams.map(function(d) {
@@ -483,7 +474,18 @@ function graphTeamWinsLosses() {
     y.domain([0, d3.max(stand, function(d) {
         return d.won;
     })]);
+    // Create  axis
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom")
 
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left")
+        .ticks(5)
+        .innerTickSize(-width)
+        .outerTickSize(0)
+        .tickPadding(10)
     // Group and append text strings
     svg.append("g")
         .attr("class", "x axis")
@@ -532,22 +534,21 @@ function graphTeamWinsLosses() {
             barPoint.style("display", "none");
         })
         .on("mousemove", function(d) {
-            var xPos = d3.mouse(this)[0] - 5;
-            var yPos = d3.mouse(this)[1] - 10;
+            var xPos = d3.mouse(this)[0] - 15;
+            var yPos = d3.mouse(this)[1] - 55;
             barPoint.attr("transform", "translate(" + xPos + "," + yPos + ")");
-            barPoint.select("text").text("Team: " + d.team.name.substring(0, 6) + " FC" + " : Game Won: " + d.won);
+            barPoint.select("text").text(d.team.name + ": Wins: " + d.won);
         });
+}
 
-    var barPoint = svg.append("g")
-        .attr("class", "tooltip")
-        .style("display", "none");
+function graphTeamLosses() {
 
     barPoint.append("text")
         .attr("x", 12)
         .attr("dy", "1.2em")
         .style("text-anchor", "middle")
         .attr("font-size", "1.5em")
-        .attr('color', 'red')
+        .attr('color', 'red');
 
     // Point where to draw graph
     var svg = d3.select("#lostGamesChart")
@@ -557,6 +558,18 @@ function graphTeamWinsLosses() {
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+    // Create  axis
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom")
+
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left")
+        .ticks(5)
+        .innerTickSize(-width)
+        .outerTickSize(0)
+        .tickPadding(10)
     // X axis text strings
     x.domain(teams.map(function(d) {
         return d.substring(0, 6) + " FC";
@@ -611,40 +624,105 @@ function graphTeamWinsLosses() {
         .on("mouseover", function(d) {
             barPoint.style("display", null);
         })
-        .on("mouseout", function() {
+        .on("mouseout", function(d) {
             barPoint.style("display", "none");
         })
         .on("mousemove", function(d) {
-            var xPos = d3.mouse(this)[0] - 5;
-            var yPos = d3.mouse(this)[1] - 10;
+            var xPos = d3.mouse(this)[0] - 15;
+            var yPos = d3.mouse(this)[1] - 55;
             barPoint.attr("transform", "translate(" + xPos + "," + yPos + ")");
-            barPoint.select("text").text("Team: " + d.team.name.substring(0, 6) + " FC" + " : Game Won: " + d.lost);
+            barPoint.select("text").text(d.team.name + " : Losses: " + d.lost);
         });
 
-    var barPoint = svg.append("g")
-        .attr("class", "tooltip")
+    barPoint = svg.append("g")
+        .attr("class", "chartPointTool2")
         .style("display", "none");
 
     barPoint.append("text")
         .attr("x", 12)
         .attr("dy", "1.2em")
-        .style("text-anchor", "middle")
-        .attr("font-size", "1.5em")
-        .attr('color', 'red')
+        .style("text-anchor", "middle");
+}
+
+graphTeamWins();
+graphTeamLosses();
+
+
+var radius = 155;
+var color = d3.scale.ordinal()
+    .range(["#1abc9c", "#2ecc71", "#3ae374", "#3498db", "#9b59b6", "#f19066", "#18dcff", "#27ae60", "#2980b9", "#8e44ad",
+        "#f1c40f", "#e67e22", " #e74c3c", " #ecf0f1", "#95a5a6 ", "#7f8c8d ", "#bdc3c7 ", "#c0392b ", "#d35400", '#f39c12'
+    ]);
+
+function donutChart(stand) {
+
+    var canvas = d3.select("#goalsScoredDonut")
+        .append("svg")
+        .attr("width", 400)
+        .attr("height", 400);
+
+    var group = canvas.append("g")
+        .attr("transform", "translate(200,160)");
+
+    var arc = d3.svg.arc()
+        .innerRadius(100)
+        .outerRadius(radius);
+
+    var pie = d3.layout.pie()
+        .value(function(d) {
+            return d.goalsFor;
+        });
+
+    var chartArc = group.selectAll(".arc")
+        .data(pie(stand))
+        .enter()
+        .append("g")
+        .attr("class", "arc");
+
+    chartArc.append("path")
+        .attr("d", arc)
+        .attr("fill", function(d) {
+            return color(d.data.goalsFor);
+        });
+
+    chartArc.append("text")
+        .attr("transform", function(d) {
+            return "translate(" + arc.centroid(d) + ")";
+        })
+        .attr("dy", "0.15em")
+        .text(function(d) {
+            return d.data.team.name.substring(0, 3);
+        })
+        // Mouse over bar effect
+        .on("mouseover", function(d) {
+            barPoint.style("display", null);
+
+            p(d.data.team.name);
+        })
+        .on("mouseout", function(d) {
+            barPoint.style("display", "none");
+        })
+        .on("mousemove", function(d) {
+            var xPos = d3.mouse(this)[0] + 1;
+            var yPos = d3.mouse(this)[1] + 5;
+            barPoint.attr("transform", "translate(" + xPos + "," + yPos + ")");
+            barPoint.select("text").text("Points: " + d.data.points + " :  Position: " + d.data.position);
+        });
+
+    var barPoint = chartArc.append("g")
+        .attr("class", "donutTool1")
+        .style("display", "none");
+
+    barPoint.append("text")
+        .attr("x", 2)
+        .attr("dy", "1.2em")
+        .style("text-anchor", "middle");
 
 }
 
-graphTeamWinsLosses();
+function pieChart(stand) {
 
-function teamDonutChart(stand) {
-
-    var radius = 150;
-    var color = d3.scale.ordinal()
-        .range(["#1abc9c", "#2ecc71", "#27ae60", "#3498db", "#9b59b6", "#34495e", "#16a085", "#27ae60", "#2980b9", "#8e44ad",
-            "#f1c40f", "#e67e22", " #e74c3c", " #ecf0f1", "#95a5a6 ", "#7f8c8d ", "#bdc3c7 ", "#c0392b ", "#d35400", '#f39c12'
-        ]);
-
-    var canvas = d3.select("#goalsScoredDonut")
+    var canvas = d3.select("#goalsConcededDonut")
         .append("svg")
         .attr("width", 400)
         .attr("height", 400);
@@ -658,68 +736,59 @@ function teamDonutChart(stand) {
 
     var pie = d3.layout.pie()
         .value(function(d) {
-            return d.goalsFor;
-        });
-
-    var theArc = group.selectAll(".arc")
-        .data(pie(stand))
-        .enter()
-        .append("g")
-        .attr("class", "arc");
-
-    theArc.append("path")
-        .attr("d", arc)
-        .attr("fill", function(d) {
-            return color(d.data.goalsFor);
-        });
-
-    theArc.append("text")
-        .attr("transform", function(d) {
-            return "translate(" + arc.centroid(d) + ")";
-        })
-        .attr("dy", "0.15em")
-        .text(function(d) {
-            return d.data.team.name.substring(0, 3) + " " + d.data.goalsFor;
-        });
-        
-
-        
-        var canvas = d3.select("#goalsConcededDonut")
-        .append("svg")
-        .attr("width", 400)
-        .attr("height", 400);
-
-    var group = canvas.append("g")
-        .attr("transform", "translate(200,160)");
-
-    var arc = d3.svg.arc()
-        .innerRadius(0)
-        .outerRadius(radius);
-
-    var pie = d3.layout.pie()
-        .value(function(d) {
             return d.goalsAgainst;
         });
 
-    var theArc = group.selectAll(".arc")
+    var chartArc = group.selectAll(".arc")
         .data(pie(stand))
         .enter()
         .append("g")
         .attr("class", "arc");
 
-    theArc.append("path")
+    chartArc.append("path")
         .attr("d", arc)
         .attr("fill", function(d) {
-            return color(d.data.goalsAgainst);
+            return color(d.data.points);
         });
 
-    theArc.append("text")
+    chartArc.append("text")
         .attr("transform", function(d) {
-            return "translate(" + arc.centroid(d) + ")";
+            var _d = arc.centroid(d);
+            _d[0] *= 1.3; //multiply by a constant factor
+            _d[1] *= 1.3; //multiply by a constant factor
+            return "translate(" + _d + ")";
         })
-        .attr("dy", "0.15em")
+        .attr("dy", "0.011em")
+
         .text(function(d) {
-            return d.data.team.name.substring(0, 3) + " " + d.data.goalsAgainst;
+            return d.data.points;
+        })
+
+        // Mouse over bar effect
+        .on("mouseover", function(d) {
+            barPoint.style("display", null);
+        })
+        .on("mouseout", function(d) {
+            barPoint.style("display", "none");
+        })
+        .on("mousemove", function(d) {
+            var xPos = d3.mouse(this)[0] + 1;
+            var yPos = d3.mouse(this)[1] + 5;
+            barPoint.attr("transform", "translate(" + xPos + "," + yPos + ")");
+            barPoint.select("text").text(d.data.team.name + "  Wins: " + d.data.position);
         });
+
+    var barPoint = chartArc.append("g")
+        .attr("class", "donutTool2")
+        .style("display", "none");
+
+    barPoint.append("text")
+        .attr("x", 2)
+        .attr("dy", "1.2em")
+        .style("text-anchor", "middle")
+        .attr('color', '#16a085');
+
 }
-teamDonutChart(stand);
+donutChart(stand);
+
+pieChart(stand);

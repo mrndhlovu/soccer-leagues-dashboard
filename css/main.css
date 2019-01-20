@@ -548,7 +548,10 @@ text {
    text-anchor: middle;
 }
 
-.arc path{
-    stroke: #ccc;
-    
+.donutTool1, 
+.donutTool2, 
+.chartPointTool1, 
+.chartPointTool2 {
+    color: #16a085;
+    font-size: 1rem;
 }
