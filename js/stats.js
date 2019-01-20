@@ -45,7 +45,7 @@ function filter() {
         homeTeam.push(data[key].homeTeam.name);
         teams.push(data[key].homeTeam.name);
         awayTeam.push(data[key].awayTeam.name);
-        teams.push(data[key].awayTeam.name);
+        teams.push(data[key].homeTeam.name);
 
         //Populate home and away score arrays
         if (data[key].state !== 'SCHEDULED') {
@@ -65,6 +65,8 @@ function filter() {
 filter();
 
 // Filter teams array and remove dublicates
+var teamAbbrev = [];
+
 function removeDudataicates(teams) {
     var uniqueTeams = [];
     for (let i = 0; i < teams.length; i++) {
@@ -111,6 +113,7 @@ function getSelectedTeam(choice) {
     getStats(choice);
     getTeamGames(choice);
 }
+
 
 
 function getStats(getSelectedTeam) {
@@ -209,6 +212,7 @@ function getStats(getSelectedTeam) {
             toPlayAway++;
         }
     }
+
     //Find average goals per game;
     avg = totalGoals / (homeGames + awayGames);
 
@@ -222,6 +226,7 @@ function getStats(getSelectedTeam) {
     document.getElementById('goalPerMatch').innerHTML = avg.toFixed(0);
     document.getElementById('cleanSheets').innerHTML = cleanSheets;
     document.getElementById('goalsConc').innerHTML = goalsConceded;
+
 }
 
 var query = document.getElementById('userInput').value;
@@ -431,7 +436,7 @@ window.onload = function() {
     loadDefaultStats();
 }
 
-p(stand);
+p(stand[0]);
 
 var w = 500;
 var h = 200;
@@ -444,207 +449,114 @@ for (var i = 0; i < stand.length; i++) {
 
 }
 
-function graphTeamsPosVsLoss() {
-    var ndx = crossfilter(stand);
-    var name_dim = ndx.dimension(dc.pluck('position'));
-    var total_spend_per_team = name_dim.group().reduceSum(dc.pluck('lost'));
-    dc.barChart('#lostGamesChart')
-        .width(350)
-        .height(250)
-        .margins({ top: 10, right: 50, bottom: 30, left: 50 })
-        .dimension(name_dim)
-        .group(total_spend_per_team)
-        .transitionDuration(500)
-        .x(d3.scale.ordinal())
-        .xUnits(dc.units.ordinal)
-        .xAxisLabel("Position")
-        .yAxisLabel("Games Lost")
-        .yAxis().ticks(10);
+function graphTeam() {
 
-    dc.renderAll();
-}
+    //variables
+    var margin = { top: 20, right: 20, bottom: 100, left: 60 },
+        width = 400 - margin.left - margin.right,
+        height = 300 - margin.top - margin.bottom,
+        x = d3.scale.ordinal().rangeRoundBands([0, width], 0.5),
+        y = d3.scale.linear().range([height, 0]);
 
-graphTeamsPosVsLoss();
 
-function graphTeamWin() {
-    var ndx = crossfilter(stand);
-    var position_dim = ndx.dimension(dc.pluck('position'));
-    var loss_per_team = position_dim.group().reduceSum(dc.pluck('won'));
-    dc.barChart('#wonGamesChart')
-        .width(350)
-        .height(250)
-        .margins({ top: 10, right: 50, bottom: 30, left: 50 })
-        .dimension(position_dim)
-        .group(loss_per_team)
-        .transitionDuration(500)
-        .x(d3.scale.ordinal())
-        .xUnits(dc.units.ordinal)
-        .xAxisLabel("Position")
-        .yAxisLabel("Games Won")
-        .yAxis().ticks(10);
 
-    dc.renderAll();
-}
-graphTeamWin() ;
-
-function graphGoalsScored() {
-    var ndx = crossfilter(stand);
-    var position_dim = ndx.dimension(dc.pluck('position'));
-    var loss_per_team = position_dim.group().reduceSum(dc.pluck('goalsFor'));
-    dc.barChart('#goalsScoredPie')
-        .width(350)
-        .height(250)
-        .margins({ top: 10, right: 50, bottom: 30, left: 50 })
-        .dimension(position_dim)
-        .group(loss_per_team)
-        .transitionDuration(500)
-        .x(d3.scale.ordinal())
-        .xUnits(dc.units.ordinal)
-        .xAxisLabel("Position")
-        .yAxisLabel("Games Won")
-        .yAxis().ticks(10);
-
-    dc.renderAll();
-}
-graphGoalsScored() ;
-
-function graphGoalsConced() {
-    var ndx = crossfilter(stand);
-    var position_dim = ndx.dimension(dc.pluck('position'));
-    var loss_per_team = position_dim.group().reduceSum(dc.pluck('goalsAgainst'));
-    dc.barChart('#goalsConcededPie')
-        .width(350)
-        .height(250)
-        .margins({ top: 10, right: 50, bottom: 30, left: 50 })
-        .dimension(position_dim)
-        .group(loss_per_team)
-        .transitionDuration(500)
-        .x(d3.scale.ordinal())
-        .xUnits(dc.units.ordinal)
-        .xAxisLabel("Position")
-        .yAxisLabel("Games Won")
-        .yAxis().ticks(10);
-
-    dc.renderAll();
-}
-graphGoalsConced() ;
-
-/*......................make pie charts...........................................*/
-// margin
-var margin = {top: 20, right: 20, bottom: 20, left: 20},
-    width = 500 - margin.right - margin.left,
-    height = 500 - margin.top - margin.bottom,
-    radius = width/2;
-
-// color range
-var color = d3.scaleOrdinal()
-    .range(["#BBDEFB", "#90CAF9", "#64B5F6", "#42A5F5", "#2196F3", "#1E88E5", "#1976D2"]);
-
-// pie chart arc. Need to create arcs before generating pie
-var arc = d3.arc()
-    .outerRadius(radius - 10)
-    .innerRadius(0);
-
-// donut chart arc
-var arc2 = d3.arc()
-    .outerRadius(radius - 10)
-    .innerRadius(radius - 70);
-
-// arc for the labels position
-var labelArc = d3.arc()
-    .outerRadius(radius - 40)
-    .innerRadius(radius - 40);
-
-// generate pie chart and donut chart
-var pie = d3.pie()
-    .sort(null)
-    .value(function(d) { return d.count; });
-
-// define the svg for pie chart
-var svg = d3.select("#goalsConcededPie").append("svg")
-    .attr("width", width)
-    .attr("height", height)
-  .append("g")
-    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-// define the svg donut chart
-var svg2 = d3.select("goalsConcededPie").append("svg")
-    .attr("width", width)
-    .attr("height", height)
-  .append("g")
-    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-// import data 
-d3.csv("data.csv", function(error, data) {
-  if (error) throw error;
-    
-    // parse data
-    data.forEach(function(d) {
-        d.count = +d.count;
-        d.fruit = d.fruit;
-    })
-
-  // "g element is a container used to group other SVG elements"
-  var g = svg.selectAll(".arc")
-      .data(pie(data))
-    .enter().append("g")
-      .attr("class", "arc");
-
-  // append path 
-  g.append("path")
-      .attr("d", arc)
-      .style("fill", function(d) { return color(d.data.fruit); })
-    // transition 
-    .transition()
-      .ease(d3.easeLinear)
-      .duration(2000)
-      .attrTween("d", tweenPie);
+    // Create  axis
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom")
         
-  // append text
-  g.append("text")
-    .transition()
-      .ease(d3.easeLinear)
-      .duration(2000)
-    .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
-      .attr("dy", ".35em")
-      .text(function(d) { return d.data.fruit; });
-    
 
-    // "g element is a container used to group other SVG elements"
-  var g2 = svg2.selectAll(".arc2")
-      .data(pie(data))
-    .enter().append("g")
-      .attr("class", "arc2");
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left")
+        .ticks(5)
+        .innerTickSize(-width)
+        .outerTickSize(0)
+        .tickPadding(10);
 
-   // append path 
-  g2.append("path")
-      .attr("d", arc2)
-      .style("fill", function(d) { return color(d.data.fruit); })
-    .transition()
-      .ease(d3.easeLinear)
-      .duration(2000)
-      .attrTween("d", tweenDonut);
+    // Point where to draw graph
+    var svg = d3.select("#wonGamesChart")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    // X axis text strings
+    x.domain(teams.map(function(d) {
+        return d.substring(0, 6) + " FC";
+    }));
+
+    // Y axis value 
+    y.domain([0, d3.max(stand, function(d) {
+        return d.won;
+    })]);
+
+    // Group and append text strings
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0, " + height + ")")
+        .call(xAxis)
+        .selectAll("text")
+        .style("text-anchor", "end")
+        .attr("dx", "-0.5em")
+        .attr("dy", "-2em")
+        .attr("y", 30)
+        .attr("transform", "rotate(-90)");
+
+    // Group and append graph heading values
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+        .append("text")
+        .attr("x", 100)
+        .attr('y', 1)
+        .attr("text-anchor", "end")
+        .attr('class', 'graphHeading')
+        .text("Team Wins");
+
+
+    // Give bar values
+    svg.selectAll("bar")
+        .data(stand)
+        .enter()
+        .append("rect")
+        .style("fill", "#af4032")
+        .attr("x", function(d) {
+            return x(d.team.name.substring(0, 6) + " FC");
+        })
+        .attr("width", x.rangeBand())
+        .attr("y", function(d) {
+            return y(d.won);
+        })
+        .attr("height", function(d) {
+            return height - y(d.won);
+        }) 
+        // Mouse over bar effect
+        .on("mouseover", function(d) {
+            barPoint.style("display", null);
+        })
+        .on("mouseout", function() {
+            barPoint.style("display", "none");
+        })
+        .on("mousemove", function(d) {
+            var xPos = d3.mouse(this)[0] - 5;
+            var yPos = d3.mouse(this)[1] - 10;
+            barPoint.attr("transform", "translate(" + xPos + "," + yPos + ")");
+            barPoint.select("text").text("Team: " + d.team.name.substring(0, 6) + " FC" + " : Game Won: " + d.won);
+        });
+
+    var barPoint = svg.append("g")
+        .attr("class", "tooltip")
+        .style("display", "none");
+
+    barPoint.append("text")
+        .attr("x", 12)
+        .attr("dy", "1.2em")
+        .style("text-anchor", "middle")
+        .attr("font-size", "1.5em")
+        .attr('color', 'red')
         
-   // append text
-  g2.append("text")
-    .transition()
-      .ease(d3.easeLinear)
-      .duration(2000)
-    .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
-      .attr("dy", ".35em")
-      .text(function(d) { return d.data.fruit; });
-    
-});
-
-// Helper function for animation of pie chart and donut chart
-function tweenPie(b) {
-  b.innerRadius = 0;
-  var i = d3.interpolate({startAngle: 0, endAngle: 0}, b);
-  return function(t) { return arc(i(t)); };
 }
 
-function tweenDonut(b) {
-  b.innerRadius = 0;
-  var i = d3.interpolate({startAngle: 0, endAngle: 0}, b);
-  return function(t) { return arc2(i(t)); };
-}
+graphTeam();

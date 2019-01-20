@@ -519,3 +519,24 @@ h3{
     border: 1px solid black;
     height:300px;
 }
+
+.graphHeading{
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 1em;
+   
+}
+
+
+.axis path, axis line {
+    fill: none;
+    stroke: #ccc;
+    shape-rendering: crispEdges;
+    
+}
+
+text{
+    font-weight: 400;
+    font-size: 1em;
+}
