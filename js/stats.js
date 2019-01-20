@@ -532,7 +532,7 @@ function graphTeamWins() {
             var xPos = d3.mouse(this)[0] - 15;
             var yPos = d3.mouse(this)[1] - 55;
             barPoint.attr("transform", "translate(" + xPos + "," + yPos + ")");
-            barPoint.select("text").text(d.team.name + '\n'+ ": Wins: " + d.won);
+            barPoint.select("text").text(d.team.name + '\n' + ": Wins: " + d.won);
         })
     var barPoint = svg.append("g")
         .attr("class", "chartPointTool1")
@@ -627,13 +627,13 @@ function graphTeamLosses() {
             var xPos = d3.mouse(this)[0] - 15;
             var yPos = d3.mouse(this)[1] - 55;
             barPoint.attr("transform", "translate(" + xPos + "," + yPos + ")");
-            barPoint.select("text").text(d.team.name + '\n'+ " : Losses: " + d.lost);
+            barPoint.select("text").text(d.team.name + '\n' + " : Losses: " + d.lost);
         });
 
     var barPoint = svg.append("g")
         .attr("class", "chartPointTool2")
         .style("display", "none");
-        
+
     barPoint.append("text")
         .attr("x", 12)
         .attr("dy", "1.2em")
@@ -641,7 +641,7 @@ function graphTeamLosses() {
         .attr("font-size", "1.5em")
         .attr('color', 'red');
 
-   
+
 }
 
 graphTeamWins();
@@ -706,7 +706,7 @@ function donutChart(stand) {
             var xPos = d3.mouse(this)[0] + 1;
             var yPos = d3.mouse(this)[1] + 5;
             barPoint.attr("transform", "translate(" + xPos + "," + yPos + ")");
-            barPoint.select("text").text("Points: " + d.data.points + '\n'+ " :  Position: " + d.data.position);
+            barPoint.select("text").text("Points: " + d.data.points + '\n' + " :  Goals: " + d.data.goalsFor);
         });
 
     var barPoint = chartArc.append("g")
@@ -717,6 +717,15 @@ function donutChart(stand) {
         .attr("x", 2)
         .attr("dy", "1.2em")
         .style("text-anchor", "middle");
+
+    chartArc.append("g")
+        .attr("class", "y axis")
+        .append("text")
+        .attr("x", 2)
+        .attr('y', 1)
+        .attr("text-anchor", "end")
+        .attr('class', 'graphHeading')
+        .text("Goals Scored");
 
 }
 
@@ -731,7 +740,7 @@ function pieChart(stand) {
         .attr("transform", "translate(200,160)");
 
     var arc = d3.svg.arc()
-        .innerRadius(50)
+        .innerRadius(100)
         .outerRadius(radius);
 
     var pie = d3.layout.pie()
@@ -754,8 +763,8 @@ function pieChart(stand) {
     chartArc.append("text")
         .attr("transform", function(d) {
             var _d = arc.centroid(d);
-            _d[0] *= 1.3; //multiply by a constant factor
-            _d[1] *= 1.3; //multiply by a constant factor
+            _d[0] *= 1.05; 
+            _d[1] *= 1.05; 
             return "translate(" + _d + ")";
         })
         .attr("dy", "0.011em")
@@ -775,7 +784,7 @@ function pieChart(stand) {
             var xPos = d3.mouse(this)[0] + 1;
             var yPos = d3.mouse(this)[1] + 5;
             barPoint.attr("transform", "translate(" + xPos + "," + yPos + ")");
-            barPoint.select("text").text(d.data.team.name + '\n'+ "  Wins: " + d.data.position);
+            barPoint.select("text").text(d.data.team.name + '\n' + "  Wins: " + d.data.position);
         });
 
     var barPoint = chartArc.append("g")
@@ -787,6 +796,14 @@ function pieChart(stand) {
         .attr("dy", "1.2em")
         .style("text-anchor", "middle")
         .attr('color', '#16a085');
+    chartArc.append("g")
+        .attr("class", "y axis")
+        .append("text")
+        .attr("x", 2)
+        .attr('y', 1)
+        .attr("text-anchor", "end")
+        .attr('class', 'graphHeading')
+        .text("Goals Concerded");
 
 }
 donutChart(stand);
