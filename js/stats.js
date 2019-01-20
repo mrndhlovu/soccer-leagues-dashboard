@@ -438,31 +438,25 @@ window.onload = function() {
 
 p(stand[0]);
 
-var w = 500;
-var h = 200;
-var mydata = [];
-for (var i = 0; i < stand.length; i++) {
 
-    //Create SVG element
 
-    mydata.push(stand[i].points);
+/*......................D3 functions...........................*/
 
-}
 
-function graphTeamWins() {
-    
+function graphTeamWinsLosses() {
+
     //Graph margin and scaling
     var margin = { top: 20, right: 20, bottom: 100, left: 20 },
         width = 350 - margin.left - margin.right,
         height = 300 - margin.top - margin.bottom,
-        x = d3.scale.ordinal().rangeRoundBands([0, width], 0.5),
+        x = d3.scale.ordinal().rangeRoundBands([0, width], 0.1),
         y = d3.scale.linear().range([height, 0]);
 
     // Create  axis
     var xAxis = d3.svg.axis()
         .scale(x)
         .orient("bottom")
-        
+
 
     var yAxis = d3.svg.axis()
         .scale(y)
@@ -529,7 +523,7 @@ function graphTeamWins() {
         })
         .attr("height", function(d) {
             return height - y(d.won);
-        }) 
+        })
         // Mouse over bar effect
         .on("mouseover", function(d) {
             barPoint.style("display", null);
@@ -554,33 +548,6 @@ function graphTeamWins() {
         .style("text-anchor", "middle")
         .attr("font-size", "1.5em")
         .attr('color', 'red')
-        
-}
-
-graphTeamWins();
-
-function graphTeamLosses() {
-    
-    //Graph margin and scaling
-    var margin = { top: 20, right: 20, bottom: 100, left: 20 },
-        width = 350 - margin.left - margin.right,
-        height = 300 - margin.top - margin.bottom,
-        x = d3.scale.ordinal().rangeRoundBands([0, width], 0.5),
-        y = d3.scale.linear().range([height, 0]);
-
-    // Create  axis
-    var xAxis = d3.svg.axis()
-        .scale(x)
-        .orient("bottom")
-        
-
-    var yAxis = d3.svg.axis()
-        .scale(y)
-        .orient("left")
-        .ticks(5)
-        .innerTickSize(-width)
-        .outerTickSize(0)
-        .tickPadding(10);
 
     // Point where to draw graph
     var svg = d3.select("#lostGamesChart")
@@ -639,7 +606,7 @@ function graphTeamLosses() {
         })
         .attr("height", function(d) {
             return height - y(d.lost);
-        }) 
+        })
         // Mouse over bar effect
         .on("mouseover", function(d) {
             barPoint.style("display", null);
@@ -664,6 +631,95 @@ function graphTeamLosses() {
         .style("text-anchor", "middle")
         .attr("font-size", "1.5em")
         .attr('color', 'red')
-        
+
 }
-graphTeamLosses();
+
+graphTeamWinsLosses();
+
+function teamDonutChart(stand) {
+
+    var radius = 150;
+    var color = d3.scale.ordinal()
+        .range(["#1abc9c", "#2ecc71", "#27ae60", "#3498db", "#9b59b6", "#34495e", "#16a085", "#27ae60", "#2980b9", "#8e44ad",
+            "#f1c40f", "#e67e22", " #e74c3c", " #ecf0f1", "#95a5a6 ", "#7f8c8d ", "#bdc3c7 ", "#c0392b ", "#d35400", '#f39c12'
+        ]);
+
+    var canvas = d3.select("#goalsScoredDonut")
+        .append("svg")
+        .attr("width", 400)
+        .attr("height", 400);
+
+    var group = canvas.append("g")
+        .attr("transform", "translate(200,160)");
+
+    var arc = d3.svg.arc()
+        .innerRadius(50)
+        .outerRadius(radius);
+
+    var pie = d3.layout.pie()
+        .value(function(d) {
+            return d.goalsFor;
+        });
+
+    var theArc = group.selectAll(".arc")
+        .data(pie(stand))
+        .enter()
+        .append("g")
+        .attr("class", "arc");
+
+    theArc.append("path")
+        .attr("d", arc)
+        .attr("fill", function(d) {
+            return color(d.data.goalsFor);
+        });
+
+    theArc.append("text")
+        .attr("transform", function(d) {
+            return "translate(" + arc.centroid(d) + ")";
+        })
+        .attr("dy", "0.15em")
+        .text(function(d) {
+            return d.data.team.name.substring(0, 3) + " " + d.data.goalsFor;
+        });
+        
+
+        
+        var canvas = d3.select("#goalsConcededDonut")
+        .append("svg")
+        .attr("width", 400)
+        .attr("height", 400);
+
+    var group = canvas.append("g")
+        .attr("transform", "translate(200,160)");
+
+    var arc = d3.svg.arc()
+        .innerRadius(0)
+        .outerRadius(radius);
+
+    var pie = d3.layout.pie()
+        .value(function(d) {
+            return d.goalsAgainst;
+        });
+
+    var theArc = group.selectAll(".arc")
+        .data(pie(stand))
+        .enter()
+        .append("g")
+        .attr("class", "arc");
+
+    theArc.append("path")
+        .attr("d", arc)
+        .attr("fill", function(d) {
+            return color(d.data.goalsAgainst);
+        });
+
+    theArc.append("text")
+        .attr("transform", function(d) {
+            return "translate(" + arc.centroid(d) + ")";
+        })
+        .attr("dy", "0.15em")
+        .text(function(d) {
+            return d.data.team.name.substring(0, 3) + " " + d.data.goalsAgainst;
+        });
+}
+teamDonutChart(stand);
