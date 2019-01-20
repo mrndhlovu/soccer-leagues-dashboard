@@ -452,7 +452,7 @@ for (var i = 0; i < stand.length; i++) {
 function graphTeamWins() {
     
     //Graph margin and scaling
-    var margin = { top: 20, right: 20, bottom: 100, left: 60 },
+    var margin = { top: 20, right: 20, bottom: 100, left: 20 },
         width = 350 - margin.left - margin.right,
         height = 300 - margin.top - margin.bottom,
         x = d3.scale.ordinal().rangeRoundBands([0, width], 0.5),
@@ -562,7 +562,7 @@ graphTeamWins();
 function graphTeamLosses() {
     
     //Graph margin and scaling
-    var margin = { top: 20, right: 20, bottom: 100, left: 60 },
+    var margin = { top: 20, right: 20, bottom: 100, left: 20 },
         width = 350 - margin.left - margin.right,
         height = 300 - margin.top - margin.bottom,
         x = d3.scale.ordinal().rangeRoundBands([0, width], 0.5),

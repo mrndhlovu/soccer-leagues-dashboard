@@ -497,46 +497,47 @@ th {
     }
 
 }
+
 /*.....................Charts CSS.........................*/
 
-.dataBox{
+.dataBox {
     height: 300px;
-    width: 100%;
     border: 1px solid black;
+    display: flex;
+    justify-content: space-around;
 }
 
-.chartWrapper{
-   display: flex;
-}
+.chartWrapper {}
 
-h3{
+h3 {
     text-align: center;
     text-transform: uppercase;
     font-weight: 700;
 }
 
-#compareTwoTeamsWrapper{
+#compareTwoTeamsWrapper {
     border: 1px solid black;
-    height:300px;
+    height: 300px;
 }
 
-.graphHeading{
+.graphHeading {
     text-align: center;
     text-transform: uppercase;
     font-weight: 400;
     font-size: 1em;
-   
+
 }
 
 
-.axis path, axis line {
+.axis path,
+axis line {
     fill: none;
     stroke: #ccc;
     shape-rendering: crispEdges;
-    
+
 }
 
-text{
+text {
     font-weight: 400;
     font-size: 1em;
 }
