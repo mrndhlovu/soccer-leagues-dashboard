@@ -135,8 +135,7 @@ body {
     bottom: 0;
     background-color: #fff;
     overflow-y: auto;
-    border-right: 1px solid #ccc;
-    height: 100vh;
+    height: 104vh;
 }
 
 .card-wrapper2 {
