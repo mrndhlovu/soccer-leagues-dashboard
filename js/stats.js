@@ -706,7 +706,7 @@ function donutChart(stand) {
             var xPos = d3.mouse(this)[0] + 1;
             var yPos = d3.mouse(this)[1] + 5;
             barPoint.attr("transform", "translate(" + xPos + "," + yPos + ")");
-            barPoint.select("text").text("Points: " + d.data.points + '\n' + " :  Goals: " + d.data.goalsFor);
+            barPoint.select("text").text("Position: " + d.data.position + '\n' + " :  Scored: " + d.data.goalsFor + " Goals");
         });
 
     var barPoint = chartArc.append("g")
@@ -757,7 +757,7 @@ function pieChart(stand) {
     chartArc.append("path")
         .attr("d", arc)
         .attr("fill", function(d) {
-            return color(d.data.points);
+            return color(d.data.goalsAgainst);
         });
 
     chartArc.append("text")
@@ -770,7 +770,7 @@ function pieChart(stand) {
         .attr("dy", "0.011em")
 
         .text(function(d) {
-            return d.data.points;
+            return d.data.goalsAgainst;
         })
 
         // Mouse over bar effect
@@ -784,7 +784,7 @@ function pieChart(stand) {
             var xPos = d3.mouse(this)[0] + 1;
             var yPos = d3.mouse(this)[1] + 5;
             barPoint.attr("transform", "translate(" + xPos + "," + yPos + ")");
-            barPoint.select("text").text(d.data.team.name + '\n' + "  Wins: " + d.data.position);
+            barPoint.select("text").text(d.data.team.name + "  : " + d.data.goalsAgainst);
         });
 
     var barPoint = chartArc.append("g")
