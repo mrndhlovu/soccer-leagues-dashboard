@@ -449,16 +449,14 @@ for (var i = 0; i < stand.length; i++) {
 
 }
 
-function graphTeam() {
-
-    //variables
+function graphTeamWins() {
+    
+    //Graph margin and scaling
     var margin = { top: 20, right: 20, bottom: 100, left: 60 },
-        width = 400 - margin.left - margin.right,
+        width = 350 - margin.left - margin.right,
         height = 300 - margin.top - margin.bottom,
         x = d3.scale.ordinal().rangeRoundBands([0, width], 0.5),
         y = d3.scale.linear().range([height, 0]);
-
-
 
     // Create  axis
     var xAxis = d3.svg.axis()
@@ -559,4 +557,113 @@ function graphTeam() {
         
 }
 
-graphTeam();
+graphTeamWins();
+
+function graphTeamLosses() {
+    
+    //Graph margin and scaling
+    var margin = { top: 20, right: 20, bottom: 100, left: 60 },
+        width = 350 - margin.left - margin.right,
+        height = 300 - margin.top - margin.bottom,
+        x = d3.scale.ordinal().rangeRoundBands([0, width], 0.5),
+        y = d3.scale.linear().range([height, 0]);
+
+    // Create  axis
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom")
+        
+
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left")
+        .ticks(5)
+        .innerTickSize(-width)
+        .outerTickSize(0)
+        .tickPadding(10);
+
+    // Point where to draw graph
+    var svg = d3.select("#lostGamesChart")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    // X axis text strings
+    x.domain(teams.map(function(d) {
+        return d.substring(0, 6) + " FC";
+    }));
+
+    // Y axis value 
+    y.domain([0, d3.max(stand, function(d) {
+        return d.lost;
+    })]);
+
+    // Group and append text strings
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0, " + height + ")")
+        .call(xAxis)
+        .selectAll("text")
+        .style("text-anchor", "end")
+        .attr("dx", "-0.5em")
+        .attr("dy", "-2em")
+        .attr("y", 30)
+        .attr("transform", "rotate(-90)");
+
+    // Group and append graph heading values
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+        .append("text")
+        .attr("x", 100)
+        .attr('y', 1)
+        .attr("text-anchor", "end")
+        .attr('class', 'graphHeading')
+        .text("Team Losses");
+
+
+    // Give bar values
+    svg.selectAll("bar")
+        .data(stand)
+        .enter()
+        .append("rect")
+        .style("fill", "#477fb9")
+        .attr("x", function(d) {
+            return x(d.team.name.substring(0, 6) + " FC");
+        })
+        .attr("width", x.rangeBand())
+        .attr("y", function(d) {
+            return y(d.lost);
+        })
+        .attr("height", function(d) {
+            return height - y(d.lost);
+        }) 
+        // Mouse over bar effect
+        .on("mouseover", function(d) {
+            barPoint.style("display", null);
+        })
+        .on("mouseout", function() {
+            barPoint.style("display", "none");
+        })
+        .on("mousemove", function(d) {
+            var xPos = d3.mouse(this)[0] - 5;
+            var yPos = d3.mouse(this)[1] - 10;
+            barPoint.attr("transform", "translate(" + xPos + "," + yPos + ")");
+            barPoint.select("text").text("Team: " + d.team.name.substring(0, 6) + " FC" + " : Game Won: " + d.lost);
+        });
+
+    var barPoint = svg.append("g")
+        .attr("class", "tooltip")
+        .style("display", "none");
+
+    barPoint.append("text")
+        .attr("x", 12)
+        .attr("dy", "1.2em")
+        .style("text-anchor", "middle")
+        .attr("font-size", "1.5em")
+        .attr('color', 'red')
+        
+}
+graphTeamLosses();
