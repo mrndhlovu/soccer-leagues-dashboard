@@ -449,22 +449,16 @@ var margin = { top: 20, right: 20, bottom: 100, left: 20 },
     x = d3.scale.ordinal().rangeRoundBands([0, width], 0.1),
     y = d3.scale.linear().range([height, 0]);
 
-
-
-// Point where to draw graph
-var svg = d3.select("#wonGamesChart")
-    .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-var barPoint = svg.append("g")
-    .attr("class", "chartPointTool1")
-    .style("display", "none");
-
 function graphTeamWins() {
 
+
+    // Point where to draw graph
+    var svg = d3.select("#wonGamesChart")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     // X axis text strings
     x.domain(teams.map(function(d) {
         return d.substring(0, 6) + " FC";
@@ -486,6 +480,7 @@ function graphTeamWins() {
         .innerTickSize(-width)
         .outerTickSize(0)
         .tickPadding(10)
+
     // Group and append text strings
     svg.append("g")
         .attr("class", "x axis")
@@ -537,18 +532,19 @@ function graphTeamWins() {
             var xPos = d3.mouse(this)[0] - 15;
             var yPos = d3.mouse(this)[1] - 55;
             barPoint.attr("transform", "translate(" + xPos + "," + yPos + ")");
-            barPoint.select("text").text(d.team.name + ": Wins: " + d.won);
-        });
-}
-
-function graphTeamLosses() {
+            barPoint.select("text").text(d.team.name + '\n'+ ": Wins: " + d.won);
+        })
+    var barPoint = svg.append("g")
+        .attr("class", "chartPointTool1")
+        .style("display", "none");
 
     barPoint.append("text")
         .attr("x", 12)
         .attr("dy", "1.2em")
-        .style("text-anchor", "middle")
-        .attr("font-size", "1.5em")
-        .attr('color', 'red');
+        .style("text-anchor", "middle");
+}
+
+function graphTeamLosses() {
 
     // Point where to draw graph
     var svg = d3.select("#lostGamesChart")
@@ -631,17 +627,21 @@ function graphTeamLosses() {
             var xPos = d3.mouse(this)[0] - 15;
             var yPos = d3.mouse(this)[1] - 55;
             barPoint.attr("transform", "translate(" + xPos + "," + yPos + ")");
-            barPoint.select("text").text(d.team.name + " : Losses: " + d.lost);
+            barPoint.select("text").text(d.team.name + '\n'+ " : Losses: " + d.lost);
         });
 
-    barPoint = svg.append("g")
+    var barPoint = svg.append("g")
         .attr("class", "chartPointTool2")
         .style("display", "none");
-
+        
     barPoint.append("text")
         .attr("x", 12)
         .attr("dy", "1.2em")
-        .style("text-anchor", "middle");
+        .style("text-anchor", "middle")
+        .attr("font-size", "1.5em")
+        .attr('color', 'red');
+
+   
 }
 
 graphTeamWins();
@@ -706,7 +706,7 @@ function donutChart(stand) {
             var xPos = d3.mouse(this)[0] + 1;
             var yPos = d3.mouse(this)[1] + 5;
             barPoint.attr("transform", "translate(" + xPos + "," + yPos + ")");
-            barPoint.select("text").text("Points: " + d.data.points + " :  Position: " + d.data.position);
+            barPoint.select("text").text("Points: " + d.data.points + '\n'+ " :  Position: " + d.data.position);
         });
 
     var barPoint = chartArc.append("g")
@@ -775,7 +775,7 @@ function pieChart(stand) {
             var xPos = d3.mouse(this)[0] + 1;
             var yPos = d3.mouse(this)[1] + 5;
             barPoint.attr("transform", "translate(" + xPos + "," + yPos + ")");
-            barPoint.select("text").text(d.data.team.name + "  Wins: " + d.data.position);
+            barPoint.select("text").text(d.data.team.name + '\n'+ "  Wins: " + d.data.position);
         });
 
     var barPoint = chartArc.append("g")
