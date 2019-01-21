@@ -2,13 +2,17 @@
 function p(data) {
     console.log(data);
 }
-var standingsURL = 'https://api.football-data.org/v2/competitions/2021/standings';
-var scorersURL = 'https://api.football-data.org/v2/competitions/PL/scorers';
 
-var season = 'https://api.football-data.org/v2/competitions/PL/matches';
-var key = { 'X-Auth-Token': '5d791d1818c3415d9b1a4b323c899bf4' };
 
-function ajaxGet(queryURL) {
+// API URLS
+const standingsURL = 'https://api.football-data.org/v2/competitions/2021/standings',
+    scorersURL = 'https://api.football-data.org/v2/competitions/PL/scorers',
+    season = 'https://api.football-data.org/v2/competitions/PL/matches',
+    key = { 'X-Auth-Token': '5d791d1818c3415d9b1a4b323c899bf4' };
+
+
+// Get API Data with queryURL to call different API server
+function ajaxGetData(queryURL) {
     var data = $.ajax({
         headers: key,
         url: queryURL,
@@ -21,10 +25,11 @@ function ajaxGet(queryURL) {
     return data;
 }
 
+
 let apiCall = {
-    data: ajaxGet(season).matches,
-    playerScorers: ajaxGet(scorersURL).scorers,
-    stand: ajaxGet(standingsURL).standings[0].table
+    data: ajaxGetData(season).matches,
+    playerScorers: ajaxGetData(scorersURL).scorers,
+    stand: ajaxGetData(standingsURL).standings[0].table
 }
 
 
@@ -76,10 +81,12 @@ teams = removeDuplicates(teams).sort();
 
 // Fill option seletor with list of teams
 function listTeamsOptions() {
+
     var select = document.createElement('select'),
         option;
-    select.id = 'teamList';
-    select.name = 'teams';
+    select.id = 'teamList',
+        select.name = 'teams';
+
     for (var i = 0; i < teams.length; i++) {
         option = document.createElement('option');
         option.value = teams[i];
@@ -222,8 +229,6 @@ function getStats(getSelectedTeam) {
     document.getElementById('goalsConc').innerHTML = goalsConceded;
 
 }
-
-
 
 
 // Set default match day for fixtures on pageload
@@ -680,8 +685,6 @@ function donutChart(stand) {
         // Mouse over bar effect
         .on("mouseover", function(d) {
             barPoint.style("display", null);
-
-            p(d.data.team.name);
         })
         .on("mouseout", function(d) {
             barPoint.style("display", "none");
