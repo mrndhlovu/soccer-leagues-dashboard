@@ -367,7 +367,7 @@ th {
         top: 1em;
         background-color: #fff;
         position: relative;
-        height: 80vh;
+        height:80vh;
     }
     .dash-headers {
         text-transform: uppercase;
@@ -421,6 +421,7 @@ th {
     .header-input {
         padding: 0rem 2rem 1em 1em;
     }
+    
 
 }
 
@@ -451,7 +452,7 @@ h3 {
     text-align: center;
     text-transform: uppercase;
     font-weight: 400;
-    font-size: 1em;
+    font-size: 1rem;
 
 }
 
@@ -478,5 +479,6 @@ text {
 .donutTool2, 
 .chartPointTool1, 
 .chartPointTool2 {
-    font-size: 2rem;
+    font-size: 1rem;
+    color: red !important;
 }

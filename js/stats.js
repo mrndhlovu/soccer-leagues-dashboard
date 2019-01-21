@@ -21,9 +21,12 @@ function ajaxGet(queryURL) {
     return data;
 }
 
-var data = ajaxGet(season).matches;
-var playerScorers = ajaxGet(scorersURL).scorers;
-var stand = ajaxGet(standingsURL).standings[0].table;
+let apiCall = {
+    data: ajaxGet(season).matches,
+    playerScorers: ajaxGet(scorersURL).scorers,
+    stand: ajaxGet(standingsURL).standings[0].table
+}
+
 
 // empty stats arrays
 let awayScore = [],
@@ -35,27 +38,28 @@ let awayScore = [],
     toPlay = ' - ',
     teams = [];
 
-//Loop through array and filter data and push data to empty arrays
-function filter() {
-    Object.keys(data).forEach(function(key) {
-        state.push(data[key].status);
-        matchDay.push(data[key].matchday);
-        homeTeam.push(data[key].homeTeam.name);
-        teams.push(data[key].homeTeam.name);
-        awayTeam.push(data[key].awayTeam.name);
-        teams.push(data[key].homeTeam.name);
+//Loop through raw data array and filter wanted data and push to empty arrays
+function pullData() {
+    Object.keys(apiCall.data).forEach(function(key) {
+        state.push(apiCall.data[key].status);
+        matchDay.push(apiCall.data[key].matchday);
+        homeTeam.push(apiCall.data[key].homeTeam.name);
+        teams.push(apiCall.data[key].homeTeam.name);
+        awayTeam.push(apiCall.data[key].awayTeam.name);
+        teams.push(apiCall.data[key].homeTeam.name);
 
         //Populate home and away score arrays
-        if (data[key].state !== 'SCHEDULED') {
-            awayScore.push(data[key].score.fullTime.awayTeam);
-            homeScore.push(data[key].score.fullTime.homeTeam);
+        if (apiCall.data[key].state !== 'SCHEDULED') {
+            awayScore.push(apiCall.data[key].score.fullTime.awayTeam);
+            homeScore.push(apiCall.data[key].score.fullTime.homeTeam);
         }
-        if (data[key].state == 'SCHEDULED') {
+        if (apiCall.data[key].state == 'SCHEDULED') {
             homeScore.push(toPlay);
             awayScore.push(toPlay);
         }
     });
 }
+pullData();
 
 // Filter an array and remove duplicates
 function removeDuplicates(query) {
@@ -68,10 +72,7 @@ function removeDuplicates(query) {
     return uniqueStats;
 }
 
-
-filter();
 teams = removeDuplicates(teams).sort();
-
 
 // Fill option seletor with list of teams
 function listTeamsOptions() {
@@ -91,10 +92,7 @@ function listTeamsOptions() {
     }
     document.getElementById('formSelect').appendChild(select);
 }
-listTeamsOptions();
 
-
-document.getElementById('userInput').addEventListener('change', getSelectedDay);
 
 function getSelectedTeam(choice) {
     choice = document.getElementById('teamList').value;
@@ -108,6 +106,7 @@ function getSelectedTeam(choice) {
 function findAverage(a, b, c) {
     return a / (b + c);
 }
+
 
 //Team stats logic
 function getStats(getSelectedTeam) {
@@ -128,7 +127,7 @@ function getStats(getSelectedTeam) {
         awayLoss = 0,
         homeDraw = 0,
         awayDraw = 0;
-        
+
 
     // Get team wins, losses, draws - home
     for (var i = 0; i < matchDay.length; i++) {
@@ -225,11 +224,13 @@ function getStats(getSelectedTeam) {
 }
 
 
+
+
 // Set default match day for fixtures on pageload
 function setDefaultMatchDay() {
     var day;
-    for (var q = 0; q < data.length; q++) {
-        if (data[q].status == 'FINISHED') {
+    for (var q = 0; q < apiCall.data.length; q++) {
+        if (apiCall.data[q].status == 'FINISHED') {
             day = matchDay[q] + 1;
         }
     }
@@ -239,9 +240,10 @@ function setDefaultMatchDay() {
 
 // Build fixtures table with match day query
 function buildTable(query) {
+
     for (var d = 0; d < matchDay.length; d++) {
 
-        var gameDate = new Date(data[d].utcDate);
+        var gameDate = new Date(apiCall.data[d].utcDate);
         var tr = document.createElement('tr'),
             state, hTeam, aTeam, score, flagWin, flagLoss, date;
 
@@ -259,21 +261,18 @@ function buildTable(query) {
         score.className = 'score';
         date = document.createElement('td');
         date.id = 'matchDate';
+        hTeam.innerHTML = homeTeam[d];
+        state.innerHTML = apiCall.data[d].status + "<br>" + gameDate.toDateString();
+        aTeam.innerHTML = awayTeam[d];
 
 
         // Use data to build table
-        if (query === matchDay[d]) {
+        if (query == matchDay[d]) {
 
             tr.appendChild(hTeam);
             tr.appendChild(score);
             tr.appendChild(aTeam);
             tr.appendChild(state);
-            //tr.appendChild(date);
-
-            hTeam.innerHTML = homeTeam[d];
-            state.innerHTML = data[d].status + "<br>" + gameDate.toDateString();
-            aTeam.innerHTML = awayTeam[d];
-
 
             //show results
             if (homeScore[d] > awayScore[d]) {
@@ -288,23 +287,23 @@ function buildTable(query) {
                   showResult();
                   */
             }
-            else if ((homeScore[d] == awayScore[d] && data[d].status == 'FINISHED') || (awayScore[d] == homeScore[d] && data[d].status == 'FINISHED')) {
+            else if ((homeScore[d] == awayScore[d] && apiCall.data[d].status == 'FINISHED') || (awayScore[d] == homeScore[d] && apiCall.data[d].status == 'FINISHED')) {
                 score.innerHTML = homeScore[d] + ' : ' + awayScore[d];
                 /*showDraw();
                 showResult();*/
 
             }
-            else if (homeScore[d] == awayScore[d] && data[d].status == 'SCHEDULED') {
+            else if (homeScore[d] == awayScore[d] && apiCall.data[d].status == 'SCHEDULED') {
                 score.innerHTML = '-' + ' : ' + '-';
                 //showDraw();
             }
-            else if (awayScore[d] == homeScore[d] && data[d].status == 'SCHEDULED') {
+            else if (awayScore[d] == homeScore[d] && apiCall.data[d].status == 'SCHEDULED') {
                 score.innerHTML = score.innerHTML = '-' + ' : ' + '-';
             }
         }
         document.getElementById('tableStriped').appendChild(tr);
     }
-    
+
 
     // Apply css to winner colomn  || Show green flag if win
     function showWin() {
@@ -336,28 +335,14 @@ function buildTable(query) {
     }
 }
 
-buildTable(setDefaultMatchDay());
 
-
-// Onclick get user match day query, remove old table and build a new one with match day chosen.
-function getSelectedDay() {
-    var query = document.getElementById('userInput').value;
-    var oldData = document.getElementById('tableStriped');
-    while (oldData.firstChild) {
-        oldData.removeChild(oldData.firstChild);
-    }
-    buildTable(query);
-}
-
-
-var teamClick = teams[0];
-
-function showTeamGames(teamClick) {
+// Show the past ten games of a particular 
+function showPassTenGames(teamClick) {
     var counter = 10;
-    for (var i = data.length - 10; i--;) {
+    for (var i = apiCall.data.length - 10; i--;) {
         var tr = document.createElement('tr'),
             hTeam, aTeam, score, date;
-        var gameDate = new Date(data[i].utcDate);
+        var gameDate = new Date(apiCall.data[i].utcDate);
         if (((teamClick == homeTeam[i] || teamClick == awayTeam[i]) && state[i] == 'FINISHED') && counter > 0) { //Create table rows and colums
 
             hTeam = document.createElement('td');
@@ -394,41 +379,50 @@ function showTeamGames(teamClick) {
 
 }
 
-showTeamGames(teamClick);
 
-
-
-function loadDefaultStats() {
-    var statsDefault = teams[0];
-    getStats(statsDefault);
+// Onclick get user match day query, remove old table and build a new one with match day chosen.
+function getSelectedDay() {
+    var userQuery = document.getElementById('userInput').value;
+    var oldDataTable = document.getElementById('tableStriped');
+    while (oldDataTable.firstChild) {
+        oldDataTable.removeChild(oldDataTable.firstChild);
+    }
+    buildTable(userQuery);
 }
 
-
-
-document.getElementById('userInput').addEventListener('onclick', tableTeamOnClick);
 
 function tableTeamOnClick(team) {
     getTeamGames();
     getStats(team)
-    showTeamGames(team);
-
+    showPassTenGames(team);
 }
 
-teamClick = tableTeamOnClick;
 
-function getTeamGames(teamClick) {
+// Get remove old data and build new table on click
+function getTeamGames(tableTeamOnClick) {
     var oldData = document.getElementById('gameStriped');
     while (oldData.firstChild) {
         oldData.removeChild(oldData.firstChild);
     }
-    showTeamGames(teamClick);
+    showPassTenGames(tableTeamOnClick);
 }
+
+
+// Load data on window load
+function loadDefaultStats() {
+    var statsDefault = teams[0];
+    listTeamsOptions();
+    buildTable(setDefaultMatchDay());
+    showPassTenGames(statsDefault);
+    getStats(statsDefault);
+}
+
 
 window.onload = function() {
     loadDefaultStats();
 }
 
-p(stand[0]);
+p(apiCall.stand[0]);
 
 
 
@@ -457,7 +451,7 @@ function graphTeamWins() {
     }));
 
     // Y axis value 
-    y.domain([0, d3.max(stand, function(d) {
+    y.domain([0, d3.max(apiCall.stand, function(d) {
         return d.won;
     })]);
     // Create  axis
@@ -499,7 +493,7 @@ function graphTeamWins() {
 
     // Give bar values
     svg.selectAll("bar")
-        .data(stand)
+        .data(apiCall.stand)
         .enter()
         .append("rect")
         .style("fill", "#af4032")
@@ -564,7 +558,7 @@ function graphTeamLosses() {
     }));
 
     // Y axis value 
-    y.domain([0, d3.max(stand, function(d) {
+    y.domain([0, d3.max(apiCall.stand, function(d) {
         return d.lost;
     })]);
 
@@ -594,7 +588,7 @@ function graphTeamLosses() {
 
     // Give bar values
     svg.selectAll("bar")
-        .data(stand)
+        .data(apiCall.stand)
         .enter()
         .append("rect")
         .style("fill", "#477fb9")
@@ -632,8 +626,6 @@ function graphTeamLosses() {
         .style("text-anchor", "middle")
         .attr("font-size", "1.5em")
         .attr('color', 'red');
-
-
 }
 
 graphTeamWins();
@@ -666,7 +658,7 @@ function donutChart(stand) {
         });
 
     var chartArc = group.selectAll(".arc")
-        .data(pie(stand))
+        .data(pie(apiCall.stand))
         .enter()
         .append("g")
         .attr("class", "arc");
@@ -683,7 +675,7 @@ function donutChart(stand) {
         })
         .attr("dy", "0.15em")
         .text(function(d) {
-            return d.data.team.name.substring(0, 5);
+            return d.data.goalsFor;
         })
         // Mouse over bar effect
         .on("mouseover", function(d) {
@@ -698,7 +690,7 @@ function donutChart(stand) {
             var xPos = d3.mouse(this)[0] + 1;
             var yPos = d3.mouse(this)[1] + 5;
             barPoint.attr("transform", "translate(" + xPos + "," + yPos + ")");
-            barPoint.select("text").text("Position: " + d.data.position + '\n' + " :  Scored: " + d.data.goalsFor + " Goals");
+            barPoint.select("text").text("Team: " + d.data.team.name + " :  Position: " + d.data.position);
         });
 
     var barPoint = chartArc.append("g")
@@ -741,7 +733,7 @@ function pieChart(stand) {
         });
 
     var chartArc = group.selectAll(".arc")
-        .data(pie(stand))
+        .data(pie(apiCall.stand))
         .enter()
         .append("g")
         .attr("class", "arc");
@@ -798,6 +790,6 @@ function pieChart(stand) {
         .text("Goals Concerded");
 
 }
-donutChart(stand);
+donutChart(apiCall.stand);
 
-pieChart(stand);
+pieChart(apiCall.stand);
