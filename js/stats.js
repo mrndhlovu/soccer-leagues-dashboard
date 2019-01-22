@@ -24,7 +24,7 @@ const apiCall = {
     data: ajaxGetData(season).matches,
     playerScorers: ajaxGetData(scorersURL).scorers,
     stand: ajaxGetData(standingsURL).standings[0].table
-}
+};
 
 
 // empty stats arrays
@@ -41,7 +41,7 @@ const awayScore = [],
 
 //Loop through raw data array and filter wanted data and push to empty arrays
 function pullData() {
-    Object.keys(apiCall.data).forEach(function(key) {
+    Object.keys(apiCall.data).forEach((key) => {
         state.push(apiCall.data[key].status);
         matchDay.push(apiCall.data[key].matchday);
         homeTeam.push(apiCall.data[key].homeTeam.name);
@@ -61,21 +61,18 @@ function pullData() {
 }
 
 
-
 function getTeamsAndBadges() {
-    Object.keys(apiCall.stand).forEach(function(key) {
+    Object.keys(apiCall.stand).forEach((key) => {
         teamBadges.push(apiCall.stand[key].team.crestUrl);
         teams.push(apiCall.stand[key].team.name);
     });
-};
-
-
+}
 
 
 // On team option click show team badge
 function showTeamBadge(showBadge) {
     const badgeImage = document.getElementById('teamBadge');
-    for (var i = 0; i < teams.length; i++) {
+    for (let i = 0; i < teams.length; i++) {
         if (showBadge == teams[i]) {
             const badgeUrlString = 'url(' + teamBadges[i] + ')';
             badgeImage.style.height = '19em';
@@ -89,21 +86,21 @@ function showTeamBadge(showBadge) {
 // Fill option seletor with list of teams
 function listTeamsOptions() {
 
-    const select = document.createElement('select');
-    const option = document.createElement('option');
+    let select = document.createElement('select'),
+        option = document.createElement('option');
 
-    select.id = 'teamList'
-    select.name = 'teams'
-
-    for (var i = 0; i < teams.length; i++) {
-
+    for (let i = 0; i < teams.length; i++) {
+        select.appendChild(option);
+        select.setAttribute('onchange', 'getSelectedTeam();');
+        select.id = 'teamList';
+        select.name = 'teams';
+        select.appendChild(option);
         option.value = teams[i];
         option.id = 'team' + (i + 1);
-        select.appendChild(option);
         option.innerHTML = teams[i];
         option.setAttribute('onclick', 'tableTeamOnClick(this.innerHTML)');
-        select.appendChild(option);
-        select.setAttribute('onchange', 'getSelectedTeam();')
+
+
     }
     document.getElementById('formSelect').appendChild(select);
 }
@@ -127,7 +124,7 @@ function findAverage(a, b, c) {
 function getStats(getSelectedTeam) {
 
     //Stats variables
-    const avg = 0,
+    let avg = 0,
         totalGoals = 0,
         cleanSheets = 0,
         toPlayHome = 0,
@@ -144,8 +141,8 @@ function getStats(getSelectedTeam) {
 
 
     // Get team wins, losses, draws - home
-    for (var i = 0; i < matchDay.length; i++) {
-        const winH = (matchDay[i] && homeTeam[i] == getSelectedTeam) && homeScore[i] > awayScore[i],
+    for (let i = 0; i < matchDay.length; i++) {
+        let winH = (matchDay[i] && homeTeam[i] == getSelectedTeam) && homeScore[i] > awayScore[i],
             lossH = (matchDay[i] && homeTeam[i] == getSelectedTeam) && homeScore[i] < awayScore[i],
             winA = (matchDay[i] && awayTeam[i] == getSelectedTeam) && awayScore[i] > homeScore[i],
             lossA = (matchDay[i] && awayTeam[i] == getSelectedTeam) && awayScore[i] < homeScore[i],
@@ -175,7 +172,7 @@ function getStats(getSelectedTeam) {
             }
         }
         else if (lossA) {
-            awayLoss++
+            awayLoss++;
             goalsConceded += homeScore[i];
         }
         else if (playedH && drawH) {
@@ -185,7 +182,7 @@ function getStats(getSelectedTeam) {
             }
         }
         else if (playedA && drawA) {
-            awayDraw++
+            awayDraw++;
             if (homeScore[i] > 0) {
                 goalsConceded += homeScore[i];
             }
@@ -241,8 +238,8 @@ function getStats(getSelectedTeam) {
 
 // Set default match day for fixtures on pageload
 function setDefaultMatchDay() {
-    const day = '';
-    for (var q = 0; q < apiCall.data.length; q++) {
+    let day;
+    for (let q = 0; q < apiCall.data.length; q++) {
         if (apiCall.data[q].status == 'FINISHED') {
             day = matchDay[q] + 1;
         }
@@ -254,7 +251,7 @@ function setDefaultMatchDay() {
 // Build fixtures table with match day query
 function buildTable(query) {
 
-    for (var d = 0; d < matchDay.length; d++) {
+    for (let d = 0; d < matchDay.length; d++) {
 
         const gameDate = new Date(apiCall.data[d].utcDate);
         const tr = document.createElement('tr');
@@ -273,7 +270,7 @@ function buildTable(query) {
         aTeam.setAttribute('onclick', 'tableTeamOnClick(this.innerHTML)');
         score.className = 'score';
         date.id = 'matchDate';
-        
+
         state.innerHTML = apiCall.data[d].status + '<br>' + gameDate.toDateString();
         aTeam.innerHTML = awayTeam[d];
 
@@ -350,14 +347,14 @@ function buildTable(query) {
 
 // Show the past ten games of a particular 
 function showPassTenGames(teamClick) {
-    const counter = 10;
-    for (var i = apiCall.data.length - 10; i--;) {
-        const tr = document.createElement('tr');
-        const hTeam = document.createElement('td');
-        const gameDate = new Date(apiCall.data[i].utcDate);
-        const aTeam = document.createElement('td');
-        const score = document.createElement('td');
-        const date = document.createElement('td');
+    let counter = 10;
+    for (let i = apiCall.data.length - 10; i--;) {
+        let tr = document.createElement('tr'),
+            hTeam = document.createElement('td'),
+            gameDate = new Date(apiCall.data[i].utcDate),
+            aTeam = document.createElement('td'),
+            score = document.createElement('td'),
+            date = document.createElement('td');
 
         hTeam.className = 'gameHome';
         aTeam.className = 'gameAway';
@@ -406,7 +403,7 @@ function getSelectedDay() {
 
 function tableTeamOnClick(team) {
     getTeamGames();
-    getStats(team)
+    getStats(team);
     showPassTenGames(team);
 }
 
@@ -453,7 +450,7 @@ function graphTeamWins() {
     // Create  axis
     const xAxis = d3.svg.axis()
         .scale(x)
-        .orient('bottom')
+        .orient('bottom');
 
     const yAxis = d3.svg.axis()
         .scale(y)
@@ -461,7 +458,7 @@ function graphTeamWins() {
         .ticks(5)
         .innerTickSize(-width)
         .outerTickSize(0)
-        .tickPadding(10)
+        .tickPadding(10);
 
     // Group and append text strings
     svg.append('g')
@@ -511,8 +508,8 @@ function graphTeamWins() {
             barPoint.style('display', 'none');
         })
         .on('mousemove', function(d) {
-            const xPos = d3.mouse(this)[0] - 15;
-            const yPos = d3.mouse(this)[1] - 55;
+            const xPos = d3.mouse(this)[1] - 2;
+            const yPos = d3.mouse(this)[1] - 50;
             barPoint.attr('transform', 'translate(' + xPos + ',' + yPos + ')');
             barPoint.select('text').text(d.team.name + '\n' + ': Wins: ' + d.won);
         })
@@ -523,7 +520,9 @@ function graphTeamWins() {
     barPoint.append('text')
         .attr('x', 12)
         .attr('dy', '1.2em')
-        .style('text-anchor', 'middle');
+        .style('text-anchor', 'middle')
+        .attr('font-size', '1.5rem')
+        
 }
 
 function graphTeamLosses() {
@@ -606,8 +605,8 @@ function graphTeamLosses() {
             barPoint.style('display', 'none');
         })
         .on('mousemove', function(d) {
-            const xPos = d3.mouse(this)[0] - 15;
-            const yPos = d3.mouse(this)[1] - 55;
+            const xPos = d3.mouse(this)[1] - 5;
+            const yPos = d3.mouse(this)[1] - 50;
             barPoint.attr('transform', 'translate(' + xPos + ',' + yPos + ')');
             barPoint.select('text').text(d.team.name + '\n' + ' : Losses: ' + d.lost);
         });
@@ -620,10 +619,9 @@ function graphTeamLosses() {
         .attr('x', 12)
         .attr('dy', '1.2em')
         .style('text-anchor', 'middle')
-        .attr('font-size', '1.5em')
-        .attr('color', 'red');
+        .attr('font-size', '1.5rem')
 }
-
+console.log(apiCall.stand[0]);
 
 const radius = 155;
 const color = d3.scale.ordinal()
@@ -666,7 +664,7 @@ function donutChart(stand) {
         .attr('transform', function(d) {
             return 'translate(' + arc.centroid(d) + ')';
         })
-        .attr('dy', '0.15em')
+        .attr('dy', '0.25em')
         .text(function(d) {
             return d.data.goalsFor;
         })
@@ -681,7 +679,7 @@ function donutChart(stand) {
             const xPos = d3.mouse(this)[0] + 1;
             const yPos = d3.mouse(this)[1] + 5;
             barPoint.attr('transform', 'translate(' + xPos + ',' + yPos + ')');
-            barPoint.select('text').text('Team: ' + d.data.team.name + ' :  Position: ' + d.data.position);
+            barPoint.select('text').text('Team: ' + d.data.team.name + ' :  CurrentRank: ' + d.data.position);
         });
 
     const barPoint = chartArc.append('g')
@@ -703,6 +701,7 @@ function donutChart(stand) {
         .text('Goals Scored');
 
 }
+
 
 function pieChart(stand) {
 
@@ -759,7 +758,7 @@ function pieChart(stand) {
             const xPos = d3.mouse(this)[0] + 1;
             const yPos = d3.mouse(this)[1] + 5;
             barPoint.attr('transform', 'translate(' + xPos + ',' + yPos + ')');
-            barPoint.select('text').text(d.data.team.name + '  : ' + d.data.goalsAgainst);
+            barPoint.select('text').text(d.data.team.name);
         });
 
     const barPoint = chartArc.append('g')
@@ -778,28 +777,27 @@ function pieChart(stand) {
         .attr('y', 1)
         .attr('text-anchor', 'end')
         .attr('class', 'graphHeading')
-        .text('Goals Concerded');
+        .text('Goals Conceded');
 }
 
 
 // Load data on window load
 function loadDefaultStats() {
     const statsDefault = teams[0];
-    listTeamsOptions();
     buildTable(setDefaultMatchDay());
     showPassTenGames(statsDefault);
     getStats(statsDefault);
-    showTeamBadge(statsDefault)
+    showTeamBadge(statsDefault);
 }
 
+window.onload = () => {
+    loadDefaultStats();
+};
 
 pullData();
 getTeamsAndBadges();
+listTeamsOptions();
 graphTeamWins();
 graphTeamLosses();
 donutChart(apiCall.stand);
 pieChart(apiCall.stand);
-
-window.onload = function() {
-    loadDefaultStats();
-}

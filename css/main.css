@@ -135,7 +135,7 @@ body {
     bottom: 0;
     background-color: #fff;
     overflow-y: auto;
-    height: 104vh;
+    height: fit-content;
 }
 
 .tBadge{
@@ -150,7 +150,6 @@ img{
     border:0;
     opacity: 0.2;
     background-size: cover;
-    
 }
 
 .card-wrapper2 {
@@ -466,8 +465,7 @@ h3 {
     text-align: center;
     text-transform: uppercase;
     font-weight: 400;
-    font-size: 1rem;
-
+    
 }
 
 
@@ -481,18 +479,23 @@ axis line {
 
 text {
     font-weight: 400;
-    font-size: 1em;
+   
+    background-color: seagreen;
+}
+
+.barPoint{
+     color: red !important;
 }
 
 .arc text {
-   font-size: 1em;
+ 
    text-anchor: middle;
+   
 }
 
 .donutTool1, 
 .donutTool2, 
 .chartPointTool1, 
 .chartPointTool2 {
-    font-size: 1rem;
-    color: red !important;
+   font-weight: 500;
 }
