@@ -41,7 +41,9 @@ let awayScore = [],
     matchDay = [],
     state = [],
     toPlay = ' - ',
-    teams = [];
+    teams = [],
+    teamBadges = [];
+
 
 //Loop through raw data array and filter wanted data and push to empty arrays
 function pullData() {
@@ -49,9 +51,8 @@ function pullData() {
         state.push(apiCall.data[key].status);
         matchDay.push(apiCall.data[key].matchday);
         homeTeam.push(apiCall.data[key].homeTeam.name);
-        teams.push(apiCall.data[key].homeTeam.name);
         awayTeam.push(apiCall.data[key].awayTeam.name);
-        teams.push(apiCall.data[key].homeTeam.name);
+
 
         //Populate home and away score arrays
         if (apiCall.data[key].state !== 'SCHEDULED') {
@@ -66,18 +67,30 @@ function pullData() {
 }
 pullData();
 
-// Filter an array and remove duplicates
-function removeDuplicates(query) {
-    var uniqueStats = [];
-    for (let i = 0; i < teams.length; i++) {
-        if (uniqueStats.indexOf(query[i]) == -1) {
-            uniqueStats.push(query[i]);
+
+function getTeamsAndBadges() {
+    Object.keys(apiCall.stand).forEach(function(key) {
+        teamBadges.push(apiCall.stand[key].team.crestUrl);
+        teams.push(apiCall.stand[key].team.name);
+    });
+};
+
+getTeamsAndBadges();
+
+
+// On team option click show team badge
+function showTeamBadge(showBadge) {
+    var badgeImage = document.getElementById("teamBadge");
+    for (var i = 0; i < teams.length; i++) {
+        if (showBadge == teams[i]) {
+            var badgeUrlString = 'url(' + teamBadges[i] + ')';
+            badgeImage.style.height = '19em';
+            badgeImage.style.width = '19em';
+            badgeImage.style.backgroundImage = badgeUrlString;
         }
     }
-    return uniqueStats;
 }
 
-teams = removeDuplicates(teams).sort();
 
 // Fill option seletor with list of teams
 function listTeamsOptions() {
@@ -88,6 +101,7 @@ function listTeamsOptions() {
         select.name = 'teams';
 
     for (var i = 0; i < teams.length; i++) {
+
         option = document.createElement('option');
         option.value = teams[i];
         option.id = 'team' + (i + 1);
@@ -105,11 +119,11 @@ function getSelectedTeam(choice) {
     choice = document.getElementById('teamList').value;
     getStats(choice);
     getTeamGames(choice);
+    showTeamBadge(choice);
 }
 
 
 //Find average goals per game;
-
 function findAverage(a, b, c) {
     return a / (b + c);
 }
@@ -117,7 +131,6 @@ function findAverage(a, b, c) {
 
 //Team stats logic
 function getStats(getSelectedTeam) {
-
 
     //Stats variables
     var avg = 0,
@@ -214,6 +227,7 @@ function getStats(getSelectedTeam) {
             toPlayAway++;
         }
     }
+
     //Get team avegare goals per match
     avg = findAverage(totalGoals, homeGames, awayGames);
 
@@ -420,16 +434,13 @@ function loadDefaultStats() {
     buildTable(setDefaultMatchDay());
     showPassTenGames(statsDefault);
     getStats(statsDefault);
+    showTeamBadge(statsDefault)
 }
 
 
 window.onload = function() {
     loadDefaultStats();
 }
-
-p(apiCall.stand[0]);
-
-
 
 /*......................D3 functions...........................*/
 

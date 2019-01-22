@@ -138,6 +138,21 @@ body {
     height: 104vh;
 }
 
+.tBadge{
+    height: 19.5em;
+}
+
+#teamBadge{
+    background-color: inherit;
+}
+
+img{
+    border:0;
+    opacity: 0.2;
+    background-size: cover;
+    position: fixed;
+}
+
 .card-wrapper2 {
     display: flex;
     -ms-flex-wrap: wrap;
@@ -146,6 +161,7 @@ body {
     margin-left: -15px;
 }
 
+.tBadge,
 .stats-cards-wrapper {
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
 }
@@ -159,6 +175,7 @@ body {
     width: 85%;
     padding-top: 14px;
     margin-left: 26px;
+    
 }
 
 .statsHead {
@@ -179,10 +196,7 @@ body {
     align-items: center;
 }
 
-.badge-container {
-    width: 260px;
-    padding: 74% 20px 020px;
-}
+
 
 
 /*.........................End ASIDE CSS.......................*/
