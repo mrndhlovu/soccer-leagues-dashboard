@@ -74,7 +74,7 @@ function getTeamsAndBadges() {
 
 // On team option click show team badge
 function showTeamBadge(showBadge) {
-    const badgeImage = document.getElementById("teamBadge");
+    const badgeImage = document.getElementById('teamBadge');
     for (var i = 0; i < teams.length; i++) {
         if (showBadge == teams[i]) {
             const badgeUrlString = 'url(' + teamBadges[i] + ')';
@@ -241,7 +241,7 @@ function getStats(getSelectedTeam) {
 
 // Set default match day for fixtures on pageload
 function setDefaultMatchDay() {
-    const day = "";
+    const day = '';
     for (var q = 0; q < apiCall.data.length; q++) {
         if (apiCall.data[q].status == 'FINISHED') {
             day = matchDay[q] + 1;
@@ -274,7 +274,7 @@ function buildTable(query) {
         score.className = 'score';
         date.id = 'matchDate';
         
-        state.innerHTML = apiCall.data[d].status + "<br>" + gameDate.toDateString();
+        state.innerHTML = apiCall.data[d].status + '<br>' + gameDate.toDateString();
         aTeam.innerHTML = awayTeam[d];
 
 
@@ -435,15 +435,15 @@ function graphTeamWins() {
 
 
     // Point where to draw graph
-    const svg = d3.select("#wonGamesChart")
-        .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    const svg = d3.select('#wonGamesChart')
+        .append('svg')
+        .attr('width', width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom)
+        .append('g')
+        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
     // X axis text strings
     x.domain(teams.map(function(d) {
-        return d.substring(0, 6) + " FC";
+        return d.substring(0, 6) + ' FC';
     }));
 
     // Y axis value 
@@ -453,104 +453,104 @@ function graphTeamWins() {
     // Create  axis
     const xAxis = d3.svg.axis()
         .scale(x)
-        .orient("bottom")
+        .orient('bottom')
 
     const yAxis = d3.svg.axis()
         .scale(y)
-        .orient("left")
+        .orient('left')
         .ticks(5)
         .innerTickSize(-width)
         .outerTickSize(0)
         .tickPadding(10)
 
     // Group and append text strings
-    svg.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0, " + height + ")")
+    svg.append('g')
+        .attr('class', 'x axis')
+        .attr('transform', 'translate(0, ' + height + ')')
         .call(xAxis)
-        .selectAll("text")
-        .style("text-anchor", "end")
-        .attr("dx", "-0.5em")
-        .attr("dy", "-2em")
-        .attr("y", 30)
-        .attr("transform", "rotate(-90)");
+        .selectAll('text')
+        .style('text-anchor', 'end')
+        .attr('dx', '-0.5em')
+        .attr('dy', '-2em')
+        .attr('y', 30)
+        .attr('transform', 'rotate(-90)');
 
     // Group and append graph heading values
-    svg.append("g")
-        .attr("class", "y axis")
+    svg.append('g')
+        .attr('class', 'y axis')
         .call(yAxis)
-        .append("text")
-        .attr("x", 100)
+        .append('text')
+        .attr('x', 100)
         .attr('y', 1)
-        .attr("text-anchor", "end")
+        .attr('text-anchor', 'end')
         .attr('class', 'graphHeading')
-        .text("Team Wins");
+        .text('Team Wins');
 
 
     // Give bar values
-    svg.selectAll("bar")
+    svg.selectAll('bar')
         .data(apiCall.stand)
         .enter()
-        .append("rect")
-        .style("fill", "#af4032")
-        .attr("x", function(d) {
-            return x(d.team.name.substring(0, 6) + " FC");
+        .append('rect')
+        .style('fill', '#af4032')
+        .attr('x', function(d) {
+            return x(d.team.name.substring(0, 6) + ' FC');
         })
-        .attr("width", x.rangeBand())
-        .attr("y", function(d) {
+        .attr('width', x.rangeBand())
+        .attr('y', function(d) {
             return y(d.won);
         })
-        .attr("height", function(d) {
+        .attr('height', function(d) {
             return height - y(d.won);
         })
         // Mouse over bar effect
-        .on("mouseover", function(d) {
-            barPoint.style("display", null);
+        .on('mouseover', function(d) {
+            barPoint.style('display', null);
         })
-        .on("mouseout", function() {
-            barPoint.style("display", "none");
+        .on('mouseout', function() {
+            barPoint.style('display', 'none');
         })
-        .on("mousemove", function(d) {
+        .on('mousemove', function(d) {
             const xPos = d3.mouse(this)[0] - 15;
             const yPos = d3.mouse(this)[1] - 55;
-            barPoint.attr("transform", "translate(" + xPos + "," + yPos + ")");
-            barPoint.select("text").text(d.team.name + '\n' + ": Wins: " + d.won);
+            barPoint.attr('transform', 'translate(' + xPos + ',' + yPos + ')');
+            barPoint.select('text').text(d.team.name + '\n' + ': Wins: ' + d.won);
         })
-    const barPoint = svg.append("g")
-        .attr("class", "chartPointTool1")
-        .style("display", "none");
+    const barPoint = svg.append('g')
+        .attr('class', 'chartPointTool1')
+        .style('display', 'none');
 
-    barPoint.append("text")
-        .attr("x", 12)
-        .attr("dy", "1.2em")
-        .style("text-anchor", "middle");
+    barPoint.append('text')
+        .attr('x', 12)
+        .attr('dy', '1.2em')
+        .style('text-anchor', 'middle');
 }
 
 function graphTeamLosses() {
 
     // Point where to draw graph
-    const svg = d3.select("#lostGamesChart")
-        .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    const svg = d3.select('#lostGamesChart')
+        .append('svg')
+        .attr('width', width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom)
+        .append('g')
+        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
     // Create  axis
     const xAxis = d3.svg.axis()
         .scale(x)
-        .orient("bottom")
+        .orient('bottom')
 
     const yAxis = d3.svg.axis()
         .scale(y)
-        .orient("left")
+        .orient('left')
         .ticks(5)
         .innerTickSize(-width)
         .outerTickSize(0)
         .tickPadding(10)
     // X axis text strings
     x.domain(teams.map(function(d) {
-        return d.substring(0, 6) + " FC";
+        return d.substring(0, 6) + ' FC';
     }));
 
     // Y axis value 
@@ -559,87 +559,87 @@ function graphTeamLosses() {
     })]);
 
     // Group and append text strings
-    svg.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0, " + height + ")")
+    svg.append('g')
+        .attr('class', 'x axis')
+        .attr('transform', 'translate(0, ' + height + ')')
         .call(xAxis)
-        .selectAll("text")
-        .style("text-anchor", "end")
-        .attr("dx", "-0.5em")
-        .attr("dy", "-2em")
-        .attr("y", 30)
-        .attr("transform", "rotate(-90)");
+        .selectAll('text')
+        .style('text-anchor', 'end')
+        .attr('dx', '-0.5em')
+        .attr('dy', '-2em')
+        .attr('y', 30)
+        .attr('transform', 'rotate(-90)');
 
     // Group and append graph heading values
-    svg.append("g")
-        .attr("class", "y axis")
+    svg.append('g')
+        .attr('class', 'y axis')
         .call(yAxis)
-        .append("text")
-        .attr("x", 100)
+        .append('text')
+        .attr('x', 100)
         .attr('y', 1)
-        .attr("text-anchor", "end")
+        .attr('text-anchor', 'end')
         .attr('class', 'graphHeading')
-        .text("Team Losses");
+        .text('Team Losses');
 
 
     // Give bar values
-    svg.selectAll("bar")
+    svg.selectAll('bar')
         .data(apiCall.stand)
         .enter()
-        .append("rect")
-        .style("fill", "#477fb9")
-        .attr("x", function(d) {
-            return x(d.team.name.substring(0, 6) + " FC");
+        .append('rect')
+        .style('fill', '#477fb9')
+        .attr('x', function(d) {
+            return x(d.team.name.substring(0, 6) + ' FC');
         })
-        .attr("width", x.rangeBand())
-        .attr("y", function(d) {
+        .attr('width', x.rangeBand())
+        .attr('y', function(d) {
             return y(d.lost);
         })
-        .attr("height", function(d) {
+        .attr('height', function(d) {
             return height - y(d.lost);
         })
         // Mouse over bar effect
-        .on("mouseover", function(d) {
-            barPoint.style("display", null);
+        .on('mouseover', function(d) {
+            barPoint.style('display', null);
         })
-        .on("mouseout", function(d) {
-            barPoint.style("display", "none");
+        .on('mouseout', function(d) {
+            barPoint.style('display', 'none');
         })
-        .on("mousemove", function(d) {
+        .on('mousemove', function(d) {
             const xPos = d3.mouse(this)[0] - 15;
             const yPos = d3.mouse(this)[1] - 55;
-            barPoint.attr("transform", "translate(" + xPos + "," + yPos + ")");
-            barPoint.select("text").text(d.team.name + '\n' + " : Losses: " + d.lost);
+            barPoint.attr('transform', 'translate(' + xPos + ',' + yPos + ')');
+            barPoint.select('text').text(d.team.name + '\n' + ' : Losses: ' + d.lost);
         });
 
-    const barPoint = svg.append("g")
-        .attr("class", "chartPointTool2")
-        .style("display", "none");
+    const barPoint = svg.append('g')
+        .attr('class', 'chartPointTool2')
+        .style('display', 'none');
 
-    barPoint.append("text")
-        .attr("x", 12)
-        .attr("dy", "1.2em")
-        .style("text-anchor", "middle")
-        .attr("font-size", "1.5em")
+    barPoint.append('text')
+        .attr('x', 12)
+        .attr('dy', '1.2em')
+        .style('text-anchor', 'middle')
+        .attr('font-size', '1.5em')
         .attr('color', 'red');
 }
 
 
 const radius = 155;
 const color = d3.scale.ordinal()
-    .range(["#1abc9c", "#2ecc71", "#3ae374", "#3498db", "#9b59b6", "#f19066", "#18dcff", "#27ae60", "#2980b9", "#8e44ad",
-        "#f1c40f", "#e67e22", " #e74c3c", " #ecf0f1", "#95a5a6 ", "#7f8c8d ", "#bdc3c7 ", "#c0392b ", "#d35400", '#f39c12'
+    .range(['#1abc9c', '#2ecc71', '#3ae374', '#3498db', '#9b59b6', '#f19066', '#18dcff', '#27ae60', '#2980b9', '#8e44ad',
+        '#f1c40f', '#e67e22', ' #e74c3c', ' #ecf0f1', '#95a5a6 ', '#7f8c8d ', '#bdc3c7 ', '#c0392b ', '#d35400', '#f39c12'
     ]);
 
 function donutChart(stand) {
 
-    const canvas = d3.select("#goalsScoredDonut")
-        .append("svg")
-        .attr("width", 400)
-        .attr("height", 400);
+    const canvas = d3.select('#goalsScoredDonut')
+        .append('svg')
+        .attr('width', 400)
+        .attr('height', 400);
 
-    const group = canvas.append("g")
-        .attr("transform", "translate(200,160)");
+    const group = canvas.append('g')
+        .attr('transform', 'translate(200,160)');
 
     const arc = d3.svg.arc()
         .innerRadius(100)
@@ -650,69 +650,69 @@ function donutChart(stand) {
             return d.goalsFor;
         });
 
-    const chartArc = group.selectAll(".arc")
+    const chartArc = group.selectAll('.arc')
         .data(pie(apiCall.stand))
         .enter()
-        .append("g")
-        .attr("class", "arc");
+        .append('g')
+        .attr('class', 'arc');
 
-    chartArc.append("path")
-        .attr("d", arc)
-        .attr("fill", function(d) {
+    chartArc.append('path')
+        .attr('d', arc)
+        .attr('fill', function(d) {
             return color(d.data.goalsFor);
         });
 
-    chartArc.append("text")
-        .attr("transform", function(d) {
-            return "translate(" + arc.centroid(d) + ")";
+    chartArc.append('text')
+        .attr('transform', function(d) {
+            return 'translate(' + arc.centroid(d) + ')';
         })
-        .attr("dy", "0.15em")
+        .attr('dy', '0.15em')
         .text(function(d) {
             return d.data.goalsFor;
         })
         // Mouse over bar effect
-        .on("mouseover", function(d) {
-            barPoint.style("display", null);
+        .on('mouseover', function(d) {
+            barPoint.style('display', null);
         })
-        .on("mouseout", function(d) {
-            barPoint.style("display", "none");
+        .on('mouseout', function(d) {
+            barPoint.style('display', 'none');
         })
-        .on("mousemove", function(d) {
+        .on('mousemove', function(d) {
             const xPos = d3.mouse(this)[0] + 1;
             const yPos = d3.mouse(this)[1] + 5;
-            barPoint.attr("transform", "translate(" + xPos + "," + yPos + ")");
-            barPoint.select("text").text("Team: " + d.data.team.name + " :  Position: " + d.data.position);
+            barPoint.attr('transform', 'translate(' + xPos + ',' + yPos + ')');
+            barPoint.select('text').text('Team: ' + d.data.team.name + ' :  Position: ' + d.data.position);
         });
 
-    const barPoint = chartArc.append("g")
-        .attr("class", "donutTool1")
-        .style("display", "none");
+    const barPoint = chartArc.append('g')
+        .attr('class', 'donutTool1')
+        .style('display', 'none');
 
-    barPoint.append("text")
-        .attr("x", 2)
-        .attr("dy", "1.2em")
-        .style("text-anchor", "middle");
+    barPoint.append('text')
+        .attr('x', 2)
+        .attr('dy', '1.2em')
+        .style('text-anchor', 'middle');
 
-    chartArc.append("g")
-        .attr("class", "y axis")
-        .append("text")
-        .attr("x", 2)
+    chartArc.append('g')
+        .attr('class', 'y axis')
+        .append('text')
+        .attr('x', 2)
         .attr('y', 1)
-        .attr("text-anchor", "end")
+        .attr('text-anchor', 'end')
         .attr('class', 'graphHeading')
-        .text("Goals Scored");
+        .text('Goals Scored');
 
 }
 
 function pieChart(stand) {
 
-    const canvas = d3.select("#goalsConcededDonut")
-        .append("svg")
-        .attr("width", 400)
-        .attr("height", 400);
+    const canvas = d3.select('#goalsConcededDonut')
+        .append('svg')
+        .attr('width', 400)
+        .attr('height', 400);
 
-    const group = canvas.append("g")
-        .attr("transform", "translate(200,160)");
+    const group = canvas.append('g')
+        .attr('transform', 'translate(200,160)');
 
     const arc = d3.svg.arc()
         .innerRadius(100)
@@ -723,62 +723,62 @@ function pieChart(stand) {
             return d.goalsAgainst;
         });
 
-    const chartArc = group.selectAll(".arc")
+    const chartArc = group.selectAll('.arc')
         .data(pie(apiCall.stand))
         .enter()
-        .append("g")
-        .attr("class", "arc");
+        .append('g')
+        .attr('class', 'arc');
 
-    chartArc.append("path")
-        .attr("d", arc)
-        .attr("fill", function(d) {
+    chartArc.append('path')
+        .attr('d', arc)
+        .attr('fill', function(d) {
             return color(d.data.goalsAgainst);
         });
 
-    chartArc.append("text")
-        .attr("transform", function(d) {
+    chartArc.append('text')
+        .attr('transform', function(d) {
             const _d = arc.centroid(d);
             _d[0] *= 1.05;
             _d[1] *= 1.05;
-            return "translate(" + _d + ")";
+            return 'translate(' + _d + ')';
         })
-        .attr("dy", "0.011em")
+        .attr('dy', '0.011em')
 
         .text(function(d) {
             return d.data.goalsAgainst;
         })
 
         // Mouse over bar effect
-        .on("mouseover", function(d) {
-            barPoint.style("display", null);
+        .on('mouseover', function(d) {
+            barPoint.style('display', null);
         })
-        .on("mouseout", function(d) {
-            barPoint.style("display", "none");
+        .on('mouseout', function(d) {
+            barPoint.style('display', 'none');
         })
-        .on("mousemove", function(d) {
+        .on('mousemove', function(d) {
             const xPos = d3.mouse(this)[0] + 1;
             const yPos = d3.mouse(this)[1] + 5;
-            barPoint.attr("transform", "translate(" + xPos + "," + yPos + ")");
-            barPoint.select("text").text(d.data.team.name + "  : " + d.data.goalsAgainst);
+            barPoint.attr('transform', 'translate(' + xPos + ',' + yPos + ')');
+            barPoint.select('text').text(d.data.team.name + '  : ' + d.data.goalsAgainst);
         });
 
-    const barPoint = chartArc.append("g")
-        .attr("class", "donutTool2")
-        .style("display", "none");
+    const barPoint = chartArc.append('g')
+        .attr('class', 'donutTool2')
+        .style('display', 'none');
 
-    barPoint.append("text")
-        .attr("x", 2)
-        .attr("dy", "1.2em")
-        .style("text-anchor", "middle")
+    barPoint.append('text')
+        .attr('x', 2)
+        .attr('dy', '1.2em')
+        .style('text-anchor', 'middle')
         .attr('color', '#16a085');
-    chartArc.append("g")
-        .attr("class", "y axis")
-        .append("text")
-        .attr("x", 2)
+    chartArc.append('g')
+        .attr('class', 'y axis')
+        .append('text')
+        .attr('x', 2)
         .attr('y', 1)
-        .attr("text-anchor", "end")
+        .attr('text-anchor', 'end')
         .attr('class', 'graphHeading')
-        .text("Goals Concerded");
+        .text('Goals Concerded');
 }
 
 
