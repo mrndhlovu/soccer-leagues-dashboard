@@ -84,10 +84,10 @@ function showTeamBadge(showBadge) {
 // Fill option seletor with list of teams
 function listTeamsOptions() {
 
-const select = document.createElement('select');
+    const select = document.createElement('select');
 
     for (let i = 0; i < teams.length; i++) {
-        
+
         const option = document.createElement('option');
         select.appendChild(option);
         select.setAttribute('onchange', 'getSelectedTeam();');
@@ -423,12 +423,12 @@ function getTeamGames(tableTeamOnClick) {
 const margin = { top: 20, right: 20, bottom: 100, left: 20 },
     width = 350 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom,
-    x = d3.scale.ordinal().rangeRoundBands([0, width], 0.1),
+    x = d3.scale.ordinal().rangeRoundBands([0, width], 0.5),
     y = d3.scale.linear().range([height, 0]);
 
+
 function graphTeamWins() {
-
-
+    
     // Point where to draw graph
     const svg = d3.select('#wonGamesChart')
         .append('svg')
@@ -436,6 +436,16 @@ function graphTeamWins() {
         .attr('height', height + margin.top + margin.bottom)
         .append('g')
         .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+
+    const yAxis = d3.svg.axis()
+        .scale(y)
+        .orient('left')
+        .ticks(10)
+        .innerTickSize(-width)
+        .outerTickSize(0)
+        .tickPadding(1);
+
     // X axis text strings
     x.domain(teams.map(function(d) {
         return d.substring(0, 6) + ' FC';
@@ -450,13 +460,6 @@ function graphTeamWins() {
         .scale(x)
         .orient('bottom');
 
-    const yAxis = d3.svg.axis()
-        .scale(y)
-        .orient('left')
-        .ticks(5)
-        .innerTickSize(-width)
-        .outerTickSize(0)
-        .tickPadding(10);
 
     // Group and append text strings
     svg.append('g')
@@ -541,10 +544,11 @@ function graphTeamLosses() {
     const yAxis = d3.svg.axis()
         .scale(y)
         .orient('left')
-        .ticks(5)
+        .ticks(10)
         .innerTickSize(-width)
         .outerTickSize(0)
-        .tickPadding(10)
+        .tickPadding(1);
+        
     // X axis text strings
     x.domain(teams.map(function(d) {
         return d.substring(0, 6) + ' FC';

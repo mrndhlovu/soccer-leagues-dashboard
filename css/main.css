@@ -406,7 +406,7 @@ th {
         padding-bottom: 5px;
         padding-right: 10px;
     }
-    
+
     .glyphicon {
         display: none !important;
     }
@@ -459,66 +459,64 @@ th {
 
 }
 
+/*.....................Charts CSS.........................*/
+
+.dataBox {
+    padding: 10px 0 10px 0;
+    display: flex;
+    justify-content: space-around;
+    height: 350px;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+}
+
+.chartWrapper {}
+
+h3 {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+#compareTwoTeamsWrapper {
+    border: 1px solid black;
+    height: 300px;
+}
+
+.graphHeading {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 400;
+
+}
 
 
+.axis path,
+axis line {
+    fill: none;
+    stroke: #ccc;
+    shape-rendering: crispEdges;
 
-    /*.....................Charts CSS.........................*/
-    .dataBox {
-        padding: 10px 0 10px 0;
-        display: flex;
-        justify-content: space-around;
-        height: 350px;
-        box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
-    }
+}
 
-    .chartWrapper {}
+text {
+    font-weight: 400;
 
-    h3 {
-        text-align: center;
-        text-transform: uppercase;
-        font-weight: 700;
-    }
+    background-color: seagreen;
+}
 
-    #compareTwoTeamsWrapper {
-        border: 1px solid black;
-        height: 300px;
-    }
+.barPoint {
+    color: red !important;
+}
 
-    .graphHeading {
-        text-align: center;
-        text-transform: uppercase;
-        font-weight: 400;
+.arc text {
 
-    }
+    text-anchor: middle;
 
+}
 
-    .axis path,
-    axis line {
-        fill: none;
-        stroke: #ccc;
-        shape-rendering: crispEdges;
-
-    }
-
-    text {
-        font-weight: 400;
-
-        background-color: seagreen;
-    }
-
-    .barPoint {
-        color: red !important;
-    }
-
-    .arc text {
-
-        text-anchor: middle;
-
-    }
-
-    .donutTool1,
-    .donutTool2,
-    .chartPointTool1,
-    .chartPointTool2 {
-        font-weight: 500;
-    }
+.donutTool1,
+.donutTool2,
+.chartPointTool1,
+.chartPointTool2 {
+    font-weight: 500;
+}
