@@ -75,8 +75,6 @@ function showTeamBadge(showBadge) {
     for (let i = 0; i < teams.length; i++) {
         if (showBadge == teams[i]) {
             const badgeUrlString = 'url(' + teamBadges[i] + ')';
-            badgeImage.style.height = '19em';
-            badgeImage.style.width = '19em';
             badgeImage.style.backgroundImage = badgeUrlString;
         }
     }

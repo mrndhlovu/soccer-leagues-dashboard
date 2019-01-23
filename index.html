@@ -40,9 +40,7 @@
                     </form>
                 </div>
                 <div class="tBadge" id "badge">
-                    <img class "teamBadge" id="teamBadge"></img>
-                </div>
-                <div class="row stats-cards-wrapper">
+                    <img class="teamBadge" id="teamBadge"></img>
                 </div>
                 <div class="col-md-6 stats-cards">
                     <h3 class="statsHead">Wins</h3>
@@ -96,6 +94,48 @@
         <div class="dash-container">
             <div class="row table-containers">
                 <div class="tables-container col-md-6 col-sm-12 col-xs-12">
+                    <div id="compareTwoTeamsContainer">
+
+                        <div class="row chartWrapper" id="winLossContainer">
+                            <div class="dataBox col-md-6 col-sm-12 col-xs-12" id="wonGamesChart">
+                            </div>
+                            <div class="dataBox col-md-6 col-sm-12 col-xs-12" id="lostGamesChart">
+
+                            </div>
+                        </div>
+                        <div class="row chartWrapper" id="scorePieChart">
+                            <div class="dataBox col-md-6 col-sm-12 col-xs-12" id="goalsScoredDonut">
+
+                            </div>
+                            <div class="dataBox col-md-6 col-sm-12 col-xs-12" id="goalsConcededDonut">
+
+                            </div>
+                        </div>
+                        <p class="info"> Click on team to view team past games***</p>
+
+                    </div>
+
+
+                    <div class="tables-container col-md-6 col-sm-12 col-xs-12">
+                        <div class="table-report">
+                            <h3 class="dash-headers">Past 10 Games</h3>
+                            <div class="table2">
+                                <div class="table">
+                                    <table class="table">
+                                        <thead class=" thead-dark ">
+                                            <tr>
+                                                <th class="t-headers " scope="col">Home Team</th>
+                                                <th class="t-headers " scope="col">Score</th>
+                                                <th class="t-headers " scope="col">Away Team</th>
+                                                <th class="t-headers " scope="col">Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="table-hover table-striped" id='gameStriped'></tbody>
+                                    </table </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <h3 class="dash-headers">Fixtures</h3>
                     <div class="day">
                         <div class=" input-group-append">
@@ -116,60 +156,21 @@
                             <tbody class="table-hover table-striped" id='tableStriped'></tbody>
                         </table>
                     </div>
-                    <div id="compareTwoTeamsContainer">
 
-                        <div class="row chartWrapper" id="winLossContainer">
-                            <div class="dataBox col-md-6 col-sm-12 col-xs-12" id="wonGamesChart">
-                            </div>
-                            <div class="dataBox col-md-6 col-sm-12 col-xs-12" id="lostGamesChart">
-
-                            </div>
-                        </div>
-                        <div class="row chartWrapper" id="scorePieChart">
-                            <div class="dataBox col-md-6 col-sm-12 col-xs-12" id="goalsScoredDonut">
-
-                            </div>
-                            <div class="dataBox col-md-6 col-sm-12 col-xs-12" id="goalsConcededDonut">
-
-                            </div>
-                        </div>
-                        <p class="info"> Click on team to view team past games***</p>
-
-
-                        <div class="tables-container col-md-6 col-sm-12 col-xs-12">
-                            <div class="table-report">
-                                <h3 class="dash-headers">Past 10 Games</h3>
-                                <div class="table2">
-                                    <div class="table">
-                                        <table class="table">
-                                            <thead class=" thead-dark ">
-                                                <tr>
-                                                    <th class="t-headers " scope="col">Home Team</th>
-                                                    <th class="t-headers " scope="col">Score</th>
-                                                    <th class="t-headers " scope="col">Away Team</th>
-                                                    <th class="t-headers " scope="col">Date</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="table-hover table-striped" id='gameStriped'></tbody>
-                                        </table </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-
             </div>
 
-
-            <footer class="footer">
-                <p>Premiere League Soccer Dashboard</p>
-                <qoute>By Mduduzi Ndhlovu</quote>
-            </footer>
-
         </div>
-        <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous "></script>
-        <script src="js/stats.js "></script>
+
+
+        <footer class="footer">
+            <p>Premiere League Soccer Dashboard</p>
+            <qoute>By Mduduzi Ndhlovu</quote>
+        </footer>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous "></script>
+    <script src="js/stats.js "></script>
 </body>
 
 </html>

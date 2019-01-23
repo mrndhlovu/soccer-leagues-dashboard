@@ -138,18 +138,21 @@ body {
     height: fit-content;
 }
 
-.tBadge{
+.tBadge {
     height: 19.5em;
 }
 
-#teamBadge{
-    background-color: inherit;
+.teamBadge {
+    display: flex;
+    height: 19em;
+    width: 14em;
+    margin: 0 auto;
 }
 
-img{
-    border:0;
-    opacity: 0.2;
+img {
+    opacity: 0.4;
     background-size: cover;
+
 }
 
 .card-wrapper2 {
@@ -174,7 +177,7 @@ img{
     width: 85%;
     padding-top: 14px;
     margin-left: 26px;
-    
+
 }
 
 .statsHead {
@@ -195,7 +198,11 @@ img{
     align-items: center;
 }
 
-
+.teamOption {
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-around;
+}
 
 
 /*.........................End ASIDE CSS.......................*/
@@ -380,7 +387,7 @@ th {
         top: 1em;
         background-color: #fff;
         position: relative;
-        height:80vh;
+        height: 80vh;
     }
     .dash-headers {
         text-transform: uppercase;
@@ -434,7 +441,7 @@ th {
     .header-input {
         padding: 0rem 2rem 1em 1em;
     }
-    
+
 
 }
 
@@ -465,7 +472,7 @@ h3 {
     text-align: center;
     text-transform: uppercase;
     font-weight: 400;
-    
+
 }
 
 
@@ -479,23 +486,23 @@ axis line {
 
 text {
     font-weight: 400;
-   
+
     background-color: seagreen;
 }
 
-.barPoint{
-     color: red !important;
+.barPoint {
+    color: red !important;
 }
 
 .arc text {
- 
-   text-anchor: middle;
-   
+
+    text-anchor: middle;
+
 }
 
-.donutTool1, 
-.donutTool2, 
-.chartPointTool1, 
+.donutTool1,
+.donutTool2,
+.chartPointTool1,
 .chartPointTool2 {
-   font-weight: 500;
+    font-weight: 500;
 }
