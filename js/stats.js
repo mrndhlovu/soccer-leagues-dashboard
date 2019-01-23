@@ -61,6 +61,7 @@ function pullData() {
 }
 
 
+// Get team badges and names and push to empty arrays
 function getTeamsAndBadges() {
     Object.keys(apiCall.stand).forEach((key) => {
         teamBadges.push(apiCall.stand[key].team.crestUrl);
@@ -345,6 +346,8 @@ function buildTable(query) {
 // Show the past ten games of a particular 
 function showPassTenGames(teamClick) {
     let counter = 10;
+    
+    //loop through the data file backwards and find past played games
     for (let i = apiCall.data.length - 10; i--;) {
         let tr = document.createElement('tr'),
             hTeam = document.createElement('td'),
@@ -358,9 +361,10 @@ function showPassTenGames(teamClick) {
         score.className = 'scores';
         date.id = 'gameDate';
 
-        if (((teamClick == homeTeam[i] || teamClick == awayTeam[i]) && state[i] == 'FINISHED') && counter > 0) { //Create table rows and colums
-
-
+        // if the team clicked is found in past games played list the last 10  
+        if (((teamClick == homeTeam[i] || teamClick == awayTeam[i]) && state[i] == 'FINISHED') && counter > 0) { 
+            
+            //Create table rows and colums
             tr.appendChild(hTeam);
             tr.appendChild(score);
             tr.appendChild(aTeam);
@@ -397,7 +401,7 @@ function getSelectedDay() {
     buildTable(userQuery);
 }
 
-
+// When a team is clicked on the fixtures graph call the get teams function then get stats ,show past 10 and team badge
 function tableTeamOnClick(team) {
     getTeamGames();
     getStats(team);
@@ -426,7 +430,7 @@ const margin = { top: 20, right: 35, bottom: 100, left: 20 },
     x = d3.scale.ordinal().rangeRoundBands([0, width], 0.5),
     y = d3.scale.linear().range([height, 0]);
 
-
+//show games won graph for each team
 function graphTeamWins() {
     
     // Point where to draw graph
@@ -526,6 +530,7 @@ function graphTeamWins() {
 
 }
 
+//show games lost graph for each team
 function graphTeamLosses() {
 
     // Point where to draw graph
@@ -624,7 +629,8 @@ function graphTeamLosses() {
         .attr('font-size', '1.5rem')
 }
 
-
+//Create donuts
+// Donut color ranges and radius
 const radius = 155;
 const color = d3.scale.ordinal()
     .range(['#1abc9c', '#2ecc71', '#3ae374', '#3498db', '#9b59b6', '#f19066', '#18dcff', '#27ae60', '#2980b9', '#8e44ad',
@@ -704,7 +710,7 @@ function donutChart(stand) {
 
 }
 
-
+//Make donut showing goals conceded per team
 function pieChart(stand) {
 
     const canvas = d3.select('#goalsConcededDonut')
@@ -762,7 +768,8 @@ function pieChart(stand) {
             barPoint.attr('transform', 'translate(' + xPos + ',' + yPos + ')');
             barPoint.select('text').text(d.data.team.name);
         });
-
+        
+    // bar pointer class and css
     const barPoint = chartArc.append('g')
         .attr('class', 'donutTool2')
         .style('display', 'none');
