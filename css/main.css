@@ -112,8 +112,9 @@ body {
 }
 
 .day {
-    width: 80%;
+    width: 100%;
     padding: 1rem 2rem;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
 }
 
 .main-heading {}
@@ -144,7 +145,7 @@ body {
 .teamBadge {
     display: flex;
     height: 19em;
-    width: 14em;
+    width: 19em;
     margin: 0 auto;
 }
 
@@ -208,6 +209,7 @@ img {
 
 .table {
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+    margin-bottom: 5px;
 }
 
 .form-control {
@@ -252,13 +254,13 @@ th {
     font-weight: 700;
 }
 
-.table {}
+.tables-wrap {
+    display: flex;
+}
 
 .tables-container {
     width: 100%;
 }
-
-.tables-wrapper {}
 
 .table-containers {
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
@@ -274,9 +276,9 @@ th {
 
 .dash-headers {
     text-transform: uppercase;
-    font-weight: 700;
+    font-weight: 500;
     text-align: center;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #ccc;
     padding-bottom: 13px;
 }
 
@@ -432,6 +434,17 @@ th {
     .header-input {
         padding: 0rem 2rem 1em 1em;
     }
+    .tables-container {
+        width: 100%;
+        padding-right: 10px;
+        padding-left: 7px;
+    }
+    .tables-wrap {
+        display: flex;
+        flex-direction: column;
+    }
+
+
 }
 
 
@@ -440,71 +453,73 @@ th {
     .header-input {
         padding: 0rem 2rem 1em 1em;
     }
-    .main-header{
+    .main-header {
         box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
     }
 
 
 }
 
-/*.....................Charts CSS.........................*/
-
-.dataBox {
-    padding: 10px 0 10px 0;
-    display: flex;
-    justify-content: space-around;
-    height: 350px;
-    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
-}
-
-.chartWrapper {}
-
-h3 {
-    text-align: center;
-    text-transform: uppercase;
-    font-weight: 700;
-}
-
-#compareTwoTeamsWrapper {
-    border: 1px solid black;
-    height: 300px;
-}
-
-.graphHeading {
-    text-align: center;
-    text-transform: uppercase;
-    font-weight: 400;
-
-}
 
 
-.axis path,
-axis line {
-    fill: none;
-    stroke: #ccc;
-    shape-rendering: crispEdges;
 
-}
+    /*.....................Charts CSS.........................*/
+    .dataBox {
+        padding: 10px 0 10px 0;
+        display: flex;
+        justify-content: space-around;
+        height: 350px;
+        box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+    }
 
-text {
-    font-weight: 400;
+    .chartWrapper {}
 
-    background-color: seagreen;
-}
+    h3 {
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: 700;
+    }
 
-.barPoint {
-    color: red !important;
-}
+    #compareTwoTeamsWrapper {
+        border: 1px solid black;
+        height: 300px;
+    }
 
-.arc text {
+    .graphHeading {
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: 400;
 
-    text-anchor: middle;
+    }
 
-}
 
-.donutTool1,
-.donutTool2,
-.chartPointTool1,
-.chartPointTool2 {
-    font-weight: 500;
-}
+    .axis path,
+    axis line {
+        fill: none;
+        stroke: #ccc;
+        shape-rendering: crispEdges;
+
+    }
+
+    text {
+        font-weight: 400;
+
+        background-color: seagreen;
+    }
+
+    .barPoint {
+        color: red !important;
+    }
+
+    .arc text {
+
+        text-anchor: middle;
+
+    }
+
+    .donutTool1,
+    .donutTool2,
+    .chartPointTool1,
+    .chartPointTool2 {
+        font-weight: 500;
+    }

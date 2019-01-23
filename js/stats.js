@@ -84,10 +84,11 @@ function showTeamBadge(showBadge) {
 // Fill option seletor with list of teams
 function listTeamsOptions() {
 
-    let select = document.createElement('select'),
-        option = document.createElement('option');
+const select = document.createElement('select');
 
     for (let i = 0; i < teams.length; i++) {
+        
+        const option = document.createElement('option');
         select.appendChild(option);
         select.setAttribute('onchange', 'getSelectedTeam();');
         select.id = 'teamList';
@@ -97,8 +98,6 @@ function listTeamsOptions() {
         option.id = 'team' + (i + 1);
         option.innerHTML = teams[i];
         option.setAttribute('onclick', 'tableTeamOnClick(this.innerHTML)');
-
-
     }
     document.getElementById('formSelect').appendChild(select);
 }
@@ -403,6 +402,7 @@ function tableTeamOnClick(team) {
     getTeamGames();
     getStats(team);
     showPassTenGames(team);
+    showTeamBadge(team);
 }
 
 
@@ -520,7 +520,7 @@ function graphTeamWins() {
         .attr('dy', '1.2em')
         .style('text-anchor', 'middle')
         .attr('font-size', '1.5rem')
-        
+
 }
 
 function graphTeamLosses() {
@@ -619,7 +619,7 @@ function graphTeamLosses() {
         .style('text-anchor', 'middle')
         .attr('font-size', '1.5rem')
 }
-console.log(apiCall.stand[0]);
+
 
 const radius = 155;
 const color = d3.scale.ordinal()
@@ -635,7 +635,7 @@ function donutChart(stand) {
         .attr('height', 400);
 
     const group = canvas.append('g')
-        .attr('transform', 'translate(200,160)');
+        .attr('transform', 'translate(170,160)');
 
     const arc = d3.svg.arc()
         .innerRadius(100)
@@ -709,7 +709,7 @@ function pieChart(stand) {
         .attr('height', 400);
 
     const group = canvas.append('g')
-        .attr('transform', 'translate(200,160)');
+        .attr('transform', 'translate(170,160)');
 
     const arc = d3.svg.arc()
         .innerRadius(100)
@@ -778,7 +778,9 @@ function pieChart(stand) {
         .text('Goals Conceded');
 }
 
-
+pullData();
+getTeamsAndBadges();
+listTeamsOptions();
 // Load data on window load
 function loadDefaultStats() {
     const statsDefault = teams[0];
@@ -792,9 +794,6 @@ window.onload = () => {
     loadDefaultStats();
 };
 
-pullData();
-getTeamsAndBadges();
-listTeamsOptions();
 graphTeamWins();
 graphTeamLosses();
 donutChart(apiCall.stand);

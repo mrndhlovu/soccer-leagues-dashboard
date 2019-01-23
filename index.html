@@ -94,15 +94,52 @@
         <div class="dash-container">
             <div class="row table-containers">
                 <div class="tables-container col-md-6 col-sm-12 col-xs-12">
-                    <div id="compareTwoTeamsContainer">
-
-                        <div class="row chartWrapper" id="winLossContainer">
-                            <div class="dataBox col-md-6 col-sm-12 col-xs-12" id="wonGamesChart">
+                    <div class="tables-wrap row">
+                        <div class="tables-container col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="table-report">
+                                <h3 class="dash-headers">Past 10 Games</h3>
+                                <div class="table2">
+                                    <div class="table">
+                                        <table class="table">
+                                            <thead class=" thead-dark ">
+                                                <tr>
+                                                    <th class="t-headers " scope="col">Home Team</th>
+                                                    <th class="t-headers " scope="col">Score</th>
+                                                    <th class="t-headers " scope="col">Away Team</th>
+                                                    <th class="t-headers " scope="col">Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="table-hover table-striped" id='gameStriped'></tbody>
+                                        </table </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="dataBox col-md-6 col-sm-12 col-xs-12" id="lostGamesChart">
+                            <div class="day">
+                                <div class=" input-group-append">
+                                    <span id="inputText">Pick Match Day:</span> <input id="userInput" value="1" />
+                                    <input onchange="getSelectedDay();" class="form-control" type="range" value="1" min="1" max="38" id="userData" oninput="userInput.value = userData.value" /><br>
+                                </div>
 
                             </div>
                         </div>
+                        <div class="tables-container col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <h3 class="dash-headers">Fixtures</h3>
+                            <table class="table">
+                                <thead class=" thead-dark ">
+                                    <tr>
+                                        <th class="t-headers " scope="col">Home Team</th>
+                                        <th class="t-headers " scope="col">Score</th>
+                                        <th class="t-headers " scope="col">Away Team</th>
+                                        <th class="t-headers " scope="col">State</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-hover table-striped" id='tableStriped'></tbody>
+                            </table>
+                            <p class="info"> Click on team to view team past games***</p>
+                        </div>
+                    </div>
+
+                    <div id="compareTwoTeamsContainer">
                         <div class="row chartWrapper" id="scorePieChart">
                             <div class="dataBox col-md-6 col-sm-12 col-xs-12" id="goalsScoredDonut">
 
@@ -111,51 +148,12 @@
 
                             </div>
                         </div>
-                       
-
-                    </div>
-
-
-                    <div class="tables-container col-md-6 col-sm-12 col-xs-12">
-                        <div class="table-report">
-                            <h3 class="dash-headers">Past 10 Games</h3>
-                            <div class="table2">
-                                <div class="table">
-                                    <table class="table">
-                                        <thead class=" thead-dark ">
-                                            <tr>
-                                                <th class="t-headers " scope="col">Home Team</th>
-                                                <th class="t-headers " scope="col">Score</th>
-                                                <th class="t-headers " scope="col">Away Team</th>
-                                                <th class="t-headers " scope="col">Date</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="table-hover table-striped" id='gameStriped'></tbody>
-                                    </table </div>
-                                </div>
+                        <div class="row chartWrapper" id="winLossContainer">
+                            <div class="dataBox col-md-6 col-sm-12 col-xs-12" id="wonGamesChart">
+                            </div>
+                            <div class="dataBox col-md-6 col-sm-12 col-xs-12" id="lostGamesChart">
                             </div>
                         </div>
-                    </div>
-                    <h3 class="dash-headers">Fixtures</h3>
-                    <div class="day">
-                        <div class=" input-group-append">
-                            <span id="inputText">Pick Match Day:</span> <input id="userInput" value="1" />
-                            <input onchange="getSelectedDay();" class="form-control" type="range" value="1" min="1" max="38" id="userData" oninput="userInput.value = userData.value" /><br>
-                        </div>
-                    </div>
-                     <p class="info"> Click on team to view team past games***</p>
-                    <div>
-                        <table class="table">
-                            <thead class=" thead-dark ">
-                                <tr>
-                                    <th class="t-headers " scope="col">Home Team</th>
-                                    <th class="t-headers " scope="col">Score</th>
-                                    <th class="t-headers " scope="col">Away Team</th>
-                                    <th class="t-headers " scope="col">State</th>
-                                </tr>
-                            </thead>
-                            <tbody class="table-hover table-striped" id='tableStriped'></tbody>
-                        </table>
                     </div>
 
                 </div>
