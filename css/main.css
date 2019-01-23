@@ -23,7 +23,6 @@ body {
     width: 23em;
     height: 3em;
     text-align: center;
-    padding-left: 1em;
     font-size: 1.2rem;
     font-weight: 500;
 }
@@ -407,12 +406,7 @@ th {
         padding-bottom: 5px;
         padding-right: 10px;
     }
-    #teamList {
-        text-align: center;
-        font-size: 0.7em;
-        font-weight: 700;
-
-    }
+    
     .glyphicon {
         display: none !important;
     }
@@ -449,13 +443,18 @@ th {
 
 
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 823px) and (max-width: 1024px) {
     .header-input {
         padding: 0rem 2rem 1em 1em;
     }
     .main-header {
         box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
     }
+    .tables-wrap {
+        display: flex;
+        flex-direction: column;
+    }
+
 
 
 }
