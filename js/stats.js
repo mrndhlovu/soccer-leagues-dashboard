@@ -262,9 +262,11 @@ function buildTable(query) {
 
         state.className = 'matchState';
         hTeam.className = 'tableTeam';
+        hTeam.style.cursor = 'pointer';
         hTeam.setAttribute('onclick', 'tableTeamOnClick(this.innerHTML)');
         hTeam.innerHTML = homeTeam[d];
         aTeam.className = 'tableTeam';
+        aTeam.style.cursor = 'pointer';
         aTeam.setAttribute('onclick', 'tableTeamOnClick(this.innerHTML)');
         score.className = 'score';
         date.id = 'matchDate';
@@ -346,7 +348,7 @@ function buildTable(query) {
 // Show the past ten games of a particular 
 function showPassTenGames(teamClick) {
     let counter = 10;
-    
+
     //loop through the data file backwards and find past played games
     for (let i = apiCall.data.length - 10; i--;) {
         let tr = document.createElement('tr'),
@@ -362,8 +364,8 @@ function showPassTenGames(teamClick) {
         date.id = 'gameDate';
 
         // if the team clicked is found in past games played list the last 10  
-        if (((teamClick == homeTeam[i] || teamClick == awayTeam[i]) && state[i] == 'FINISHED') && counter > 0) { 
-            
+        if (((teamClick == homeTeam[i] || teamClick == awayTeam[i]) && state[i] == 'FINISHED') && counter > 0) {
+
             //Create table rows and colums
             tr.appendChild(hTeam);
             tr.appendChild(score);
@@ -403,6 +405,9 @@ function getSelectedDay() {
 
 // When a team is clicked on the fixtures graph call the get teams function then get stats ,show past 10 and team badge
 function tableTeamOnClick(team) {
+    const x = document.getElementById('formSelect');
+    x.style.display = 'none';
+
     getTeamGames();
     getStats(team);
     showPassTenGames(team);
@@ -432,7 +437,7 @@ const margin = { top: 20, right: 35, bottom: 100, left: 20 },
 
 //show games won graph for each team
 function graphTeamWins() {
-    
+
     // Point where to draw graph
     const svg = d3.select('#wonGamesChart')
         .append('svg')
@@ -553,7 +558,7 @@ function graphTeamLosses() {
         .innerTickSize(-width)
         .outerTickSize(0)
         .tickPadding(1);
-        
+
     // X axis text strings
     x.domain(teams.map(function(d) {
         return d.substring(0, 6) + ' FC';
@@ -768,7 +773,7 @@ function pieChart(stand) {
             barPoint.attr('transform', 'translate(' + xPos + ',' + yPos + ')');
             barPoint.select('text').text(d.data.team.name);
         });
-        
+
     // bar pointer class and css
     const barPoint = chartArc.append('g')
         .attr('class', 'donutTool2')
