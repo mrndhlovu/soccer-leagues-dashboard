@@ -7,7 +7,7 @@
 
 ## Overview
 ___
-Milestone project number 2: This is a dashboard showing the current season statistics of teams playing in the English Premiere league. The data is sourced from football-data.org API, and credit to [**Daniel**](https://de.linkedin.com/pub/daniel-freitag/2a/a89/522) for offering this free service. AJAX GET messages are made and with the correct API authorization key, a json data file is received and then filtered through to create the dashboard data using JavaScript and D3.
+Milestone project number 2: This is a dashboard showing the current season statistics of teams playing in the English Premiere league. The data is sourced from football-data.org API, and credit to [**Daniel**](https://de.linkedin.com/pub/daniel-freitag/2a/a89/522) for offering this free service. AJAX GET data calls are made and with the correct API authorization key, a json data file is received and then filtered to create the stats dashboard using JavaScript, and D3.
 
 ## File List
 ___
@@ -131,6 +131,6 @@ ___
 * API data used from : football-data.org
 * D3 code copied from [Accio Code Youtube Channel](https://www.youtube.com/channel/UC9ObAKKcpFeHcYiNtnSqbMg)
 * Color palettes sources from:  https://flatuicolors.com/palette/defo 
-* [Code Institute] (https://codeinstitute.net/)
-* [Stake Overflow](https://stackoverflow.com/): Research tips.
+* [Code Institute](https://codeinstitute.net/)
+* [Stake Overflow](https://stackoverflow.com/)
 
