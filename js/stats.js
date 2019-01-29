@@ -245,34 +245,58 @@ function setDefaultMatchDay() {
     return day;
 }
 
+// Apply css to winner colomn  || Show green flag if win
+function flagResults(result, team1, team2) {
+
+    if (result === true) {
+        team1.style.color = 'green';
+        team1.style.fontSize = '15px';
+        team2.style.color = 'red';
+        team2.style.fontSize = '8px';
+    }
+    else if (result === false) {
+        team1.style.color = 'red';
+        team1.style.fontSize = '8px';
+        team2.style.color = 'green';
+        team2.style.fontSize = '15px';
+    }
+    else if (result == 'draw'){
+        team1.style.color = 'blue';
+        team2.style.color = 'blue';
+        team2.style.fontSize = '7px';
+        team1.style.fontSize = '7px';
+    }
+}
+
 
 // Build fixtures table with match day query
 function buildTable(query) {
 
     for (let d = 0; d < matchDay.length; d++) {
-
-        const gameDate = new Date(apiCall.data[d].utcDate);
-        const tr = document.createElement('tr');
-        const state = document.createElement('td');
-        const hTeam = document.createElement('td');
-        const aTeam = document.createElement('td');
-        const score = document.createElement('td');
-        const date = document.createElement('td');
+        const homeWinner = true;
+        const awayWinner = false;
+        const draw = 'draw';
+        const gameDate = new Date(apiCall.data[d].utcDate),
+            tr = document.createElement('tr'),
+            state = document.createElement('td'),
+            hTeam = document.createElement('td'),
+            aTeam = document.createElement('td'),
+            score = document.createElement('td'),
+            date = document.createElement('td'),
+            flagTeamOne = document.createElement('span'),
+            flagTeamTwo = document.createElement('span');
         //Create table rows and colums
 
         state.className = 'matchState';
         hTeam.className = 'tableTeam';
-        hTeam.style.cursor = 'pointer';
-        hTeam.setAttribute('onclick', 'tableTeamOnClick(this.innerHTML)');
         hTeam.innerHTML = homeTeam[d];
         aTeam.className = 'tableTeam';
-        aTeam.style.cursor = 'pointer';
-        aTeam.setAttribute('onclick', 'tableTeamOnClick(this.innerHTML)');
         score.className = 'score';
         date.id = 'matchDate';
-
         state.innerHTML = apiCall.data[d].status + '<br>' + gameDate.toDateString();
         aTeam.innerHTML = awayTeam[d];
+        flagTeamTwo.className = 'glyphicon glyphicon-flag';
+        flagTeamOne.className = 'glyphicon glyphicon-flag';
 
 
         // Use data to build table
@@ -286,25 +310,24 @@ function buildTable(query) {
             //show results
             if (homeScore[d] > awayScore[d]) {
                 score.innerHTML = homeScore[d] + ' : ' + awayScore[d];
-                /*showWin();
-                showResult();*/
-
+                hTeam.append(flagTeamOne);
+                aTeam.append(flagTeamTwo);
+                flagResults(homeWinner, flagTeamOne, flagTeamTwo);
             }
             else if (homeScore[d] < awayScore[d]) {
                 score.innerHTML = homeScore[d] + ' : ' + awayScore[d];
-                /*  showLoss();
-                  showResult();
-                  */
+                hTeam.append(flagTeamOne);
+                aTeam.append(flagTeamTwo);
+                flagResults(awayWinner, flagTeamOne, flagTeamTwo);
             }
             else if ((homeScore[d] == awayScore[d] && apiCall.data[d].status == 'FINISHED') || (awayScore[d] == homeScore[d] && apiCall.data[d].status == 'FINISHED')) {
                 score.innerHTML = homeScore[d] + ' : ' + awayScore[d];
-                /*showDraw();
-                showResult();*/
-
+                hTeam.append(flagTeamOne);
+                aTeam.append(flagTeamTwo);
+                flagResults(draw, flagTeamOne, flagTeamTwo);
             }
             else if (homeScore[d] == awayScore[d] && apiCall.data[d].status == 'SCHEDULED') {
                 score.innerHTML = '-' + ' : ' + '-';
-                //showDraw();
             }
             else if (awayScore[d] == homeScore[d] && apiCall.data[d].status == 'SCHEDULED') {
                 score.innerHTML = score.innerHTML = '-' + ' : ' + '-';
@@ -313,35 +336,6 @@ function buildTable(query) {
         document.getElementById('tableStriped').appendChild(tr);
     }
 
-
-    // Apply css to winner colomn  || Show green flag if win
-    function showWin() {
-        homeTeam.style.color = 'green';
-        awayTeam.style.color = 'red';
-        flagLoss.style.fontSize = '8px';
-        flagWin.style.fontSize = '15px';
-    }
-
-    // show red flag loss
-    function showLoss() {
-        homeTeam.style.color = 'red';
-        awayTeam.style.color = 'green';
-    }
-
-    function showDraw() {
-        awayScore.style.color = 'blue';
-        homeScore.style.color = 'blue';
-        flagLoss.style.fontSize = '8px';
-        flagWin.style.fontSize = '8px';
-    }
-
-    function showResult() {
-        score.style.textAlign = 'center';
-        state.style.textAlign = 'center';
-        hTeam.style.textAlign = 'center';
-        aTeam.style.textAlign = 'center';
-        date.style.textAlign = 'center';
-    }
 }
 
 
@@ -402,18 +396,6 @@ function getSelectedDay() {
     }
     buildTable(userQuery);
 }
-
-// When a team is clicked on the fixtures graph call the get teams function then get stats ,show past 10 and team badge
-function tableTeamOnClick(team) {
-    const x = document.getElementById('formSelect');
-    x.style.display = 'none';
-
-    getTeamGames();
-    getStats(team);
-    showPassTenGames(team);
-    showTeamBadge(team);
-}
-
 
 // Get remove old data and build new table on click
 function getTeamGames(tableTeamOnClick) {
