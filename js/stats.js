@@ -386,7 +386,6 @@ function showPassTenGames(teamClick) {
 
 }
 
-
 // Onclick get user match day query, remove old table and build a new one with match day chosen.
 function getSelectedDay() {
     const userQuery = document.getElementById('userInput').value;
