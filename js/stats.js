@@ -19,7 +19,7 @@ function ajaxGetData(queryURL) {
     return data;
 }
 
-
+// Api call choices
 const apiCall = {
     data: ajaxGetData(season).matches,
     playerScorers: ajaxGetData(scorersURL).scorers,
@@ -27,7 +27,7 @@ const apiCall = {
 };
 
 
-// empty stats arrays
+// Empty stats arrays 
 const awayScore = [],
     homeScore = [],
     awayTeam = [],
@@ -46,7 +46,7 @@ function pullData() {
         matchDay.push(apiCall.data[key].matchday);
         homeTeam.push(apiCall.data[key].homeTeam.name);
         awayTeam.push(apiCall.data[key].awayTeam.name);
-
+        
 
         //Populate home and away score arrays
         if (apiCall.data[key].state !== 'SCHEDULED') {
@@ -88,7 +88,6 @@ function listTeamsOptions() {
     const select = document.createElement('select');
 
     for (let i = 0; i < teams.length; i++) {
-
         const option = document.createElement('option');
         select.appendChild(option);
         select.setAttribute('onchange', 'getSelectedTeam();');
@@ -103,7 +102,7 @@ function listTeamsOptions() {
     document.getElementById('formSelect').appendChild(select);
 }
 
-
+// When team picked from dropdown  get team name
 function getSelectedTeam(choice) {
     choice = document.getElementById('teamList').value;
     getStats(choice);
@@ -138,7 +137,7 @@ function getStats(getSelectedTeam) {
         awayDraw = 0;
 
 
-    // Get team wins, losses, draws - home
+    // Get team wins, losses, draws
     for (let i = 0; i < matchDay.length; i++) {
         let winH = (matchDay[i] && homeTeam[i] == getSelectedTeam) && homeScore[i] > awayScore[i],
             lossH = (matchDay[i] && homeTeam[i] == getSelectedTeam) && homeScore[i] < awayScore[i],
@@ -245,7 +244,7 @@ function setDefaultMatchDay() {
     return day;
 }
 
-// Apply css to winner colomn  || Show green flag if win
+// Flag result for every match and color flags
 function flagResults(result, team1, team2) {
 
     if (result === true) {
@@ -339,11 +338,11 @@ function buildTable(query) {
 }
 
 
-// Show the past ten games of a particular 
+// Show team past ten games 
 function showPassTenGames(teamClick) {
     let counter = 10;
 
-    //loop through the data file backwards and find past played games
+    //loop through the data file backwards and find past played games then build table
     for (let i = apiCall.data.length - 10; i--;) {
         let tr = document.createElement('tr'),
             hTeam = document.createElement('td'),
@@ -408,6 +407,7 @@ function getTeamGames(tableTeamOnClick) {
 
 /*......................D3 functions...........................*/
 
+/*...Credit to AccioCode Youtube Channel for d3 code below.....*/
 
 //Graph margin and scaling
 const margin = { top: 20, right: 35, bottom: 100, left: 20 },
@@ -775,9 +775,12 @@ function pieChart(stand) {
         .text('Goals Conceded');
 }
 
+
+// Call all functions
 pullData();
 getTeamsAndBadges();
 listTeamsOptions();
+
 // Load data on window load
 function loadDefaultStats() {
     const statsDefault = teams[0];
@@ -795,3 +798,6 @@ graphTeamWins();
 graphTeamLosses();
 donutChart(apiCall.stand);
 pieChart(apiCall.stand);
+
+
+/*...............END........................*/
