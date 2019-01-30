@@ -5,19 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta http-equiv="pragma" content="no-cache" />
-   
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/main.css">
 
     <script src="js/d3.min.js"></script>
-    <script type="text/javascript" src="js/crossfilter.min.js"></script>
-    
-    <title>PL Score Dashboard</title>
+    <script src="js/crossfilter.min.js"></script>
+
+    <title>PL Soccer Dashboard</title>
 </head>
 
 <body>
+    <!-- Header-->
     <div class="container-fluid main-container">
         <header class="main-header">
             <div class="row ">
@@ -27,15 +27,16 @@
             </div>
         </header>
 
-        <aside class="side-bar-menu ">
+        <!--Aside bar-->
+        <aside class="side-bar-menu">
             <h3 class="dash-headers">Team Stats</h3>
             <div class=" stats-blocks">
                 <div class="teamOption">
                     <form class="header-form header-input" id="formSelect">
                     </form>
                 </div>
-                <div class="tBadge" id "badge">
-                    <img class="teamBadge" id="teamBadge"></img>
+                <div class="tBadge" id="badge">
+                    <img src="" class="teamBadge" id="teamBadge" alt="Team Badge">
                 </div>
                 <div class="col-md-6 stats-cards">
                     <h3 class="statsHead">Wins</h3>
@@ -82,10 +83,11 @@
                     <p class="cardText" id="totalGoal"></p>
                 </div>
             </div>
+        </aside>
     </div>
-    </aside>
-    <div class="page-container">
 
+    <!--Tables and Graphs-->
+    <div class="page-container">
         <div class="dash-container">
             <div class="row table-containers">
                 <div class="tables-container col-md-6 col-sm-12 col-xs-12">
@@ -105,7 +107,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody class="table-hover table-striped" id='gameStriped'></tbody>
-                                        </table </div>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -114,9 +116,9 @@
                                     <span id="inputText">Pick Match Day:</span> <input id="userInput" value="1" />
                                     <input onchange="getSelectedDay();" class="form-control" type="range" value="1" min="1" max="38" id="userData" oninput="userInput.value = userData.value" /><br>
                                 </div>
-
                             </div>
                         </div>
+                        <!--Donut-->
                         <div class="tables-container col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <h3 class="dash-headers">Fixtures</h3>
                             <table class="table">
@@ -130,17 +132,14 @@
                                 </thead>
                                 <tbody class="table-hover table-striped" id='tableStriped'></tbody>
                             </table>
-                           
                         </div>
                     </div>
-
+                    <!--Donut-->
                     <div id="compareTwoTeamsContainer">
                         <div class="row chartWrapper" id="scorePieChart">
                             <div class="dataBox col-md-6 col-sm-12 col-xs-12" id="goalsScoredDonut">
-
                             </div>
                             <div class="dataBox col-md-6 col-sm-12 col-xs-12" id="goalsConcededDonut">
-
                             </div>
                         </div>
                         <div class="row chartWrapper" id="winLossContainer">
@@ -150,15 +149,14 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
-
         </div>
     </div>
+    <!--Footer-->
     <footer class="footer">
         <p>Premiere League Soccer Dashboard</p>
-        <qoute>By Mduduzi Ndhlovu</quote>
+        <p>By Mduduzi Ndhlovu</p>
     </footer>
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous "></script>
     <script src="js/stats.js "></script>
