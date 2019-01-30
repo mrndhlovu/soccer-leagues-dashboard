@@ -116,8 +116,6 @@ body {
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
 }
 
-.main-heading {}
-
 .main-header {
     font-size: 12px;
 }
@@ -209,10 +207,6 @@ img {
 .table {
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
     margin-bottom: 5px;
-}
-
-.form-control {
-    /*padding: 2rem 32rem;*/
 }
 
 .table-striped tbody tr {
@@ -437,11 +431,7 @@ th {
         display: flex;
         flex-direction: column;
     }
-
-
 }
-
-
 
 @media (min-width: 823px) and (max-width: 1024px) {
     .header-input {
@@ -454,9 +444,6 @@ th {
         display: flex;
         flex-direction: column;
     }
-
-
-
 }
 
 /*.....................Charts CSS.........................*/
@@ -468,8 +455,6 @@ th {
     height: 350px;
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
 }
-
-.chartWrapper {}
 
 h3 {
     text-align: center;
@@ -486,16 +471,13 @@ h3 {
     text-align: center;
     text-transform: uppercase;
     font-weight: 400;
-
 }
-
 
 .axis path,
 axis line {
     fill: none;
     stroke: #ccc;
     shape-rendering: crispEdges;
-
 }
 
 text {
