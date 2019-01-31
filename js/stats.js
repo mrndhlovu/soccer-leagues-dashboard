@@ -97,7 +97,7 @@ function listTeamsOptions() {
         option.value = teams[i];
         option.id = 'team' + (i + 1);
         option.innerHTML = teams[i];
-        option.setAttribute('onclick', 'tableTeamOnClick(this.innerHTML)');
+        
     }
     document.getElementById('formSelect').appendChild(select);
 }
@@ -396,12 +396,12 @@ function getSelectedDay() {
 }
 
 // Get remove old data and build new table on click
-function getTeamGames(tableTeamOnClick) {
+function getTeamGames(team) {
     const oldData = document.getElementById('gameStriped');
     while (oldData.firstChild) {
         oldData.removeChild(oldData.firstChild);
     }
-    showPassTenGames(tableTeamOnClick);
+    showPassTenGames(team);
 }
 
 

@@ -3,7 +3,7 @@
 #### Author : Mduduzi Ndhlovu
 #### [GitHub](https://github.com/mrndhlovu) 
 #### [LinkedIn](https://www.linkedin.com/in/mduduzi-ndhlovu-750068167/)
-### Dashboard [URL](https://mrndhlovu.github.io/milestoneProject2-pl-app/)
+#### Dashboard [URL](https://mrndhlovu.github.io/milestoneProject2-pl-app/)
 
 ## Overview
 ___
