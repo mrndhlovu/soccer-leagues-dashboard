@@ -30,7 +30,7 @@ ___
 
 
 
-## Libraries used
+## Libraries and Frameworks Used
 ___
 > Bootstrap 
 
@@ -73,8 +73,10 @@ ___
     * Research    
 * Stack Overflow
     * Code research
+* W3C 
+    * HTML and CSS Validation.
 
-## Features and Testing
+## Features
 ___
 
 ### Team Stats
@@ -114,17 +116,66 @@ ___
 * These graphs show the number games each team has won and lost in the season so far respectively. 
 * They are listed according to current table rankings and on hover shows the full team name and number of wins or losses.
 
-All testing of the logic and functionality of this project was done using Google Development Tools. Functions logic was tested using the Chrome console which would print errors which need attention if the logic or code syntax did not make sense. Used the Chrome devtools also to edit the webpage CSS on the fly and then implement the changes on the style.css file.
+## Install
+___
+The following dashboard dependent libraries and frameworks can be downloaded to a local directory using a wget. and placed in the head of the idex.html file in the order shown. The jQuery script tag should be just above the closing body tag.
 
+         wget https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js
+         wget https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.min.js 
+
+         <script src="localdir/d3.min.js"></script>
+         <script src="localdir/crossfilter.min.js"></script>
+
+or CDN 
+        
+
+        * <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+        * <script src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.min.js"></script>
+        * <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous "></script>
+
+
+## Testing
+___
+> JavaScript Testing
+
+All testing of the logic and functionality of this project was done using Google Development Tools. 
+
+* Function logic was tested using the Chrome console that would print errors which needed attention if the logic or code syntax did not make sense. 
+* With every function written in the stats.js file, troubleshooting the logic of each function was tested and esults printed to the console. For example the first API data call returned a JSON file which had to be filter through by  changing json key values to match and display data that was needed.
+
+> API 
+* Setup an API [football data account](https://www.football-data.org/client/login), and get an authorization key.
+* Used [Postman](https://www.getpostman.com/) to test and validate API requests and API key.
+* API data  filtering [documentaion](https://www.football-data.org/documentation/quickstart)
+        
+        Request URLs used in the project:
+        > https://api.football-data.org/v2/competitions/2021/standing
+        > https://api.football-data.org/v2/competitions/PL/scorers
+        > https://api.football-data.org/v2/competitions/PL/matches
+
+
+
+> CSS Testing
+
+* Used the Chrome devtools also to edit the webpage CSS on the fly and then implement the changes on the style.css file.
+
+* Responsive testing was done with the help of flex-box and bootstrap grip templates. Found that bootstrap grids works well with adjusting content to fit in a particular screen size and adding flex-box and justify-content helped to align container properly.
+* Using the Google development tools, particularly the toggle device toolbar and css media queries, the dashboard card alignment to different mobile screen sizes easy. 
+* CSS validation was tested using https://jigsaw.w3.org/css-validator/ 
+
+> HTML Testing
+* HTML's  validation was checked using https://validator.w3.org/
 
 ## Bugs
 ___
 * Text over flows and doesn't display properly if the text string is too long when you hover over the Goals Conceded donut, making it hard to read.
 * Team badges are not the same size, so some images appear cropped.
+* Flags on the fixtures table dissappear in mobile view. 
 
 ## Deployment
 ___
 * Final version of code was pushed from Cloud9 to a GitHub pages host with all the dependent files included and available for download.
+* Final version [URL](https://mrndhlovu.github.io/milestoneProject2-pl-app/)
 
 ## Credits
 ---
