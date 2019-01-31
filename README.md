@@ -1,6 +1,6 @@
-# Premiere League Soccer DashBoard
+# Premiere League Soccer Dashboard
 
-#### Author : Mduduzi Ndhlovu
+#### Author: Mduduzi Ndhlovu
 #### [GitHub](https://github.com/mrndhlovu) 
 #### [LinkedIn](https://www.linkedin.com/in/mduduzi-ndhlovu-750068167/)
 #### Dashboard [URL](https://mrndhlovu.github.io/milestoneProject2-pl-app/)
@@ -25,7 +25,7 @@ ___
 
 > index.html
 
-    The structure of the dashboard was made on this file. All the external libraries, css links and scripts used by the dashboard are linked in this file.
+    The structure of the dashboard was made on this file. All the external libraries, CSS links and scripts used by the dashboard are linked in this file.
 
 
 
@@ -61,13 +61,13 @@ ___
     * For keeping track of code changes.
 * GitHub
     * Repo hosting.
-* BootStrap
+* Bootstrap
     * HTML and CSS framework used in this project mainly to adjust the responsiveness of the dashboard.   
 * Rest API
     * Used in this project to call and get json data used by the dashboard.
 * JSON  
     * Structured key values file used to build dashboard stats.
-* Google DevTools 
+* Google Development Tools 
     * Used for testing logic and functionality of code. 
 * YouTube 
     * Research    
@@ -92,7 +92,7 @@ ___
 ### Fixtures
 * On this table you can see the next upcoming games in the premiere league, also shown is the date the games are set to play. 
 * Using the "Pick Match Day" slide, the fixtures table can be rebuilt to show games Finished or Scheduled to play and stating the dates the matches played or will play. 
-* On match day the state on the table will change to "InPlay" when a game kicks off, will show "Paused" during half time and "Finished" when a game ends.
+* On match day the state on the table will change to "InPlay" when a game kicks off, will show "Paused" during half time and "Finished" when a game end.
 * The flags show match day wins, losers and draws. 
 ```
             Green flag = Winner
@@ -101,7 +101,7 @@ ___
 ```
 ### Pick Match Day
 * As mentioned before, the slide will filter and show game fixtures according to match day picked. 
-* The input number shown represents the match day range from 1 to 38, the number of games each team in the league has to play in a season.
+* The input number shown represents the match day range from 1 to 38, the number of games each team in the league must play in a season.
 
 ### Goals Scored Donut
 * This donut represents all the teams playing in the league and figures shown are the number of goals each team has scored and mapped to a color to highlight the differences per team.
@@ -123,8 +123,8 @@ The following dashboard dependent libraries and frameworks can be downloaded to 
          wget https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js
          wget https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.min.js 
 
-         <script src="localdir/d3.min.js"></script>
-         <script src="localdir/crossfilter.min.js"></script>
+         <script src="local-dir/d3.min.js"></script>
+         <script src="local-dir/crossfilter.min.js"></script>
 
 or CDN 
         
@@ -141,12 +141,12 @@ ___
 All testing of the logic and functionality of this project was done using Google Development Tools. 
 
 * Function logic was tested using the Chrome console that would print errors which needed attention if the logic or code syntax did not make sense. 
-* With every function written in the stats.js file, troubleshooting the logic of each function was tested and esults printed to the console. For example the first API data call returned a JSON file which had to be filter through by  changing json key values to match and display data that was needed.
+* With every function written in the stats.js file, troubleshooting the logic of each function was tested and esults printed to the console. For example the first API data call returned a JSON file which had to be filter through by changing json key values to match and display data that was needed.
 
 > API 
 * Setup an API [football data account](https://www.football-data.org/client/login), and get an authorization key.
 * Used [Postman](https://www.getpostman.com/) to test and validate API requests and API key.
-* API data  filtering [documentaion](https://www.football-data.org/documentation/quickstart)
+* API data filtering [documentaion](https://www.football-data.org/documentation/quickstart)
         
         Request URLs used in the project:
         > https://api.football-data.org/v2/competitions/2021/standing
@@ -159,18 +159,19 @@ All testing of the logic and functionality of this project was done using Google
 
 * Used the Chrome devtools also to edit the webpage CSS on the fly and then implement the changes on the style.css file.
 
-* Responsive testing was done with the help of flex-box and bootstrap grip templates. Found that bootstrap grids works well with adjusting content to fit in a particular screen size and adding flex-box and justify-content helped to align container properly.
+* Responsive testing was done with the help of flex-box and bootstrap grip templates. Found that bootstrap grids work well with adjusting content to fit in a particular screen size and adding flex-box and justify-content helped to align container properly.
 * Using the Google development tools, particularly the toggle device toolbar and css media queries, the dashboard card alignment to different mobile screen sizes easy. 
 * CSS validation was tested using https://jigsaw.w3.org/css-validator/ 
 
 > HTML Testing
-* HTML's  validation was checked using https://validator.w3.org/
+
+* HTML’s validation was checked using https://validator.w3.org/
 
 ## Bugs
 ___
 * Text over flows and doesn't display properly if the text string is too long when you hover over the Goals Conceded donut, making it hard to read.
 * Team badges are not the same size, so some images appear cropped.
-* Flags on the fixtures table dissappear in mobile view. 
+* Flags on the fixtures table disappear in mobile view. 
 
 ## Deployment
 ___
@@ -184,4 +185,5 @@ ___
 * Color palettes sources from:  https://flatuicolors.com/palette/defo 
 * [Code Institute](https://codeinstitute.net/)
 * [Stake Overflow](https://stackoverflow.com/)
+
 
