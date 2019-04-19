@@ -29,14 +29,14 @@
 
         <!--Aside bar-->
         <aside class="side-bar-menu">
-            <h3 class="dash-headers">Team Stats</h3>
+            <h3 class="dash-headers">Team Statistics</h3>
             <div class=" stats-blocks">
                 <div class="teamOption">
                     <form class="header-form header-input" id="formSelect">
                     </form>
                 </div>
                 <div class="tBadge" id="badge">
-                    <img src="" class="teamBadge" id="teamBadge" alt="Team Badge">
+                    <img  class="teamBadge" id="teamBadge" >
                 </div>
                 <div class="col-md-6 stats-cards">
                     <h3 class="statsHead">Wins</h3>
@@ -114,7 +114,7 @@
                             <div class="day">
                                 <div class=" input-group-append">
                                     <span id="inputText">Pick Match Day:</span> <input id="userInput" value="1" />
-                                    <input onchange="getSelectedDay();" class="form-control" type="range" value="1" min="1" max="38" id="userData" oninput="userInput.value = userData.value" /><br>
+                                    <input onchange="pickMatchDay();" class="form-control" type="range" value="1" min="1" max="38" id="userData" oninput="userInput.value = userData.value" /><br>
                                 </div>
                             </div>
                         </div>

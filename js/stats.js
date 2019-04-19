@@ -1,33 +1,28 @@
-// API URLS
+// API EndPoints
 const standingsURL = 'https://api.football-data.org/v2/competitions/2021/standings',
     scorersURL = 'https://api.football-data.org/v2/competitions/PL/scorers',
     season = 'https://api.football-data.org/v2/competitions/PL/matches',
     key = { 'X-Auth-Token': '5d791d1818c3415d9b1a4b323c899bf4' };
 
 
-// Get API Data with queryURL to call different API server
-function ajaxGetData(queryURL) {
+//Endpoint Data Request
+const requestData = url =>  {
     const data = $.ajax({
         headers: key,
-        url: queryURL,
+        url: url,
         dataType: 'json',
         type: 'GET',
         async: false,
-    }).done(function(response) {
-
+    }).done(response => {
     }).responseJSON;
     return data;
-}
-
-// Api call choices
-const apiCall = {
-    data: ajaxGetData(season).matches,
-    playerScorers: ajaxGetData(scorersURL).scorers,
-    stand: ajaxGetData(standingsURL).standings[0].table
 };
 
+// Global Variables
+const games = requestData(season).matches;
+const topGoalScorers = requestData(scorersURL).scorers;
+const leagueStandings = requestData(standingsURL).standings[0].table;
 
-// Empty stats arrays 
 const awayScore = [],
     homeScore = [],
     awayTeam = [],
@@ -38,40 +33,39 @@ const awayScore = [],
     teams = [],
     teamBadges = [];
 
-
-//Loop through raw data array and filter wanted data and push to empty arrays
-function pullData() {
-    Object.keys(apiCall.data).forEach((key) => {
-        state.push(apiCall.data[key].status);
-        matchDay.push(apiCall.data[key].matchday);
-        homeTeam.push(apiCall.data[key].homeTeam.name);
-        awayTeam.push(apiCall.data[key].awayTeam.name);
+//Filter through response data arrays and push to empty arrays
+const filterData = () => {
+    Object.keys(games).forEach( key => {
         
+        matchDay.push(games[key].matchday);
+        homeTeam.push(games[key].homeTeam.name);
+        awayTeam.push(games[key].awayTeam.name);
+        state.push(games[key].status);
 
         //Populate home and away score arrays
-        if (apiCall.data[key].state !== 'SCHEDULED') {
-            awayScore.push(apiCall.data[key].score.fullTime.awayTeam);
-            homeScore.push(apiCall.data[key].score.fullTime.homeTeam);
+        if (games[key].status !== 'SCHEDULED') {
+            awayScore.push(games[key].score.fullTime.awayTeam);
+            homeScore.push(games[key].score.fullTime.homeTeam);
         }
-        if (apiCall.data[key].state == 'SCHEDULED') {
+        if (games[key].status == 'SCHEDULED') {
             homeScore.push(toPlay);
             awayScore.push(toPlay);
         }
     });
 }
-
+ console.log(games[0])
 
 // Get team badges and names and push to empty arrays
-function getTeamsAndBadges() {
-    Object.keys(apiCall.stand).forEach((key) => {
-        teamBadges.push(apiCall.stand[key].team.crestUrl);
-        teams.push(apiCall.stand[key].team.name);
+const  getTeamsAndBadges = () => {
+    Object.keys(leagueStandings).forEach((key) => {
+        teamBadges.push(leagueStandings[key].team.crestUrl);
+        teams.push(leagueStandings[key].team.name);
     });
 }
 
 
 // On team option click show team badge
-function showTeamBadge(showBadge) {
+const showTeamBadge = showBadge => {
     const badgeImage = document.getElementById('teamBadge');
     for (let i = 0; i < teams.length; i++) {
         if (showBadge == teams[i]) {
@@ -79,12 +73,11 @@ function showTeamBadge(showBadge) {
             badgeImage.style.backgroundImage = badgeUrlString;
         }
     }
-}
+};
 
 
 // Fill option seletor with list of teams
-function listTeamsOptions() {
-
+const listTeamsOptions = () => {
     const select = document.createElement('select');
 
     for (let i = 0; i < teams.length; i++) {
@@ -100,25 +93,24 @@ function listTeamsOptions() {
         
     }
     document.getElementById('formSelect').appendChild(select);
-}
+};
 
 // When team picked from dropdown  get team name
-function getSelectedTeam(choice) {
+const getSelectedTeam = choice => {
     choice = document.getElementById('teamList').value;
-    getStats(choice);
+    showStats(choice);
     getTeamGames(choice);
     showTeamBadge(choice);
 }
 
 
 //Find average goals per game;
-function findAverage(a, b, c) {
+const findAverage = (a, b, c) => {
     return a / (b + c);
 }
 
-
 //Team stats logic
-function getStats(getSelectedTeam) {
+const showStats = team => {
 
     //Stats variables
     let avg = 0,
@@ -136,21 +128,20 @@ function getStats(getSelectedTeam) {
         homeDraw = 0,
         awayDraw = 0;
 
-
     // Get team wins, losses, draws
     for (let i = 0; i < matchDay.length; i++) {
-        let winH = (matchDay[i] && homeTeam[i] == getSelectedTeam) && homeScore[i] > awayScore[i],
-            lossH = (matchDay[i] && homeTeam[i] == getSelectedTeam) && homeScore[i] < awayScore[i],
-            winA = (matchDay[i] && awayTeam[i] == getSelectedTeam) && awayScore[i] > homeScore[i],
-            lossA = (matchDay[i] && awayTeam[i] == getSelectedTeam) && awayScore[i] < homeScore[i],
-            drawH = (matchDay[i] && homeTeam[i] == getSelectedTeam) && homeScore[i] == awayScore[i],
-            drawA = (matchDay[i] && awayTeam[i] == getSelectedTeam) && awayScore[i] == homeScore[i],
-            playedH = state[i] == 'FINISHED' && homeTeam[i].includes(getSelectedTeam),
-            notPlayedH = state[i] == 'SCHEDULED' && homeTeam[i].includes(getSelectedTeam),
-            playedA = state[i] == 'FINISHED' && awayTeam[i].includes(getSelectedTeam),
-            notPlayedA = state[i] == 'SCHEDULED' && awayTeam[i].includes(getSelectedTeam);
+        let winH = (matchDay[i] && homeTeam[i] == team) && homeScore[i] > awayScore[i],
+            lossH = (matchDay[i] && homeTeam[i] == team) && homeScore[i] < awayScore[i],
+            winA = (matchDay[i] && awayTeam[i] == team) && awayScore[i] > homeScore[i],
+            lossA = (matchDay[i] && awayTeam[i] == team) && awayScore[i] < homeScore[i],
+            drawH = (matchDay[i] && homeTeam[i] == team) && homeScore[i] == awayScore[i],
+            drawA = (matchDay[i] && awayTeam[i] == team) && awayScore[i] == homeScore[i],
+            playedH = state[i] == 'FINISHED' && homeTeam[i].includes(team),
+            notPlayedH = state[i] == 'SCHEDULED' && homeTeam[i].includes(team),
+            playedA = state[i] == 'FINISHED' && awayTeam[i].includes(team),
+            notPlayedA = state[i] == 'SCHEDULED' && awayTeam[i].includes(team);
 
-        //If Team selected was playing  show get stats
+        //If team selected was playing  show get stats
         if (winH) {
             homeWin++;
             if (awayScore[i] > 0) {
@@ -185,7 +176,7 @@ function getStats(getSelectedTeam) {
             }
         }
 
-        // Check if team played and get home or away stats
+        // Check if team played then calculate stats
         if (playedH) {
             homeGames++;
             totalGoals += homeScore[i];
@@ -230,22 +221,24 @@ function getStats(getSelectedTeam) {
     document.getElementById('cleanSheets').innerHTML = cleanSheets;
     document.getElementById('goalsConc').innerHTML = goalsConceded;
 
-}
+};
 
 
 // Set default match day for fixtures on pageload
-function setDefaultMatchDay() {
-    let day;
-    for (let q = 0; q < apiCall.data.length; q++) {
-        if (apiCall.data[q].status == 'FINISHED') {
-            day = matchDay[q] + 1;
+const setDefaultMatchDay = () => {
+    
+    let defaultMatch;
+    for (let day  = 0; day < games.length; day++) {
+        
+        if (games[day].status === 'FINISHED') {
+            defaultMatch = matchDay[day] + 1;
         }
     }
-    return day;
-}
+    return defaultMatch;
+};
 
 // Flag result for every match and color flags
-function flagResults(result, team1, team2) {
+const flagResults = (result, team1, team2) => {
 
     if (result === true) {
         team1.style.color = 'green';
@@ -269,13 +262,13 @@ function flagResults(result, team1, team2) {
 
 
 // Build fixtures table with match day query
-function buildTable(query) {
+const buildTable = day => {
 
     for (let d = 0; d < matchDay.length; d++) {
         const homeWinner = true;
         const awayWinner = false;
         const draw = 'draw';
-        const gameDate = new Date(apiCall.data[d].utcDate),
+        const gameDate = new Date(games[d].utcDate),
             tr = document.createElement('tr'),
             state = document.createElement('td'),
             hTeam = document.createElement('td'),
@@ -292,14 +285,14 @@ function buildTable(query) {
         aTeam.className = 'tableTeam';
         score.className = 'score';
         date.id = 'matchDate';
-        state.innerHTML = apiCall.data[d].status + '<br>' + gameDate.toDateString();
+        state.innerHTML = games[d].status + '<br>' + gameDate.toDateString();
         aTeam.innerHTML = awayTeam[d];
         flagTeamTwo.className = 'glyphicon glyphicon-flag';
         flagTeamOne.className = 'glyphicon glyphicon-flag';
 
 
         // Use data to build table
-        if (query == matchDay[d]) {
+        if (day == matchDay[d]) {
 
             tr.appendChild(hTeam);
             tr.appendChild(score);
@@ -319,16 +312,16 @@ function buildTable(query) {
                 aTeam.append(flagTeamTwo);
                 flagResults(awayWinner, flagTeamOne, flagTeamTwo);
             }
-            else if ((homeScore[d] == awayScore[d] && apiCall.data[d].status == 'FINISHED') || (awayScore[d] == homeScore[d] && apiCall.data[d].status == 'FINISHED')) {
+            else if ((homeScore[d] == awayScore[d] && games[d].status == 'FINISHED') || (awayScore[d] == homeScore[d] && games[d].status == 'FINISHED')) {
                 score.innerHTML = homeScore[d] + ' : ' + awayScore[d];
                 hTeam.append(flagTeamOne);
                 aTeam.append(flagTeamTwo);
                 flagResults(draw, flagTeamOne, flagTeamTwo);
             }
-            else if (homeScore[d] == awayScore[d] && apiCall.data[d].status == 'SCHEDULED') {
+            else if (homeScore[d] == awayScore[d] && games[d].status == 'SCHEDULED') {
                 score.innerHTML = '-' + ' : ' + '-';
             }
-            else if (awayScore[d] == homeScore[d] && apiCall.data[d].status == 'SCHEDULED') {
+            else if (awayScore[d] == homeScore[d] && games[d].status == 'SCHEDULED') {
                 score.innerHTML = score.innerHTML = '-' + ' : ' + '-';
             }
         }
@@ -337,16 +330,17 @@ function buildTable(query) {
 
 }
 
-
+console.log(homeTeam)
 // Show team past ten games 
-function showPassTenGames(teamClick) {
-    let counter = 10;
-
+const showPassTenGames = team => {
+    let pastTenGames = 10;
+    
     //loop through the data file backwards and find past played games then build table
-    for (let i = apiCall.data.length - 10; i--;) {
+    for (let i = games.length - 10; i--;) {
+       
         let tr = document.createElement('tr'),
             hTeam = document.createElement('td'),
-            gameDate = new Date(apiCall.data[i].utcDate),
+            gameDate = new Date(games[i].utcDate),
             aTeam = document.createElement('td'),
             score = document.createElement('td'),
             date = document.createElement('td');
@@ -355,9 +349,10 @@ function showPassTenGames(teamClick) {
         aTeam.className = 'gameAway';
         score.className = 'scores';
         date.id = 'gameDate';
-
+       
         // if the team clicked is found in past games played list the last 10  
-        if (((teamClick == homeTeam[i] || teamClick == awayTeam[i]) && state[i] == 'FINISHED') && counter > 0) {
+        if (((team == homeTeam[i] || team == awayTeam[i]) && state[i] == 'FINISHED') && pastTenGames > 0) {
+            
 
             //Create table rows and colums
             tr.appendChild(hTeam);
@@ -372,37 +367,37 @@ function showPassTenGames(teamClick) {
             date.innerHTML = gameDate.toDateString();
 
             //show results
-            if ((teamClick == homeTeam[i] || teamClick == awayTeam[i]) && state[i] == 'FINISHED') {
+            if ((team == homeTeam[i] || team == awayTeam[i]) && state[i] == 'FINISHED') {
                 score.innerHTML = homeScore[i] + ' : ' + awayScore[i];
             }
-            else if ((teamClick == homeTeam[i] || teamClick == awayTeam[i]) && state[i] == 'SCHEDULED') {
+            else if ((team == homeTeam[i] || team == awayTeam[i]) && state[i] == 'SCHEDULED') {
                 score.innerHTML = homeScore[i] + ' : ' + awayScore[i];
             }
-            counter--;
+            pastTenGames--;
             document.getElementById('gameStriped').appendChild(tr);
         }
     }
 
-}
+};
 
 // Onclick get user match day query, remove old table and build a new one with match day chosen.
-function getSelectedDay() {
+const pickMatchDay = () => {
     const userQuery = document.getElementById('userInput').value;
     const oldDataTable = document.getElementById('tableStriped');
     while (oldDataTable.firstChild) {
         oldDataTable.removeChild(oldDataTable.firstChild);
     }
     buildTable(userQuery);
-}
+};
 
 // Get remove old data and build new table on click
-function getTeamGames(team) {
+const getTeamGames = team => {
     const oldData = document.getElementById('gameStriped');
     while (oldData.firstChild) {
         oldData.removeChild(oldData.firstChild);
     }
     showPassTenGames(team);
-}
+};
 
 
 /*......................D3 functions...........................*/
@@ -417,7 +412,7 @@ const margin = { top: 20, right: 35, bottom: 100, left: 20 },
     y = d3.scale.linear().range([height, 0]);
 
 //show games won graph for each team
-function graphTeamWins() {
+const graphTeamWins = () => {
 
     // Point where to draw graph
     const svg = d3.select('#wonGamesChart')
@@ -442,7 +437,7 @@ function graphTeamWins() {
     }));
 
     // Y axis value 
-    y.domain([0, d3.max(apiCall.stand, function(d) {
+    y.domain([0, d3.max(leagueStandings, function(d) {
         return d.won;
     })]);
     // Create  axis
@@ -477,7 +472,7 @@ function graphTeamWins() {
 
     // Give bar values
     svg.selectAll('bar')
-        .data(apiCall.stand)
+        .data(leagueStandings)
         .enter()
         .append('rect')
         .style('fill', '#af4032')
@@ -517,7 +512,7 @@ function graphTeamWins() {
 }
 
 //show games lost graph for each team
-function graphTeamLosses() {
+const graphTeamLosses = () => {
 
     // Point where to draw graph
     const svg = d3.select('#lostGamesChart')
@@ -546,7 +541,7 @@ function graphTeamLosses() {
     }));
 
     // Y axis value 
-    y.domain([0, d3.max(apiCall.stand, function(d) {
+    y.domain([0, d3.max(leagueStandings, function(d) {
         return d.lost;
     })]);
 
@@ -576,7 +571,7 @@ function graphTeamLosses() {
 
     // Give bar values
     svg.selectAll('bar')
-        .data(apiCall.stand)
+        .data(leagueStandings)
         .enter()
         .append('rect')
         .style('fill', '#477fb9')
@@ -623,7 +618,7 @@ const color = d3.scale.ordinal()
         '#f1c40f', '#e67e22', ' #e74c3c', ' #ecf0f1', '#95a5a6 ', '#7f8c8d ', '#bdc3c7 ', '#c0392b ', '#d35400', '#f39c12'
     ]);
 
-function donutChart(stand) {
+const donutChart = stand => {
 
     const canvas = d3.select('#goalsScoredDonut')
         .append('svg')
@@ -643,7 +638,7 @@ function donutChart(stand) {
         });
 
     const chartArc = group.selectAll('.arc')
-        .data(pie(apiCall.stand))
+        .data(pie(leagueStandings))
         .enter()
         .append('g')
         .attr('class', 'arc');
@@ -697,7 +692,7 @@ function donutChart(stand) {
 }
 
 //Make donut showing goals conceded per team
-function pieChart(stand) {
+const pieChart = stand => {
 
     const canvas = d3.select('#goalsConcededDonut')
         .append('svg')
@@ -717,7 +712,7 @@ function pieChart(stand) {
         });
 
     const chartArc = group.selectAll('.arc')
-        .data(pie(apiCall.stand))
+        .data(pie(leagueStandings))
         .enter()
         .append('g')
         .attr('class', 'arc');
@@ -777,16 +772,16 @@ function pieChart(stand) {
 
 
 // Call all functions
-pullData();
+filterData();
 getTeamsAndBadges();
 listTeamsOptions();
 
 // Load data on window load
-function loadDefaultStats() {
+const loadDefaultStats = () => {
     const statsDefault = teams[0];
     buildTable(setDefaultMatchDay());
     showPassTenGames(statsDefault);
-    getStats(statsDefault);
+    showStats(statsDefault);
     showTeamBadge(statsDefault);
 }
 
@@ -796,8 +791,8 @@ window.onload = () => {
 
 graphTeamWins();
 graphTeamLosses();
-donutChart(apiCall.stand);
-pieChart(apiCall.stand);
+donutChart(leagueStandings);
+pieChart(leagueStandings);
 
 
 /*...............END........................*/
