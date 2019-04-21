@@ -22,17 +22,21 @@
         <header class="main-header">
             <div class="row ">
                 <div class="logo col-md-12 col-sm-12 col-xs-12">
-                    <h1 class="main-header-text">PL Soccer Dashboard</h1>
+                    <h1 class="main-header-text">English Soccer Leagues Dashboard</h1>
                 </div>
-                <div class="logo col-md-12 col-sm-12 col-xs-12">
-                    <div class="leagueOption">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="leagueOption  stats-blocks">
                         <form class="header-form header-input" id="leagueSelect">
+
+                            <button class="reset btn btn-danger" id="reset">Reset</button>
                         </form>
+
                     </div>
+
                 </div>
             </div>
         </header>
-        <div class="container-fluid" id="test">
+        <div class="container-fluid test" id="reset">
             <div class="container-fluid">
                 <!--Aside bar-->
                 <aside class="side-bar-menu">
@@ -121,7 +125,7 @@
                                     <div class="day">
                                         <div class=" input-group-append">
                                             <span id="inputText">Pick Match Day:</span> <input id="userInput" value="1" />
-                                            <input onchange="pickMatchDay();" class="form-control" type="range" value="1" min="1" max="38" id="userData" oninput="userInput.value = userData.value" /><br>
+                                            <input onchange="leagueMatchDay();" class="form-control" type="range" value="1" min="1" max="rangeMaxMatchDay();" id="userData" oninput="userInput.value = userData.value" /><br>
                                         </div>
                                     </div>
                                 </div>

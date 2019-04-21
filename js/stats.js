@@ -8,9 +8,8 @@ const REQUEST_URL = 'https://api.football-data.org/v2/competitions/',
     scorers = '/scorers',
     standings = '/standings';
 
-const league = REQUEST_URL + leagues[0] + matches,
-    score = REQUEST_URL + leagues[0] + scorers,
-    stand = REQUEST_URL + leagues[0] + standings;
+let defaultLeague;
+
 
 const awayScore = [],
     homeScore = [],
@@ -27,79 +26,112 @@ let games,
     leagueStandings;
 
 
-const leagueChoice = () => {
-
-    // Fill option seletor with list of leagues
-
-        const select = document.createElement('select');
-
-        for (let i = 0; i < leagues.length; i++) {
-            const option = document.createElement('option');
-            select.appendChild(option);
-
-            select.id = 'leagueList';
-            select.name = 'teams';
-            select.appendChild(option);
-            option.value = leagues[i];
-            select.setAttribute('onchange', 'getSelectedLeague(this.options[this.selectedIndex].value);');
-            option.id = 'league' + (i + 1);
-            option.innerHTML = leagues[i];
-
-        }
-        document.getElementById('leagueSelect').appendChild(select);
-
-
-    // When team leagueed from dropdown  get team name
-
-};
-
-
-const getSelectedLeague = lg => {
-
-      const  choice = document.getElementById('leagueList').value;
-        if (choice == lg && lg == leagues[0] ) {
-
-            const league = REQUEST_URL + leagues[0] + matches,
-                score = REQUEST_URL + leagues[0] + scorers,
-                stand = REQUEST_URL + leagues[0] + standings;
-
-            fetchData(league, score, stand);
-        }
-        else if (choice == lg && lg == leagues[1] ) {
-
-            const league = REQUEST_URL + leagues[1] + matches,
-                score = REQUEST_URL + leagues[1] + scorers,
-                stand = REQUEST_URL + leagues[1] + standings;
-
-            fetchData(league, score, stand);
-        }
-
-    };
-
-
 //Fetch data when window loads.
-const fetchData = (league, scorer, standingsURL) => {
+const fetchData = (leaguesEndPoint, scorerEP, standingsEP) => {
 
+    console.log('Fetch data for..', leaguesEndPoint)
     //Endpoint Data Request
-    const requestData = url => {
+    const requestData = (url) => {
         const data = $.ajax({
             headers: key,
             url: url,
             dataType: 'json',
             type: 'GET',
             async: false,
-        }).done(response => {}).responseJSON;
+        }).done(response => {
+            console.log('Data received', response)
+
+        }).responseJSON;
         return data;
     };
 
-    games = requestData(league).matches;
-    topGoalScorers = requestData(scorer).scorers;
-    leagueStandings = requestData(standingsURL).standings[0].table;
+    games = requestData(leaguesEndPoint).matches;
+    topGoalScorers = requestData(scorerEP).scorers;
+    leagueStandings = requestData(standingsEP).standings[0].table;
+
+    console.log('Starting App have the data for..', leaguesEndPoint)
+
+    startApp();
 }
 
 
+const leagueOptions = () => {
+
+    const choice = document.getElementById('leagueSelect').value;
+
+    console.log('The default', choice)
+
+    // Fill option seletor with list of leagues
+
+    const select = document.createElement('select');
+
+    const option = document.createElement('option');
+    option.innerHTML = 'Choose League';
+    option.selected = 'selectedLeague(this.options[this.selectedIndex].value);';
+    select.appendChild(option);
+    for (let i = 0; i < leagues.length; i++) {
+        const option = document.createElement('option');
+        select.appendChild(option);
+        select.id = 'leagueList';
+        select.name = 'leagues';
+        select.appendChild(option);
+        option.value = leagues[i];
+        select.setAttribute('onchange', 'selectedLeague(this.options[this.selectedIndex].value);');
+        option.id = 'league' + (i + 1);
+        option.innerHTML = leagues[i];
+        console.log('select.value is', option.selected);
+        if (option.selected || select.value == leagues[i]) {
+
+            return defaultLeague == leagues[i];
+        }
+        else if (select.value == leagues[i]) {
+
+            return defaultLeague == leagues[i];
+        }
+    }
+    document.getElementById('leagueSelect').appendChild(select);
+    selectedLeague(defaultLeague);
+
+    const clear = () => {
+        
+        console.log('click')
+        window.location.reload();
+    }
+
+
+};
+
+const selectedLeague = leagueOption => {
+
+    console.log('This the select option', leagueOption)
+
+    if (leagueOption == leagues[0]) {
+        defaultLeague = leagues[0];
+        console.log('Must load PL data', leagueOption);
+
+        const league = REQUEST_URL + defaultLeague + matches,
+            score = REQUEST_URL + defaultLeague + scorers,
+            stand = REQUEST_URL + defaultLeague + standings;
+
+        return fetchData(league, score, stand);
+    }
+    else if (leagueOption == leagues[1]) {
+        defaultLeague = leagues[1];
+        console.log('Must load ECL data..', defaultLeague);
+
+        const league = REQUEST_URL + defaultLeague + matches,
+            score = REQUEST_URL + defaultLeague + scorers,
+            stand = REQUEST_URL + defaultLeague + standings;
+
+        return fetchData(league, score, stand);
+    }
+
+};
+
 //Filter through response data and push to empty arrays
 const filterData = () => {
+
+    console.log('Load data for ', defaultLeague);
     Object.keys(games).forEach(key => {
 
         matchDay.push(games[key].matchday);
@@ -119,7 +151,6 @@ const filterData = () => {
     });
 }
 
-console.log('Teams.....', teams)
 
 // Get team badges and names and push to empty arrays
 const getTeamsAndBadges = () => {
@@ -127,7 +158,7 @@ const getTeamsAndBadges = () => {
         teamBadges.push(leagueStandings[key].team.crestUrl);
         teams.push(leagueStandings[key].team.name);
     });
-}
+};
 
 
 // On team option click show team badge
@@ -400,7 +431,7 @@ const buildTable = day => {
 const showTopGoalScorers = () => {
 
 }
-showTopGoalScorers()
+
 
 // Show team past ten games 
 const showPassTenGames = team => {
@@ -450,6 +481,11 @@ const showPassTenGames = team => {
     }
 
 };
+
+const rangeMaxMatchDay = () => {
+    console.log(matchDay.length)
+    return matchDay.length
+}
 
 // Onclick get user match day query, remove old table and build a new one with match day chosen.
 const leagueMatchDay = () => {
@@ -845,29 +881,35 @@ const pieChart = stand => {
 // Call all functions
 
 
-// Load data on window load
+
 const startApp = () => {
 
     filterData();
     getTeamsAndBadges();
     listTeamsOptions();
 
-    const defaultLeague = leagues[0];
     const defaultTeam = teams[0];
 
     buildTable(setDefaultMatchDay());
     showPassTenGames(defaultTeam);
     showStats(defaultTeam);
     showTeamBadge(defaultTeam);
+    showTopGoalScorers()
     graphTeamWins();
     graphTeamLosses();
     donutChart(leagueStandings);
     pieChart(leagueStandings);
 };
 
+
+
+// Load data on window load
 window.onload = () => {
-    fetchData(league, score, stand);
-    startApp();
+    leagueOptions();
+    document.getElementById("reset").onclick = function() {
+    window.location.reload()
+};
+
 };
 
 
