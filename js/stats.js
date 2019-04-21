@@ -1,27 +1,16 @@
-// API EndPoints
-const standingsURL = 'https://api.football-data.org/v2/competitions/2021/standings',
-    scorersURL = 'https://api.football-data.org/v2/competitions/PL/scorers',
-    season = 'https://api.football-data.org/v2/competitions/PL/matches',
-    key = { 'X-Auth-Token': '5d791d1818c3415d9b1a4b323c899bf4' };
+// Initialise Global Variables
 
+const REQUEST_URL = 'https://api.football-data.org/v2/competitions/',
+    key = { 'X-Auth-Token': '5d791d1818c3415d9b1a4b323c899bf4' },
+    leagues = ['PL', 'ELC'],
+    id = [2021, 2016],
+    matches = '/matches/',
+    scorers = '/scorers',
+    standings = '/standings';
 
-//Endpoint Data Request
-const requestData = url =>  {
-    const data = $.ajax({
-        headers: key,
-        url: url,
-        dataType: 'json',
-        type: 'GET',
-        async: false,
-    }).done(response => {
-    }).responseJSON;
-    return data;
-};
-
-// Global Variables
-const games = requestData(season).matches;
-const topGoalScorers = requestData(scorersURL).scorers;
-const leagueStandings = requestData(standingsURL).standings[0].table;
+const league = REQUEST_URL + leagues[0] + matches,
+    score = REQUEST_URL + leagues[0] + scorers,
+    stand = REQUEST_URL + leagues[0] + standings;
 
 const awayScore = [],
     homeScore = [],
@@ -33,10 +22,86 @@ const awayScore = [],
     teams = [],
     teamBadges = [];
 
-//Filter through response data arrays and push to empty arrays
+let games,
+    topGoalScorers,
+    leagueStandings;
+
+
+const leagueChoice = () => {
+
+    // Fill option seletor with list of leagues
+
+        const select = document.createElement('select');
+
+        for (let i = 0; i < leagues.length; i++) {
+            const option = document.createElement('option');
+            select.appendChild(option);
+
+            select.id = 'leagueList';
+            select.name = 'teams';
+            select.appendChild(option);
+            option.value = leagues[i];
+            select.setAttribute('onchange', 'getSelectedLeague(this.options[this.selectedIndex].value);');
+            option.id = 'league' + (i + 1);
+            option.innerHTML = leagues[i];
+
+        }
+        document.getElementById('leagueSelect').appendChild(select);
+
+
+    // When team leagueed from dropdown  get team name
+
+};
+
+
+const getSelectedLeague = lg => {
+
+      const  choice = document.getElementById('leagueList').value;
+        if (choice == lg && lg == leagues[0] ) {
+
+            const league = REQUEST_URL + leagues[0] + matches,
+                score = REQUEST_URL + leagues[0] + scorers,
+                stand = REQUEST_URL + leagues[0] + standings;
+
+            fetchData(league, score, stand);
+        }
+        else if (choice == lg && lg == leagues[1] ) {
+
+            const league = REQUEST_URL + leagues[1] + matches,
+                score = REQUEST_URL + leagues[1] + scorers,
+                stand = REQUEST_URL + leagues[1] + standings;
+
+            fetchData(league, score, stand);
+        }
+
+    };
+
+
+//Fetch data when window loads.
+const fetchData = (league, scorer, standingsURL) => {
+
+    //Endpoint Data Request
+    const requestData = url => {
+        const data = $.ajax({
+            headers: key,
+            url: url,
+            dataType: 'json',
+            type: 'GET',
+            async: false,
+        }).done(response => {}).responseJSON;
+        return data;
+    };
+
+    games = requestData(league).matches;
+    topGoalScorers = requestData(scorer).scorers;
+    leagueStandings = requestData(standingsURL).standings[0].table;
+}
+
+
+//Filter through response data and push to empty arrays
 const filterData = () => {
-    Object.keys(games).forEach( key => {
-        
+    Object.keys(games).forEach(key => {
+
         matchDay.push(games[key].matchday);
         homeTeam.push(games[key].homeTeam.name);
         awayTeam.push(games[key].awayTeam.name);
@@ -53,10 +118,11 @@ const filterData = () => {
         }
     });
 }
- console.log(games[0])
+
+console.log('Teams.....', teams)
 
 // Get team badges and names and push to empty arrays
-const  getTeamsAndBadges = () => {
+const getTeamsAndBadges = () => {
     Object.keys(leagueStandings).forEach((key) => {
         teamBadges.push(leagueStandings[key].team.crestUrl);
         teams.push(leagueStandings[key].team.name);
@@ -90,12 +156,12 @@ const listTeamsOptions = () => {
         option.value = teams[i];
         option.id = 'team' + (i + 1);
         option.innerHTML = teams[i];
-        
+
     }
     document.getElementById('formSelect').appendChild(select);
 };
 
-// When team picked from dropdown  get team name
+// When team leagueed from dropdown  get team name
 const getSelectedTeam = choice => {
     choice = document.getElementById('teamList').value;
     showStats(choice);
@@ -226,10 +292,10 @@ const showStats = team => {
 
 // Set default match day for fixtures on pageload
 const setDefaultMatchDay = () => {
-    
+
     let defaultMatch;
-    for (let day  = 0; day < games.length; day++) {
-        
+    for (let day = 0; day < games.length; day++) {
+
         if (games[day].status === 'FINISHED') {
             defaultMatch = matchDay[day] + 1;
         }
@@ -252,7 +318,7 @@ const flagResults = (result, team1, team2) => {
         team2.style.color = 'green';
         team2.style.fontSize = '15px';
     }
-    else if (result == 'draw'){
+    else if (result == 'draw') {
         team1.style.color = 'blue';
         team2.style.color = 'blue';
         team2.style.fontSize = '7px';
@@ -330,14 +396,19 @@ const buildTable = day => {
 
 }
 
-console.log(homeTeam)
+// show top goal scorers
+const showTopGoalScorers = () => {
+
+}
+showTopGoalScorers()
+
 // Show team past ten games 
 const showPassTenGames = team => {
     let pastTenGames = 10;
-    
+
     //loop through the data file backwards and find past played games then build table
     for (let i = games.length - 10; i--;) {
-       
+
         let tr = document.createElement('tr'),
             hTeam = document.createElement('td'),
             gameDate = new Date(games[i].utcDate),
@@ -349,10 +420,10 @@ const showPassTenGames = team => {
         aTeam.className = 'gameAway';
         score.className = 'scores';
         date.id = 'gameDate';
-       
+
         // if the team clicked is found in past games played list the last 10  
         if (((team == homeTeam[i] || team == awayTeam[i]) && state[i] == 'FINISHED') && pastTenGames > 0) {
-            
+
 
             //Create table rows and colums
             tr.appendChild(hTeam);
@@ -381,7 +452,7 @@ const showPassTenGames = team => {
 };
 
 // Onclick get user match day query, remove old table and build a new one with match day chosen.
-const pickMatchDay = () => {
+const leagueMatchDay = () => {
     const userQuery = document.getElementById('userInput').value;
     const oldDataTable = document.getElementById('tableStriped');
     while (oldDataTable.firstChild) {
@@ -768,31 +839,36 @@ const pieChart = stand => {
         .attr('text-anchor', 'end')
         .attr('class', 'graphHeading')
         .text('Goals Conceded');
-}
+};
 
 
 // Call all functions
-filterData();
-getTeamsAndBadges();
-listTeamsOptions();
+
 
 // Load data on window load
-const loadDefaultStats = () => {
-    const statsDefault = teams[0];
-    buildTable(setDefaultMatchDay());
-    showPassTenGames(statsDefault);
-    showStats(statsDefault);
-    showTeamBadge(statsDefault);
-}
+const startApp = () => {
 
-window.onload = () => {
-    loadDefaultStats();
+    filterData();
+    getTeamsAndBadges();
+    listTeamsOptions();
+
+    const defaultLeague = leagues[0];
+    const defaultTeam = teams[0];
+
+    buildTable(setDefaultMatchDay());
+    showPassTenGames(defaultTeam);
+    showStats(defaultTeam);
+    showTeamBadge(defaultTeam);
+    graphTeamWins();
+    graphTeamLosses();
+    donutChart(leagueStandings);
+    pieChart(leagueStandings);
 };
 
-graphTeamWins();
-graphTeamLosses();
-donutChart(leagueStandings);
-pieChart(leagueStandings);
+window.onload = () => {
+    fetchData(league, score, stand);
+    startApp();
+};
 
 
 /*...............END........................*/
