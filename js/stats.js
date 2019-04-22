@@ -1,15 +1,13 @@
 // Initialise Global Variables
-
 const REQUEST_URL = 'https://api.football-data.org/v2/competitions/',
     key = { 'X-Auth-Token': '5d791d1818c3415d9b1a4b323c899bf4' },
-    leagues = ['PL', 'ELC', 'SA', 'CL', 'BL1', 'PPL', 'PD'],
+    leagues = ['PL', 'ELC', 'SA', 'BL1', 'PPL', 'PD'],
     id = [2021, 2016],
     matches = '/matches/',
     scorers = '/scorers',
     standings = '/standings';
 
 let defaultLeague;
-
 
 const awayScore = [],
     homeScore = [],
@@ -26,9 +24,9 @@ let games,
     leagueStandings;
 
 
-//Fetch data when window loads.
+//Fetch data from endpoints
 const fetchData = (leaguesEndPoint, scorerEP, standingsEP) => {
-    //Endpoint Data Request
+
     const requestData = (url) => {
         const data = $.ajax({
             headers: key,
@@ -36,18 +34,18 @@ const fetchData = (leaguesEndPoint, scorerEP, standingsEP) => {
             dataType: 'json',
             type: 'GET',
             async: false,
-        }).done(response => {
-
-        }).responseJSON;
+        }).done(response => {}).responseJSON;
         return data;
     };
 
+    //Request data from endpoints
     games = requestData(leaguesEndPoint).matches;
     topGoalScorers = requestData(scorerEP).scorers;
     leagueStandings = requestData(standingsEP).standings[0].table;
 
+    // Start app when has data
     startApp();
-}
+};
 
 
 const leagueOptions = () => {
@@ -171,13 +169,13 @@ const getSelectedTeam = choice => {
     showStats(choice);
     getTeamGames(choice);
     showTeamBadge(choice);
-}
+};
 
 
 //Find average goals per game;
 const findAverage = (a, b, c) => {
     return a / (b + c);
-}
+};
 
 //Team stats logic
 const showStats = team => {
@@ -347,8 +345,8 @@ const buildTable = day => {
             date = document.createElement('td'),
             flagTeamOne = document.createElement('span'),
             flagTeamTwo = document.createElement('span');
-        //Create table rows and colums
 
+        //Create table rows and colums
         state.className = 'matchState';
         hTeam.className = 'tableTeam';
         hTeam.innerHTML = homeTeam[d];
@@ -363,7 +361,6 @@ const buildTable = day => {
 
         // Use data to build table
         if (day == matchDay[d]) {
-
             tr.appendChild(hTeam);
             tr.appendChild(score);
             tr.appendChild(aTeam);
@@ -400,47 +397,38 @@ const buildTable = day => {
 
 }
 
-
-
-
 // show top goal scorers
 const showTopGoalScorers = () => {
 
-    console.log('Top Goal Scored............', topGoalScorers)
-    //loop through the data file backwards and find past played games then build table
+    //loop through array and pull required fields
     for (let i = 0; i < topGoalScorers.length; i++) {
-
         let tr = document.createElement('tr'),
             player = document.createElement('td'),
-            dob = new Date(games[i].utcDate),
             team = document.createElement('td'),
             numberOfGoals = document.createElement('td'),
-            date = document.createElement('td');
+            age = document.createElement('td'),
+            playerDOB = new Date(topGoalScorers[i].player.dateOfBirth).getFullYear();
 
         player.className = 'player';
         team.className = 'team';
         numberOfGoals.className = 'numberOfGoals';
-        date.className = 'playerdob';
-
+        age.className = 'playerAge';
 
         //Create table rows and colums
         tr.appendChild(player);
         tr.appendChild(team);
         tr.appendChild(numberOfGoals);
-        tr.appendChild(date);
+        tr.appendChild(age);
 
         // Use data to build table
         player.innerHTML = topGoalScorers[i].player.name;
         team.innerHTML = topGoalScorers[i].team.name;
-        date.innerHTML = topGoalScorers[i].player.dateOfBirth;
+        age.innerHTML = new Date().getFullYear() - playerDOB;
         numberOfGoals.innerHTML = topGoalScorers[i].numberOfGoals;
-
 
         document.getElementById('topGoalScorers').appendChild(tr);
     }
-
-}
-
+};
 
 // Show team past ten games 
 const showPassTenGames = team => {
@@ -492,11 +480,11 @@ const showPassTenGames = team => {
 };
 
 const rangeMaxMatchDay = () => {
-    console.log(matchDay.length)
-    return matchDay.length
+    const maxMatchDays = matchDay.length / (teams.length / 2);
+    document.getElementById('userData').setAttribute('max' , maxMatchDays)
 }
 
-// Onclick get user match day query, remove old table and build a new one with match day chosen.
+// onclick get user match day query, remove old table and build a new one with match day chosen.
 const leagueMatchDay = () => {
     const userQuery = document.getElementById('userInput').value;
     const oldDataTable = document.getElementById('tableStriped');
@@ -901,6 +889,7 @@ const startApp = () => {
     showStats(defaultTeam);
     showTeamBadge(defaultTeam);
     showTopGoalScorers();
+    rangeMaxMatchDay();
     graphTeamWins();
     graphTeamLosses();
     donutChart(leagueStandings);
@@ -911,11 +900,11 @@ const startApp = () => {
 
 // Load data on window load
 window.onload = () => {
+
     leagueOptions();
     document.getElementById("reset").onclick = function() {
         window.location.reload()
     };
-
 };
 
 
