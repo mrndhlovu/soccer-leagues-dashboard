@@ -28,8 +28,6 @@ let games,
 
 //Fetch data when window loads.
 const fetchData = (leaguesEndPoint, scorerEP, standingsEP) => {
-
-    console.log('Fetch data for..', leaguesEndPoint)
     //Endpoint Data Request
     const requestData = (url) => {
         const data = $.ajax({
@@ -39,7 +37,6 @@ const fetchData = (leaguesEndPoint, scorerEP, standingsEP) => {
             type: 'GET',
             async: false,
         }).done(response => {
-            console.log('Data received', response)
 
         }).responseJSON;
         return data;
@@ -49,8 +46,6 @@ const fetchData = (leaguesEndPoint, scorerEP, standingsEP) => {
     topGoalScorers = requestData(scorerEP).scorers;
     leagueStandings = requestData(standingsEP).standings[0].table;
 
-    console.log('Starting App have the data for..', leaguesEndPoint)
-
     startApp();
 }
 
@@ -59,10 +54,7 @@ const leagueOptions = () => {
 
     const choice = document.getElementById('leagueSelect').value;
 
-    console.log('The default', choice)
-
     // Fill option seletor with list of leagues
-
     const select = document.createElement('select');
 
     const option = document.createElement('option');
@@ -79,7 +71,6 @@ const leagueOptions = () => {
         select.setAttribute('onchange', 'selectedLeague(this.options[this.selectedIndex].value);');
         option.id = 'league' + (i + 1);
         option.innerHTML = leagues[i];
-        console.log('select.value is', option.selected);
         if (option.selected || select.value == leagues[i]) {
 
             return defaultLeague == leagues[i];
@@ -95,19 +86,9 @@ const leagueOptions = () => {
     document.getElementById('leagueSelect').appendChild(select);
     selectedLeague(defaultLeague);
 
-    const clear = () => {
-
-        console.log('click')
-        window.location.reload();
-    }
-
-
 };
 
 const selectedLeague = leagueOption => {
-    console.log('This the select option', leagueOption)
-
-
     for (let i = 0; i < leagues.length; i++) {
         if (leagueOption == leagues[i]) {
             defaultLeague = leagues[i];
@@ -124,8 +105,6 @@ const selectedLeague = leagueOption => {
 
 //Filter through response data and push to empty arrays
 const filterData = () => {
-
-    console.log('Load data for ', defaultLeague);
     Object.keys(games).forEach(key => {
 
         matchDay.push(games[key].matchday);
@@ -421,8 +400,44 @@ const buildTable = day => {
 
 }
 
+
+
+
 // show top goal scorers
 const showTopGoalScorers = () => {
+
+    console.log('Top Goal Scored............', topGoalScorers)
+    //loop through the data file backwards and find past played games then build table
+    for (let i = 0; i < topGoalScorers.length; i++) {
+
+        let tr = document.createElement('tr'),
+            player = document.createElement('td'),
+            dob = new Date(games[i].utcDate),
+            team = document.createElement('td'),
+            numberOfGoals = document.createElement('td'),
+            date = document.createElement('td');
+
+        player.className = 'player';
+        team.className = 'team';
+        numberOfGoals.className = 'numberOfGoals';
+        date.className = 'playerdob';
+
+
+        //Create table rows and colums
+        tr.appendChild(player);
+        tr.appendChild(team);
+        tr.appendChild(numberOfGoals);
+        tr.appendChild(date);
+
+        // Use data to build table
+        player.innerHTML = topGoalScorers[i].player.name;
+        team.innerHTML = topGoalScorers[i].team.name;
+        date.innerHTML = topGoalScorers[i].player.dateOfBirth;
+        numberOfGoals.innerHTML = topGoalScorers[i].numberOfGoals;
+
+
+        document.getElementById('topGoalScorers').appendChild(tr);
+    }
 
 }
 
@@ -873,9 +888,6 @@ const pieChart = stand => {
 
 
 // Call all functions
-
-
-
 const startApp = () => {
 
     filterData();
@@ -888,7 +900,7 @@ const startApp = () => {
     showPassTenGames(defaultTeam);
     showStats(defaultTeam);
     showTeamBadge(defaultTeam);
-    showTopGoalScorers()
+    showTopGoalScorers();
     graphTeamWins();
     graphTeamLosses();
     donutChart(leagueStandings);
