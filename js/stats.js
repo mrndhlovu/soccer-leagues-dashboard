@@ -2,7 +2,7 @@
 
 const REQUEST_URL = 'https://api.football-data.org/v2/competitions/',
     key = { 'X-Auth-Token': '5d791d1818c3415d9b1a4b323c899bf4' },
-    leagues = ['PL', 'ELC'],
+    leagues = ['PL', 'ELC', 'SA', 'CL', 'BL1', 'PPL', 'PD'],
     id = [2021, 2016],
     matches = '/matches/',
     scorers = '/scorers',
@@ -85,15 +85,18 @@ const leagueOptions = () => {
             return defaultLeague == leagues[i];
         }
         else if (select.value == leagues[i]) {
-
-            return defaultLeague == leagues[i];
+            leagues.map(lg => {
+                if (select.value == lg[i]) {
+                    return defaultLeague == lg[i];
+                }
+            })
         }
     }
     document.getElementById('leagueSelect').appendChild(select);
     selectedLeague(defaultLeague);
 
     const clear = () => {
-        
+
         console.log('click')
         window.location.reload();
     }
@@ -102,28 +105,19 @@ const leagueOptions = () => {
 };
 
 const selectedLeague = leagueOption => {
-
     console.log('This the select option', leagueOption)
 
-    if (leagueOption == leagues[0]) {
-        defaultLeague = leagues[0];
-        console.log('Must load PL data', leagueOption);
 
-        const league = REQUEST_URL + defaultLeague + matches,
-            score = REQUEST_URL + defaultLeague + scorers,
-            stand = REQUEST_URL + defaultLeague + standings;
+    for (let i = 0; i < leagues.length; i++) {
+        if (leagueOption == leagues[i]) {
+            defaultLeague = leagues[i];
 
-        return fetchData(league, score, stand);
-    }
-    else if (leagueOption == leagues[1]) {
-        defaultLeague = leagues[1];
-        console.log('Must load ECL data..', defaultLeague);
+            const league = REQUEST_URL + defaultLeague + matches,
+                score = REQUEST_URL + defaultLeague + scorers,
+                stand = REQUEST_URL + defaultLeague + standings;
 
-        const league = REQUEST_URL + defaultLeague + matches,
-            score = REQUEST_URL + defaultLeague + scorers,
-            stand = REQUEST_URL + defaultLeague + standings;
-
-        return fetchData(league, score, stand);
+            return fetchData(league, score, stand);
+        }
     }
 
 };
@@ -907,8 +901,8 @@ const startApp = () => {
 window.onload = () => {
     leagueOptions();
     document.getElementById("reset").onclick = function() {
-    window.location.reload()
-};
+        window.location.reload()
+    };
 
 };
 
