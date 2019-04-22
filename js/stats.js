@@ -1,27 +1,15 @@
-// API EndPoints
-const standingsURL = 'https://api.football-data.org/v2/competitions/2021/standings',
-    scorersURL = 'https://api.football-data.org/v2/competitions/PL/scorers',
-    season = 'https://api.football-data.org/v2/competitions/PL/matches',
-    key = { 'X-Auth-Token': '5d791d1818c3415d9b1a4b323c899bf4' };
+// Initialise Global Variables
 
+const REQUEST_URL = 'https://api.football-data.org/v2/competitions/',
+    key = { 'X-Auth-Token': '5d791d1818c3415d9b1a4b323c899bf4' },
+    leagues = ['PL', 'ELC', 'SA', 'CL', 'BL1', 'PPL', 'PD'],
+    id = [2021, 2016],
+    matches = '/matches/',
+    scorers = '/scorers',
+    standings = '/standings';
 
-//Endpoint Data Request
-const requestData = url =>  {
-    const data = $.ajax({
-        headers: key,
-        url: url,
-        dataType: 'json',
-        type: 'GET',
-        async: false,
-    }).done(response => {
-    }).responseJSON;
-    return data;
-};
+let defaultLeague;
 
-// Global Variables
-const games = requestData(season).matches;
-const topGoalScorers = requestData(scorersURL).scorers;
-const leagueStandings = requestData(standingsURL).standings[0].table;
 
 const awayScore = [],
     homeScore = [],
@@ -33,10 +21,92 @@ const awayScore = [],
     teams = [],
     teamBadges = [];
 
-//Filter through response data arrays and push to empty arrays
+let games,
+    topGoalScorers,
+    leagueStandings;
+
+
+//Fetch data when window loads.
+const fetchData = (leaguesEndPoint, scorerEP, standingsEP) => {
+    //Endpoint Data Request
+    const requestData = (url) => {
+        const data = $.ajax({
+            headers: key,
+            url: url,
+            dataType: 'json',
+            type: 'GET',
+            async: false,
+        }).done(response => {
+
+        }).responseJSON;
+        return data;
+    };
+
+    games = requestData(leaguesEndPoint).matches;
+    topGoalScorers = requestData(scorerEP).scorers;
+    leagueStandings = requestData(standingsEP).standings[0].table;
+
+    startApp();
+}
+
+
+const leagueOptions = () => {
+
+    const choice = document.getElementById('leagueSelect').value;
+
+    // Fill option seletor with list of leagues
+    const select = document.createElement('select');
+
+    const option = document.createElement('option');
+    option.innerHTML = 'Choose League';
+    option.selected = 'selectedLeague(this.options[this.selectedIndex].value);';
+    select.appendChild(option);
+    for (let i = 0; i < leagues.length; i++) {
+        const option = document.createElement('option');
+        select.appendChild(option);
+        select.id = 'leagueList';
+        select.name = 'leagues';
+        select.appendChild(option);
+        option.value = leagues[i];
+        select.setAttribute('onchange', 'selectedLeague(this.options[this.selectedIndex].value);');
+        option.id = 'league' + (i + 1);
+        option.innerHTML = leagues[i];
+        if (option.selected || select.value == leagues[i]) {
+
+            return defaultLeague == leagues[i];
+        }
+        else if (select.value == leagues[i]) {
+            leagues.map(lg => {
+                if (select.value == lg[i]) {
+                    return defaultLeague == lg[i];
+                }
+            })
+        }
+    }
+    document.getElementById('leagueSelect').appendChild(select);
+    selectedLeague(defaultLeague);
+
+};
+
+const selectedLeague = leagueOption => {
+    for (let i = 0; i < leagues.length; i++) {
+        if (leagueOption == leagues[i]) {
+            defaultLeague = leagues[i];
+
+            const league = REQUEST_URL + defaultLeague + matches,
+                score = REQUEST_URL + defaultLeague + scorers,
+                stand = REQUEST_URL + defaultLeague + standings;
+
+            return fetchData(league, score, stand);
+        }
+    }
+
+};
+
+//Filter through response data and push to empty arrays
 const filterData = () => {
-    Object.keys(games).forEach( key => {
-        
+    Object.keys(games).forEach(key => {
+
         matchDay.push(games[key].matchday);
         homeTeam.push(games[key].homeTeam.name);
         awayTeam.push(games[key].awayTeam.name);
@@ -53,15 +123,15 @@ const filterData = () => {
         }
     });
 }
- console.log(games[0])
+
 
 // Get team badges and names and push to empty arrays
-const  getTeamsAndBadges = () => {
+const getTeamsAndBadges = () => {
     Object.keys(leagueStandings).forEach((key) => {
         teamBadges.push(leagueStandings[key].team.crestUrl);
         teams.push(leagueStandings[key].team.name);
     });
-}
+};
 
 
 // On team option click show team badge
@@ -90,12 +160,12 @@ const listTeamsOptions = () => {
         option.value = teams[i];
         option.id = 'team' + (i + 1);
         option.innerHTML = teams[i];
-        
+
     }
     document.getElementById('formSelect').appendChild(select);
 };
 
-// When team picked from dropdown  get team name
+// When team leagueed from dropdown  get team name
 const getSelectedTeam = choice => {
     choice = document.getElementById('teamList').value;
     showStats(choice);
@@ -226,10 +296,10 @@ const showStats = team => {
 
 // Set default match day for fixtures on pageload
 const setDefaultMatchDay = () => {
-    
+
     let defaultMatch;
-    for (let day  = 0; day < games.length; day++) {
-        
+    for (let day = 0; day < games.length; day++) {
+
         if (games[day].status === 'FINISHED') {
             defaultMatch = matchDay[day] + 1;
         }
@@ -252,7 +322,7 @@ const flagResults = (result, team1, team2) => {
         team2.style.color = 'green';
         team2.style.fontSize = '15px';
     }
-    else if (result == 'draw'){
+    else if (result == 'draw') {
         team1.style.color = 'blue';
         team2.style.color = 'blue';
         team2.style.fontSize = '7px';
@@ -330,14 +400,55 @@ const buildTable = day => {
 
 }
 
-console.log(homeTeam)
+
+
+
+// show top goal scorers
+const showTopGoalScorers = () => {
+
+    console.log('Top Goal Scored............', topGoalScorers)
+    //loop through the data file backwards and find past played games then build table
+    for (let i = 0; i < topGoalScorers.length; i++) {
+
+        let tr = document.createElement('tr'),
+            player = document.createElement('td'),
+            dob = new Date(games[i].utcDate),
+            team = document.createElement('td'),
+            numberOfGoals = document.createElement('td'),
+            date = document.createElement('td');
+
+        player.className = 'player';
+        team.className = 'team';
+        numberOfGoals.className = 'numberOfGoals';
+        date.className = 'playerdob';
+
+
+        //Create table rows and colums
+        tr.appendChild(player);
+        tr.appendChild(team);
+        tr.appendChild(numberOfGoals);
+        tr.appendChild(date);
+
+        // Use data to build table
+        player.innerHTML = topGoalScorers[i].player.name;
+        team.innerHTML = topGoalScorers[i].team.name;
+        date.innerHTML = topGoalScorers[i].player.dateOfBirth;
+        numberOfGoals.innerHTML = topGoalScorers[i].numberOfGoals;
+
+
+        document.getElementById('topGoalScorers').appendChild(tr);
+    }
+
+}
+
+
 // Show team past ten games 
 const showPassTenGames = team => {
     let pastTenGames = 10;
-    
+
     //loop through the data file backwards and find past played games then build table
     for (let i = games.length - 10; i--;) {
-       
+
         let tr = document.createElement('tr'),
             hTeam = document.createElement('td'),
             gameDate = new Date(games[i].utcDate),
@@ -349,10 +460,10 @@ const showPassTenGames = team => {
         aTeam.className = 'gameAway';
         score.className = 'scores';
         date.id = 'gameDate';
-       
+
         // if the team clicked is found in past games played list the last 10  
         if (((team == homeTeam[i] || team == awayTeam[i]) && state[i] == 'FINISHED') && pastTenGames > 0) {
-            
+
 
             //Create table rows and colums
             tr.appendChild(hTeam);
@@ -380,8 +491,13 @@ const showPassTenGames = team => {
 
 };
 
+const rangeMaxMatchDay = () => {
+    console.log(matchDay.length)
+    return matchDay.length
+}
+
 // Onclick get user match day query, remove old table and build a new one with match day chosen.
-const pickMatchDay = () => {
+const leagueMatchDay = () => {
     const userQuery = document.getElementById('userInput').value;
     const oldDataTable = document.getElementById('tableStriped');
     while (oldDataTable.firstChild) {
@@ -768,31 +884,39 @@ const pieChart = stand => {
         .attr('text-anchor', 'end')
         .attr('class', 'graphHeading')
         .text('Goals Conceded');
-}
+};
 
 
 // Call all functions
-filterData();
-getTeamsAndBadges();
-listTeamsOptions();
+const startApp = () => {
 
-// Load data on window load
-const loadDefaultStats = () => {
-    const statsDefault = teams[0];
+    filterData();
+    getTeamsAndBadges();
+    listTeamsOptions();
+
+    const defaultTeam = teams[0];
+
     buildTable(setDefaultMatchDay());
-    showPassTenGames(statsDefault);
-    showStats(statsDefault);
-    showTeamBadge(statsDefault);
-}
-
-window.onload = () => {
-    loadDefaultStats();
+    showPassTenGames(defaultTeam);
+    showStats(defaultTeam);
+    showTeamBadge(defaultTeam);
+    showTopGoalScorers();
+    graphTeamWins();
+    graphTeamLosses();
+    donutChart(leagueStandings);
+    pieChart(leagueStandings);
 };
 
-graphTeamWins();
-graphTeamLosses();
-donutChart(leagueStandings);
-pieChart(leagueStandings);
+
+
+// Load data on window load
+window.onload = () => {
+    leagueOptions();
+    document.getElementById("reset").onclick = function() {
+        window.location.reload()
+    };
+
+};
 
 
 /*...............END........................*/
