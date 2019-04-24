@@ -900,7 +900,6 @@ const startApp = () => {
 
 // Load data on window load
 window.onload = () => {
-
     leagueOptions();
     document.getElementById("reset").onclick = function() {
         window.location.reload()
