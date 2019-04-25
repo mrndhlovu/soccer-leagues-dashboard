@@ -7,7 +7,7 @@ const REQUEST_URL = 'https://api.football-data.org/v2/competitions/',
     scorers = '/scorers',
     standings = '/standings';
 
-let defaultLeague;
+let defaultLeagueOption = leagues[0];
 
 const awayScore = [],
     homeScore = [],
@@ -49,15 +49,12 @@ const fetchData = (leaguesEndPoint, scorerEP, standingsEP) => {
 
 
 const leagueOptions = () => {
-
-    const choice = document.getElementById('leagueSelect').value;
-
     // Fill option seletor with list of leagues
     const select = document.createElement('select');
 
     const option = document.createElement('option');
     option.innerHTML = 'Choose League';
-    option.selected = 'selectedLeague(this.options[this.selectedIndex].value);';
+
     select.appendChild(option);
     for (let i = 0; i < leagues.length; i++) {
         const option = document.createElement('option');
@@ -69,33 +66,35 @@ const leagueOptions = () => {
         select.setAttribute('onchange', 'selectedLeague(this.options[this.selectedIndex].value);');
         option.id = 'league' + (i + 1);
         option.innerHTML = leagues[i];
+        option.selected = 'selectedLeague(this.options[this.selectedIndex].value);';
         if (option.selected || select.value == leagues[i]) {
 
-            return defaultLeague == leagues[i];
+            defaultLeagueOption == leagues[i];
+            console.log(option.selected)
         }
         else if (select.value == leagues[i]) {
             leagues.map(lg => {
                 if (select.value == lg[i]) {
-                    return defaultLeague == lg[i];
+                    defaultLeagueOption == lg[i];
                 }
             })
         }
+
     }
     document.getElementById('leagueSelect').appendChild(select);
-    selectedLeague(defaultLeague);
 
 };
 
 const selectedLeague = leagueOption => {
     for (let i = 0; i < leagues.length; i++) {
         if (leagueOption == leagues[i]) {
-            defaultLeague = leagues[i];
+            defaultLeagueOption = leagues[i];
 
-            const league = REQUEST_URL + defaultLeague + matches,
-                score = REQUEST_URL + defaultLeague + scorers,
-                stand = REQUEST_URL + defaultLeague + standings;
+            const league = REQUEST_URL + defaultLeagueOption + matches,
+                scores = REQUEST_URL + defaultLeagueOption + scorers,
+                stands = REQUEST_URL + defaultLeagueOption + standings;
 
-            return fetchData(league, score, stand);
+            return fetchData(league, scores, stands);
         }
     }
 
@@ -481,8 +480,10 @@ const showPassTenGames = team => {
 
 const rangeMaxMatchDay = () => {
     const maxMatchDays = matchDay.length / (teams.length / 2);
-    document.getElementById('userData').setAttribute('max' , maxMatchDays)
+    document.getElementById('userData').setAttribute('max', maxMatchDays)
 }
+
+
 
 // onclick get user match day query, remove old table and build a new one with match day chosen.
 const leagueMatchDay = () => {
@@ -536,12 +537,12 @@ const graphTeamWins = () => {
         .tickPadding(1);
 
     // X axis text strings
-    x.domain(teams.map(function(d) {
+    x.domain(teams.map((d) => {
         return d.substring(0, 6) + ' FC';
     }));
 
     // Y axis value 
-    y.domain([0, d3.max(leagueStandings, function(d) {
+    y.domain([0, d3.max(leagueStandings, (d) => {
         return d.won;
     })]);
     // Create  axis
@@ -580,24 +581,24 @@ const graphTeamWins = () => {
         .enter()
         .append('rect')
         .style('fill', '#af4032')
-        .attr('x', function(d) {
+        .attr('x', (d) => {
             return x(d.team.name.substring(0, 6) + ' FC');
         })
         .attr('width', x.rangeBand())
-        .attr('y', function(d) {
+        .attr('y', (d) => {
             return y(d.won);
         })
-        .attr('height', function(d) {
+        .attr('height', (d) => {
             return height - y(d.won);
         })
         // Mouse over bar effect
-        .on('mouseover', function(d) {
+        .on('mouseover', (d) => {
             barPoint.style('display', null);
         })
-        .on('mouseout', function() {
+        .on('mouseout', () => {
             barPoint.style('display', 'none');
         })
-        .on('mousemove', function(d) {
+        .on('mousemove', (d) => {
             const xPos = d3.mouse(this)[1] - 2;
             const yPos = d3.mouse(this)[1] - 50;
             barPoint.attr('transform', 'translate(' + xPos + ',' + yPos + ')');
@@ -640,12 +641,12 @@ const graphTeamLosses = () => {
         .tickPadding(1);
 
     // X axis text strings
-    x.domain(teams.map(function(d) {
+    x.domain(teams.map((d) => {
         return d.substring(0, 6) + ' FC';
     }));
 
     // Y axis value 
-    y.domain([0, d3.max(leagueStandings, function(d) {
+    y.domain([0, d3.max(leagueStandings, (d) => {
         return d.lost;
     })]);
 
@@ -679,24 +680,24 @@ const graphTeamLosses = () => {
         .enter()
         .append('rect')
         .style('fill', '#477fb9')
-        .attr('x', function(d) {
+        .attr('x', (d) => {
             return x(d.team.name.substring(0, 6) + ' FC');
         })
         .attr('width', x.rangeBand())
-        .attr('y', function(d) {
+        .attr('y', (d) => {
             return y(d.lost);
         })
-        .attr('height', function(d) {
+        .attr('height', (d) => {
             return height - y(d.lost);
         })
         // Mouse over bar effect
-        .on('mouseover', function(d) {
+        .on('mouseover', (d) => {
             barPoint.style('display', null);
         })
-        .on('mouseout', function(d) {
+        .on('mouseout', (d) => {
             barPoint.style('display', 'none');
         })
-        .on('mousemove', function(d) {
+        .on('mousemove', (d) => {
             const xPos = d3.mouse(this)[1] - 5;
             const yPos = d3.mouse(this)[1] - 50;
             barPoint.attr('transform', 'translate(' + xPos + ',' + yPos + ')');
@@ -737,7 +738,7 @@ const donutChart = stand => {
         .outerRadius(radius);
 
     const pie = d3.layout.pie()
-        .value(function(d) {
+        .value((d) => {
             return d.goalsFor;
         });
 
@@ -749,26 +750,26 @@ const donutChart = stand => {
 
     chartArc.append('path')
         .attr('d', arc)
-        .attr('fill', function(d) {
+        .attr('fill', (d) => {
             return color(d.data.goalsFor);
         });
 
     chartArc.append('text')
-        .attr('transform', function(d) {
+        .attr('transform', (d) => {
             return 'translate(' + arc.centroid(d) + ')';
         })
         .attr('dy', '0.25em')
-        .text(function(d) {
+        .text((d) => {
             return d.data.goalsFor;
         })
         // Mouse over bar effect
-        .on('mouseover', function(d) {
+        .on('mouseover', (d) => {
             barPoint.style('display', null);
         })
-        .on('mouseout', function(d) {
+        .on('mouseout', (d) => {
             barPoint.style('display', 'none');
         })
-        .on('mousemove', function(d) {
+        .on('mousemove', (d) => {
             const xPos = d3.mouse(this)[0] + 1;
             const yPos = d3.mouse(this)[1] + 5;
             barPoint.attr('transform', 'translate(' + xPos + ',' + yPos + ')');
@@ -811,7 +812,7 @@ const pieChart = stand => {
         .outerRadius(radius);
 
     const pie = d3.layout.pie()
-        .value(function(d) {
+        .value((d) => {
             return d.goalsAgainst;
         });
 
@@ -823,12 +824,12 @@ const pieChart = stand => {
 
     chartArc.append('path')
         .attr('d', arc)
-        .attr('fill', function(d) {
+        .attr('fill', (d) => {
             return color(d.data.goalsAgainst);
         });
 
     chartArc.append('text')
-        .attr('transform', function(d) {
+        .attr('transform', (d) => {
             const _d = arc.centroid(d);
             _d[0] *= 1.05;
             _d[1] *= 1.05;
@@ -836,18 +837,18 @@ const pieChart = stand => {
         })
         .attr('dy', '0.011em')
 
-        .text(function(d) {
+        .text((d) => {
             return d.data.goalsAgainst;
         })
 
         // Mouse over bar effect
-        .on('mouseover', function(d) {
+        .on('mouseover', (d) => {
             barPoint.style('display', null);
         })
-        .on('mouseout', function(d) {
+        .on('mouseout', (d) => {
             barPoint.style('display', 'none');
         })
-        .on('mousemove', function(d) {
+        .on('mousemove', (d) => {
             const xPos = d3.mouse(this)[0] + 1;
             const yPos = d3.mouse(this)[1] + 5;
             barPoint.attr('transform', 'translate(' + xPos + ',' + yPos + ')');
@@ -877,7 +878,8 @@ const pieChart = stand => {
 
 // Call all functions
 const startApp = () => {
-
+    
+    leagueOptions();
     filterData();
     getTeamsAndBadges();
     listTeamsOptions();
@@ -899,12 +901,14 @@ const startApp = () => {
 
 
 // Load data on window load
-window.onload = () => {
-    leagueOptions();
-    document.getElementById("reset").onclick = function() {
-        window.location.reload()
+$(document.ready = () => {
+
+    selectedLeague(defaultLeagueOption);
+    document.getElementById("reset").onclick = () => {
+        window.location.reload();
     };
-};
+
+});
 
 
 /*...............END........................*/
