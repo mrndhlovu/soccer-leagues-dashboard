@@ -384,7 +384,7 @@ th {
         top: 1em;
         background-color: #fff;
         position: relative;
-        height: 80vh;
+        height: auto;
     }
     .dash-headers {
         text-transform: uppercase;

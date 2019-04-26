@@ -1,15 +1,21 @@
 // Initialise Global Variables
-
 const REQUEST_URL = 'https://api.football-data.org/v2/competitions/',
     key = { 'X-Auth-Token': '5d791d1818c3415d9b1a4b323c899bf4' },
-    leagues = ['PL', 'ELC', 'SA', 'CL', 'BL1', 'PPL', 'PD'],
+    leagues = ['PL', 'ELC', 'SA', 'BL1', 'PPL', 'PD'],
     id = [2021, 2016],
     matches = '/matches/',
     scorers = '/scorers',
     standings = '/standings';
 
-let defaultLeague;
+let defaultLeagueOption = () => {
+    if (localStorage.getItem('league') === null) {
+        localStorage.setItem('league', leagues[0])
+        return localStorage.getItem('league')
+    }
+    return localStorage.getItem('league')
+}
 
+let choice = localStorage.getItem('league')
 
 const awayScore = [],
     homeScore = [],
@@ -26,9 +32,9 @@ let games,
     leagueStandings;
 
 
-//Fetch data when window loads.
+//Fetch data from endpoints
 const fetchData = (leaguesEndPoint, scorerEP, standingsEP) => {
-    //Endpoint Data Request
+
     const requestData = (url) => {
         const data = $.ajax({
             headers: key,
@@ -36,23 +42,21 @@ const fetchData = (leaguesEndPoint, scorerEP, standingsEP) => {
             dataType: 'json',
             type: 'GET',
             async: false,
-        }).done(response => {
-
-        }).responseJSON;
+        }).done(response => {}).responseJSON;
         return data;
     };
 
+    //Request data from endpoints
     games = requestData(leaguesEndPoint).matches;
     topGoalScorers = requestData(scorerEP).scorers;
     leagueStandings = requestData(standingsEP).standings[0].table;
 
-    startApp();
-}
+    // Start app when has data
+
+};
 
 
 const leagueOptions = () => {
-
-    const choice = document.getElementById('leagueSelect').value;
 
     // Fill option seletor with list of leagues
     const select = document.createElement('select');
@@ -60,6 +64,7 @@ const leagueOptions = () => {
     const option = document.createElement('option');
     option.innerHTML = 'Choose League';
     option.selected = 'selectedLeague(this.options[this.selectedIndex].value);';
+    const selected = 'selectedLeague(this.options[this.selectedIndex].value);'
     select.appendChild(option);
     for (let i = 0; i < leagues.length; i++) {
         const option = document.createElement('option');
@@ -71,33 +76,30 @@ const leagueOptions = () => {
         select.setAttribute('onchange', 'selectedLeague(this.options[this.selectedIndex].value);');
         option.id = 'league' + (i + 1);
         option.innerHTML = leagues[i];
-        if (option.selected || select.value == leagues[i]) {
-
-            return defaultLeague == leagues[i];
-        }
-        else if (select.value == leagues[i]) {
-            leagues.map(lg => {
-                if (select.value == lg[i]) {
-                    return defaultLeague == lg[i];
-                }
-            })
-        }
     }
+   
     document.getElementById('leagueSelect').appendChild(select);
-    selectedLeague(defaultLeague);
 
 };
 
 const selectedLeague = leagueOption => {
+    console.log(leagueOption);
+    if (leagueOption !== choice) {
+        
+        choice = localStorage.removeItem('league');
+        choice = localStorage.setItem('league', leagueOption);
+        reload();
+    }
+
     for (let i = 0; i < leagues.length; i++) {
         if (leagueOption == leagues[i]) {
-            defaultLeague = leagues[i];
+            choice = leagues[i];
 
-            const league = REQUEST_URL + defaultLeague + matches,
-                score = REQUEST_URL + defaultLeague + scorers,
-                stand = REQUEST_URL + defaultLeague + standings;
+            const league = REQUEST_URL + choice + matches,
+                scores = REQUEST_URL + choice + scorers,
+                stands = REQUEST_URL + choice + standings;
 
-            return fetchData(league, score, stand);
+            fetchData(league, scores, stands);
         }
     }
 
@@ -171,13 +173,13 @@ const getSelectedTeam = choice => {
     showStats(choice);
     getTeamGames(choice);
     showTeamBadge(choice);
-}
+};
 
 
 //Find average goals per game;
 const findAverage = (a, b, c) => {
     return a / (b + c);
-}
+};
 
 //Team stats logic
 const showStats = team => {
@@ -347,8 +349,8 @@ const buildTable = day => {
             date = document.createElement('td'),
             flagTeamOne = document.createElement('span'),
             flagTeamTwo = document.createElement('span');
-        //Create table rows and colums
 
+        //Create table rows and colums
         state.className = 'matchState';
         hTeam.className = 'tableTeam';
         hTeam.innerHTML = homeTeam[d];
@@ -363,7 +365,6 @@ const buildTable = day => {
 
         // Use data to build table
         if (day == matchDay[d]) {
-
             tr.appendChild(hTeam);
             tr.appendChild(score);
             tr.appendChild(aTeam);
@@ -400,47 +401,38 @@ const buildTable = day => {
 
 }
 
-
-
-
 // show top goal scorers
 const showTopGoalScorers = () => {
 
-    console.log('Top Goal Scored............', topGoalScorers)
-    //loop through the data file backwards and find past played games then build table
+    //loop through array and pull required fields
     for (let i = 0; i < topGoalScorers.length; i++) {
-
         let tr = document.createElement('tr'),
             player = document.createElement('td'),
-            dob = new Date(games[i].utcDate),
             team = document.createElement('td'),
             numberOfGoals = document.createElement('td'),
-            date = document.createElement('td');
+            age = document.createElement('td'),
+            playerDOB = new Date(topGoalScorers[i].player.dateOfBirth).getFullYear();
 
         player.className = 'player';
         team.className = 'team';
         numberOfGoals.className = 'numberOfGoals';
-        date.className = 'playerdob';
-
+        age.className = 'playerAge';
 
         //Create table rows and colums
         tr.appendChild(player);
         tr.appendChild(team);
         tr.appendChild(numberOfGoals);
-        tr.appendChild(date);
+        tr.appendChild(age);
 
         // Use data to build table
         player.innerHTML = topGoalScorers[i].player.name;
         team.innerHTML = topGoalScorers[i].team.name;
-        date.innerHTML = topGoalScorers[i].player.dateOfBirth;
+        age.innerHTML = new Date().getFullYear() - playerDOB;
         numberOfGoals.innerHTML = topGoalScorers[i].numberOfGoals;
-
 
         document.getElementById('topGoalScorers').appendChild(tr);
     }
-
-}
-
+};
 
 // Show team past ten games 
 const showPassTenGames = team => {
@@ -492,11 +484,13 @@ const showPassTenGames = team => {
 };
 
 const rangeMaxMatchDay = () => {
-    console.log(matchDay.length)
-    return matchDay.length
+    const maxMatchDays = matchDay.length / (teams.length / 2);
+    document.getElementById('userData').setAttribute('max', maxMatchDays)
 }
 
-// Onclick get user match day query, remove old table and build a new one with match day chosen.
+
+
+// onclick get user match day query, remove old table and build a new one with match day chosen.
 const leagueMatchDay = () => {
     const userQuery = document.getElementById('userInput').value;
     const oldDataTable = document.getElementById('tableStriped');
@@ -548,12 +542,12 @@ const graphTeamWins = () => {
         .tickPadding(1);
 
     // X axis text strings
-    x.domain(teams.map(function(d) {
+    x.domain(teams.map((d) => {
         return d.substring(0, 6) + ' FC';
     }));
 
     // Y axis value 
-    y.domain([0, d3.max(leagueStandings, function(d) {
+    y.domain([0, d3.max(leagueStandings, (d) => {
         return d.won;
     })]);
     // Create  axis
@@ -592,24 +586,24 @@ const graphTeamWins = () => {
         .enter()
         .append('rect')
         .style('fill', '#af4032')
-        .attr('x', function(d) {
+        .attr('x', (d) => {
             return x(d.team.name.substring(0, 6) + ' FC');
         })
         .attr('width', x.rangeBand())
-        .attr('y', function(d) {
+        .attr('y', (d) => {
             return y(d.won);
         })
-        .attr('height', function(d) {
+        .attr('height', (d) => {
             return height - y(d.won);
         })
         // Mouse over bar effect
-        .on('mouseover', function(d) {
+        .on('mouseover', (d) => {
             barPoint.style('display', null);
         })
-        .on('mouseout', function() {
+        .on('mouseout', () => {
             barPoint.style('display', 'none');
         })
-        .on('mousemove', function(d) {
+        .on('mousemove', (d) => {
             const xPos = d3.mouse(this)[1] - 2;
             const yPos = d3.mouse(this)[1] - 50;
             barPoint.attr('transform', 'translate(' + xPos + ',' + yPos + ')');
@@ -652,12 +646,12 @@ const graphTeamLosses = () => {
         .tickPadding(1);
 
     // X axis text strings
-    x.domain(teams.map(function(d) {
+    x.domain(teams.map((d) => {
         return d.substring(0, 6) + ' FC';
     }));
 
     // Y axis value 
-    y.domain([0, d3.max(leagueStandings, function(d) {
+    y.domain([0, d3.max(leagueStandings, (d) => {
         return d.lost;
     })]);
 
@@ -691,24 +685,24 @@ const graphTeamLosses = () => {
         .enter()
         .append('rect')
         .style('fill', '#477fb9')
-        .attr('x', function(d) {
+        .attr('x', (d) => {
             return x(d.team.name.substring(0, 6) + ' FC');
         })
         .attr('width', x.rangeBand())
-        .attr('y', function(d) {
+        .attr('y', (d) => {
             return y(d.lost);
         })
-        .attr('height', function(d) {
+        .attr('height', (d) => {
             return height - y(d.lost);
         })
         // Mouse over bar effect
-        .on('mouseover', function(d) {
+        .on('mouseover', (d) => {
             barPoint.style('display', null);
         })
-        .on('mouseout', function(d) {
+        .on('mouseout', (d) => {
             barPoint.style('display', 'none');
         })
-        .on('mousemove', function(d) {
+        .on('mousemove', (d) => {
             const xPos = d3.mouse(this)[1] - 5;
             const yPos = d3.mouse(this)[1] - 50;
             barPoint.attr('transform', 'translate(' + xPos + ',' + yPos + ')');
@@ -749,7 +743,7 @@ const donutChart = stand => {
         .outerRadius(radius);
 
     const pie = d3.layout.pie()
-        .value(function(d) {
+        .value((d) => {
             return d.goalsFor;
         });
 
@@ -761,26 +755,26 @@ const donutChart = stand => {
 
     chartArc.append('path')
         .attr('d', arc)
-        .attr('fill', function(d) {
+        .attr('fill', (d) => {
             return color(d.data.goalsFor);
         });
 
     chartArc.append('text')
-        .attr('transform', function(d) {
+        .attr('transform', (d) => {
             return 'translate(' + arc.centroid(d) + ')';
         })
         .attr('dy', '0.25em')
-        .text(function(d) {
+        .text((d) => {
             return d.data.goalsFor;
         })
         // Mouse over bar effect
-        .on('mouseover', function(d) {
+        .on('mouseover', (d) => {
             barPoint.style('display', null);
         })
-        .on('mouseout', function(d) {
+        .on('mouseout', (d) => {
             barPoint.style('display', 'none');
         })
-        .on('mousemove', function(d) {
+        .on('mousemove', (d) => {
             const xPos = d3.mouse(this)[0] + 1;
             const yPos = d3.mouse(this)[1] + 5;
             barPoint.attr('transform', 'translate(' + xPos + ',' + yPos + ')');
@@ -823,7 +817,7 @@ const pieChart = stand => {
         .outerRadius(radius);
 
     const pie = d3.layout.pie()
-        .value(function(d) {
+        .value((d) => {
             return d.goalsAgainst;
         });
 
@@ -835,12 +829,12 @@ const pieChart = stand => {
 
     chartArc.append('path')
         .attr('d', arc)
-        .attr('fill', function(d) {
+        .attr('fill', (d) => {
             return color(d.data.goalsAgainst);
         });
 
     chartArc.append('text')
-        .attr('transform', function(d) {
+        .attr('transform', (d) => {
             const _d = arc.centroid(d);
             _d[0] *= 1.05;
             _d[1] *= 1.05;
@@ -848,18 +842,18 @@ const pieChart = stand => {
         })
         .attr('dy', '0.011em')
 
-        .text(function(d) {
+        .text((d) => {
             return d.data.goalsAgainst;
         })
 
         // Mouse over bar effect
-        .on('mouseover', function(d) {
+        .on('mouseover', (d) => {
             barPoint.style('display', null);
         })
-        .on('mouseout', function(d) {
+        .on('mouseout', (d) => {
             barPoint.style('display', 'none');
         })
-        .on('mousemove', function(d) {
+        .on('mousemove', (d) => {
             const xPos = d3.mouse(this)[0] + 1;
             const yPos = d3.mouse(this)[1] + 5;
             barPoint.attr('transform', 'translate(' + xPos + ',' + yPos + ')');
@@ -890,6 +884,7 @@ const pieChart = stand => {
 // Call all functions
 const startApp = () => {
 
+
     filterData();
     getTeamsAndBadges();
     listTeamsOptions();
@@ -901,20 +896,22 @@ const startApp = () => {
     showStats(defaultTeam);
     showTeamBadge(defaultTeam);
     showTopGoalScorers();
+    rangeMaxMatchDay();
     graphTeamWins();
     graphTeamLosses();
     donutChart(leagueStandings);
     pieChart(leagueStandings);
 };
 
-
+const reload = () => {
+    window.location.reload();
+};
 
 // Load data on window load
 window.onload = () => {
     leagueOptions();
-    document.getElementById("reset").onclick = function() {
-        window.location.reload()
-    };
+    selectedLeague(defaultLeagueOption());
+    startApp();
 
 };
 
