@@ -31,6 +31,8 @@ let games,
     topGoalScorers,
     leagueStandings;
 
+let localDataStorage;
+
 
 //Fetch data from endpoints
 const fetchData = (leaguesEndPoint, scorerEP, standingsEP) => {
@@ -42,8 +44,12 @@ const fetchData = (leaguesEndPoint, scorerEP, standingsEP) => {
             dataType: 'json',
             type: 'GET',
             async: false,
-        }).done(response => {}).responseJSON;
-        return data;
+        }).done(response => {
+
+        }).responseJSON;
+        localStorage.setItem('data', JSON.stringify(data));
+        localDataStorage = localStorage.getItem('data');
+        return JSON.parse(localDataStorage);
     };
 
     //Request data from endpoints
@@ -51,6 +57,9 @@ const fetchData = (leaguesEndPoint, scorerEP, standingsEP) => {
     topGoalScorers = requestData(scorerEP).scorers;
     leagueStandings = requestData(standingsEP).standings[0].table;
 
+
+
+    console.log('localDataStorage is......', JSON.parse(localDataStorage))
     // Start app when has data
 
 };
@@ -77,15 +86,15 @@ const leagueOptions = () => {
         option.id = 'league' + (i + 1);
         option.innerHTML = leagues[i];
     }
-   
+
     document.getElementById('leagueSelect').appendChild(select);
 
 };
 
 const selectedLeague = leagueOption => {
-    console.log(leagueOption);
+
     if (leagueOption !== choice) {
-        
+
         choice = localStorage.removeItem('league');
         choice = localStorage.setItem('league', leagueOption);
         reload();
@@ -151,10 +160,12 @@ const showTeamBadge = showBadge => {
 // Fill option seletor with list of teams
 const listTeamsOptions = () => {
     const select = document.createElement('select');
-
+    select.innerHTML = "Choose Team!"
     for (let i = 0; i < teams.length; i++) {
         const option = document.createElement('option');
+
         select.appendChild(option);
+
         select.setAttribute('onchange', 'getSelectedTeam();');
         select.id = 'teamList';
         select.name = 'teams';
