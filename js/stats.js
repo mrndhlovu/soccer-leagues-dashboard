@@ -7,7 +7,15 @@ const REQUEST_URL = 'https://api.football-data.org/v2/competitions/',
     scorers = '/scorers',
     standings = '/standings';
 
-let defaultLeagueOption = leagues[0];
+let defaultLeagueOption = () => {
+    if (localStorage.getItem('league') === null) {
+        localStorage.setItem('league', leagues[0])
+        return localStorage.getItem('league')
+    }
+    return localStorage.getItem('league')
+}
+
+let choice = localStorage.getItem('league')
 
 const awayScore = [],
     homeScore = [],
@@ -44,17 +52,19 @@ const fetchData = (leaguesEndPoint, scorerEP, standingsEP) => {
     leagueStandings = requestData(standingsEP).standings[0].table;
 
     // Start app when has data
-    startApp();
+
 };
 
 
 const leagueOptions = () => {
+
     // Fill option seletor with list of leagues
     const select = document.createElement('select');
 
     const option = document.createElement('option');
     option.innerHTML = 'Choose League';
-
+    option.selected = 'selectedLeague(this.options[this.selectedIndex].value);';
+    const selected = 'selectedLeague(this.options[this.selectedIndex].value);'
     select.appendChild(option);
     for (let i = 0; i < leagues.length; i++) {
         const option = document.createElement('option');
@@ -66,35 +76,30 @@ const leagueOptions = () => {
         select.setAttribute('onchange', 'selectedLeague(this.options[this.selectedIndex].value);');
         option.id = 'league' + (i + 1);
         option.innerHTML = leagues[i];
-        option.selected = 'selectedLeague(this.options[this.selectedIndex].value);';
-        if (option.selected || select.value == leagues[i]) {
-
-            defaultLeagueOption == leagues[i];
-            console.log(option.selected)
-        }
-        else if (select.value == leagues[i]) {
-            leagues.map(lg => {
-                if (select.value == lg[i]) {
-                    defaultLeagueOption == lg[i];
-                }
-            })
-        }
-
     }
+   
     document.getElementById('leagueSelect').appendChild(select);
 
 };
 
 const selectedLeague = leagueOption => {
+    console.log(leagueOption);
+    if (leagueOption !== choice) {
+        
+        choice = localStorage.removeItem('league');
+        choice = localStorage.setItem('league', leagueOption);
+        reload();
+    }
+
     for (let i = 0; i < leagues.length; i++) {
         if (leagueOption == leagues[i]) {
-            defaultLeagueOption = leagues[i];
+            choice = leagues[i];
 
-            const league = REQUEST_URL + defaultLeagueOption + matches,
-                scores = REQUEST_URL + defaultLeagueOption + scorers,
-                stands = REQUEST_URL + defaultLeagueOption + standings;
+            const league = REQUEST_URL + choice + matches,
+                scores = REQUEST_URL + choice + scorers,
+                stands = REQUEST_URL + choice + standings;
 
-            return fetchData(league, scores, stands);
+            fetchData(league, scores, stands);
         }
     }
 
@@ -878,8 +883,8 @@ const pieChart = stand => {
 
 // Call all functions
 const startApp = () => {
-    
-    leagueOptions();
+
+
     filterData();
     getTeamsAndBadges();
     listTeamsOptions();
@@ -898,17 +903,17 @@ const startApp = () => {
     pieChart(leagueStandings);
 };
 
-
+const reload = () => {
+    window.location.reload();
+};
 
 // Load data on window load
-$(document.ready = () => {
+window.onload = () => {
+    leagueOptions();
+    selectedLeague(defaultLeagueOption());
+    startApp();
 
-    selectedLeague(defaultLeagueOption);
-    document.getElementById("reset").onclick = () => {
-        window.location.reload();
-    };
-
-});
+};
 
 
 /*...............END........................*/
