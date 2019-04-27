@@ -37,7 +37,7 @@
         </header>
     </div>
     <div id="loadingOverlay"></div>
-    <p id="error"></p>
+    <p class="alert alert-danger" role="alert" id="error"></p>
     <div id="renderData">
 
         <div class="container-fluid main-wrap">
@@ -150,8 +150,8 @@
                                     </div>
                                 </div>
                                 <div class="day">
-                                    <div class=" input-group-append">
-                                        <span id="inputText">Pick Match Day:</span> <input id="userInput" value="1" />
+                                    <div class=" container-fluid input-group-append">
+                                        <span id="inputText">Slide to Pick Match Day:</span> <input id="userInput" value="1" />
                                         <input onchange="leagueMatchDay();" class="form-control" type="range" value="1" min="1" id="userData" oninput="userInput.value = userData.value" /><br>
                                     </div>
                                 </div>
@@ -177,12 +177,22 @@
                         <div id="compareTwoTeamsContainer">
 
                             <div class="row chartWrapper" id="scorePieChart">
-                                <h3 class="dash-headers">Goals Scored</h3>
-                                <div class="dataBox col-md-6 col-sm-12 col-xs-12" id="goalsScoredDonut">
+                                <div class="col-md-6">
+                                    <h5 class="dash-headers">Goals Scored</h5>
+                                    <div class="dataBox col-md-6 col-sm-12 col-xs-12" id="goalsScoredDonut">
+
+                                    </div>
                                 </div>
-                                <h3 class="dash-headers">Goals Conceded</h3>
-                                <div class="dataBox col-md-6 col-sm-12 col-xs-12" id="goalsConcededDonut">
+
+
+                                <div class="col-md-6">
+                                    <h5 class="dash-headers">Goals Conceded</h5>
+                                    <div class="dataBox col-md-6 col-sm-12 col-xs-12" id="goalsConcededDonut">
+
+
+                                    </div>
                                 </div>
+
                             </div>
 
                             <div class="row chartWrapper" id="winLossContainer">

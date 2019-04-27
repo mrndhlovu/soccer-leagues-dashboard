@@ -73,9 +73,20 @@ ___
     * Code research
 * W3C 
     * HTML and CSS Validation.
+* LocalStorage
+   To store data locally within the browser.
 
 ## Features
 ___
+
+### Choosing Soccer League
+* When a user first loads the page, defaults league shown is the English Premiere league.
+* After that, they have an option to choose a league and see teams statistics in that league.
+* To help with reloading page when a user picks a league, browser localStorage is used to keep first the default leauge onload then if a league is chosen the variable holding the localStorage value is updated just before the page reloads and fetching new league data.
+* A page loading spinner is used to show data is loading.
+* When fetching data is successful, data is rendered on the dashboard. If there was an error an error page is shown.
+* The Error thrown is usually a 429 code which means too many requests have been made to the endpoint.
+* The [ free endpoint](https://www.football-data.org/pricing) pricing used for this app only allows 10 API calls per minute and if that number is exceeded calls will fail.
 
 ### Team Stats
 * When the page loads, the **Team Stats** is populated with data for any team selected in the dropdown options list. 
