@@ -1,7 +1,7 @@
 // Initialise Global Variables
 const REQUEST_URL = 'https://api.football-data.org/v2/competitions/',
     key = { 'X-Auth-Token': '5d791d1818c3415d9b1a4b323c899bf4' },
-    leagues = ['PL', 'ELC', 'SA', 'BL1', 'PPL', 'PD'],
+    leagues = ['PL', 'ELC', 'SA', 'BL1', 'PPL', 'PD', 'FL1',],
     id = [2021, 2016],
     matches = '/matches/',
     scorers = '/scorers',
@@ -57,11 +57,6 @@ const fetchData = (leaguesEndPoint, scorerEP, standingsEP) => {
     topGoalScorers = requestData(scorerEP).scorers;
     leagueStandings = requestData(standingsEP).standings[0].table;
 
-
-
-    console.log('localDataStorage is......', JSON.parse(localDataStorage))
-    // Start app when has data
-
 };
 
 
@@ -92,7 +87,7 @@ const leagueOptions = () => {
 };
 
 const selectedLeague = leagueOption => {
-
+animateLoading()
     if (leagueOption !== choice) {
 
         choice = localStorage.removeItem('league');
@@ -891,6 +886,15 @@ const pieChart = stand => {
         .text('Goals Conceded');
 };
 
+const animateLoading = () => {
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("renderData").style.display = "block";
+}
+
+const preloader = () => {
+    let timer
+    timer = setTimeout(showPage, 4000);
+}
 
 // Call all functions
 const startApp = () => {
@@ -915,12 +919,15 @@ const startApp = () => {
 };
 
 const reload = () => {
+   
     window.location.reload();
 };
 
 // Load data on window load
 window.onload = () => {
     leagueOptions();
+    
+    
     selectedLeague(defaultLeagueOption());
     startApp();
 
