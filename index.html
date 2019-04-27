@@ -16,15 +16,16 @@
     <title>PL Soccer Dashboard</title>
 </head>
 
-<body>
+<body onload="preloader()">
+
     <!-- Header-->
-    <div class="container-fluid main-container">
+    <div class="container-fluid header-container">
         <header class="main-header">
             <div class="row ">
-                <div class="logo col-md-12 col-sm-12 col-xs-12">
+                <div class="logo col-md-6 col-sm-12 col-xs-12 ">
                     <h1 class="main-header-text">Soccer Leagues Dashboard</h1>
                 </div>
-                <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="col-md-6 col-sm-12 col-xs-12 leagueOptionContainer">
                     <div class=" leagueOption">
                         <form class="header-form header-input" id="leagueSelect">
                         </form>
@@ -34,19 +35,27 @@
                 </div>
             </div>
         </header>
-        <div class="container-fluid test" id="reset">
-            <div class="container-fluid">
-                <!--Aside bar-->
-                <aside class="side-bar-menu">
-                    <h3 class="dash-headers">Team Statistics</h3>
-                    <div class=" stats-blocks">
-                        <div class="teamOption">
-                            <form class="header-form header-input" id="formSelect">
-                            </form>
-                        </div>
-                        <div class="tBadge" id="badge">
-                            <img class="teamBadge" id="teamBadge">
-                        </div>
+    </div>
+    <div id="loadingOverlay"></div>
+    <p id="error"></p>
+    <div id="renderData">
+
+        <div class="container-fluid main-wrap">
+            <!--Aside bar-->
+            <aside class="side-bar-menu">
+                <h3 class="dash-headers">Leagues Teams</h3>
+                <div class="teamsOption">
+                    <div class="teamOption">
+                        <form class="header-form header-input" id="formSelect">
+                        </form>
+                    </div>
+                    <div class="tBadge" id="badge">
+                        <img class="teamBadge" id="teamBadge">
+                    </div>
+
+                </div>
+                <div class=" stats-blocks">
+                    <div class="row stats-cards-wrapper">
                         <div class="col-md-6 stats-cards">
                             <h3 class="statsHead">Wins</h3>
                             <p class="cardText" id="wins"></p>
@@ -110,89 +119,95 @@
                             </div>
                         </div>
                     </div>
-            </div>
+                </div>
+            </aside>
         </div>
 
+        <!--Tables and Graphs-->
 
-        </aside>
-    </div>
-
-    <!--Tables and Graphs-->
-    <div class="page-container">
-        <div class="dash-container">
-            <div class="row table-containers">
-                <div class="tables-container col-md-6 col-sm-12 col-xs-12">
-                    <div class="tables-wrap row">
-                        <div class="tables-container col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="table-report">
-                                <h3 class="dash-headers">Past 10 Games</h3>
-                                <div class="table2">
-                                    <div class="table">
-                                        <table class="table">
-                                            <thead class=" thead-dark ">
-                                                <tr>
-                                                    <th class="t-headers " scope="col">Home Team</th>
-                                                    <th class="t-headers " scope="col">Score</th>
-                                                    <th class="t-headers " scope="col">Away Team</th>
-                                                    <th class="t-headers " scope="col">Date</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="table-hover table-striped" id='gameStriped'></tbody>
-                                        </table>
+        <div class="page-container">
+            <div class="dash-container">
+                <div class="row table-containers">
+                    <div class="tables-container col-md-6 col-sm-12 col-xs-12">
+                        <div class="tables-wrap row">
+                            <div class="tables-container col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="table-report">
+                                    <h3 class="dash-headers">Past 10 Games</h3>
+                                    <div class="table2">
+                                        <div class="table">
+                                            <table class="table">
+                                                <thead class=" thead-dark ">
+                                                    <tr>
+                                                        <th class="t-headers " scope="col">Home Team</th>
+                                                        <th class="t-headers " scope="col">Score</th>
+                                                        <th class="t-headers " scope="col">Away Team</th>
+                                                        <th class="t-headers " scope="col">Date</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="table-hover table-striped" id='gameStriped'></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="day">
+                                    <div class=" input-group-append">
+                                        <span id="inputText">Pick Match Day:</span> <input id="userInput" value="1" />
+                                        <input onchange="leagueMatchDay();" class="form-control" type="range" value="1" min="1" id="userData" oninput="userInput.value = userData.value" /><br>
                                     </div>
                                 </div>
                             </div>
-                            <div class="day">
-                                <div class=" input-group-append">
-                                    <span id="inputText">Pick Match Day:</span> <input id="userInput" value="1" />
-                                    <input onchange="leagueMatchDay();" class="form-control" type="range" value="1" min="1" id="userData" oninput="userInput.value = userData.value" /><br>
+                            <!--Donut-->
+                            <div class="tables-container second-table col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <h3 class="dash-headers">Fixtures</h3>
+                                <table class="table">
+                                    <thead class=" thead-dark ">
+                                        <tr>
+                                            <th class="t-headers " scope="col">Home Team</th>
+                                            <th class="t-headers " scope="col">Score</th>
+                                            <th class="t-headers " scope="col">Away Team</th>
+                                            <th class="t-headers " scope="col">State</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-hover table-striped" id='tableStriped'></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!--Donut-->
+                        <div id="compareTwoTeamsContainer">
+
+                            <div class="row chartWrapper" id="scorePieChart">
+                                <h3 class="dash-headers">Goals Scored</h3>
+                                <div class="dataBox col-md-6 col-sm-12 col-xs-12" id="goalsScoredDonut">
+                                </div>
+                                <h3 class="dash-headers">Goals Conceded</h3>
+                                <div class="dataBox col-md-6 col-sm-12 col-xs-12" id="goalsConcededDonut">
                                 </div>
                             </div>
-                        </div>
-                        <!--Donut-->
-                        <div class="tables-container col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <h3 class="dash-headers">Fixtures</h3>
-                            <table class="table">
-                                <thead class=" thead-dark ">
-                                    <tr>
-                                        <th class="t-headers " scope="col">Home Team</th>
-                                        <th class="t-headers " scope="col">Score</th>
-                                        <th class="t-headers " scope="col">Away Team</th>
-                                        <th class="t-headers " scope="col">State</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-hover table-striped" id='tableStriped'></tbody>
-                            </table>
-                        </div>
-                    </div>
 
-                    <!--Donut-->
-                    <div id="compareTwoTeamsContainer">
-                        <div class="row chartWrapper" id="scorePieChart">
-                            <div class="dataBox col-md-6 col-sm-12 col-xs-12" id="goalsScoredDonut">
-                            </div>
-                            <div class="dataBox col-md-6 col-sm-12 col-xs-12" id="goalsConcededDonut">
-                            </div>
-                        </div>
-                        <div class="row chartWrapper" id="winLossContainer">
-                            <div class="dataBox col-md-6 col-sm-12 col-xs-12" id="wonGamesChart">
-                            </div>
-                            <div class="dataBox col-md-6 col-sm-12 col-xs-12" id="lostGamesChart">
+                            <div class="row chartWrapper" id="winLossContainer">
+
+                                <div class="dataBox col-md-6 col-sm-12 col-xs-12" id="wonGamesChart">
+                                </div>
+                                <div class="dataBox col-md-6 col-sm-12 col-xs-12" id="lostGamesChart">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <footer class="footer">
+            <p>Soccer Leagues Dashboard</p>
+            <p>By Mduduzi Ndhlovu</p>
+        </footer>
+
     </div>
-
-
-
     <!--Footer-->
-    <footer class="footer">
-        <p>Soccer Leagues Dashboard</p>
-        <p>By Mduduzi Ndhlovu</p>
-    </footer>
+
+
+
+
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous "></script>
     <script src="js/stats.js "></script>
 </body>

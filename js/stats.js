@@ -1,7 +1,9 @@
+'use es6';
+
 // Initialise Global Variables
 const REQUEST_URL = 'https://api.football-data.org/v2/competitions/',
     key = { 'X-Auth-Token': '5d791d1818c3415d9b1a4b323c899bf4' },
-    leagues = ['PL', 'ELC', 'SA', 'BL1', 'PPL', 'PD'],
+    leagues = ['PL', 'ELC', 'SA', 'BL1', 'PPL', 'PD', 'FL1', ],
     id = [2021, 2016],
     matches = '/matches/',
     scorers = '/scorers',
@@ -31,6 +33,9 @@ let games,
     topGoalScorers,
     leagueStandings;
 
+let localDataStorage;
+let hasData = false;
+
 
 //Fetch data from endpoints
 const fetchData = (leaguesEndPoint, scorerEP, standingsEP) => {
@@ -42,8 +47,27 @@ const fetchData = (leaguesEndPoint, scorerEP, standingsEP) => {
             dataType: 'json',
             type: 'GET',
             async: false,
-        }).done(response => {}).responseJSON;
-        return data;
+            success: (response) => {
+                if (response) {
+                    hasData = !hasData;
+                    animateLoading(hasData)
+                }
+                else {
+                    animateLoading(hasData)
+                }
+
+            },
+            error: (response) => {
+                const showError = document.getElementById('error');
+                document.getElementById("loadingOverlay").style.display = "none";
+                 document.getElementById("renderData").style.display = "none";
+                showError.style.display = "block";
+                showError.innerHTML = response.statusText;
+            }
+        }).done(response => {}).responseJSON
+        localStorage.setItem('data', JSON.stringify(data));
+        localDataStorage = localStorage.getItem('data');
+        return JSON.parse(localDataStorage);
     };
 
     //Request data from endpoints
@@ -51,9 +75,23 @@ const fetchData = (leaguesEndPoint, scorerEP, standingsEP) => {
     topGoalScorers = requestData(scorerEP).scorers;
     leagueStandings = requestData(standingsEP).standings[0].table;
 
-    // Start app when has data
-
 };
+
+
+// Display loader while  fetching data
+const animateLoading = dataState => {
+    if (dataState) {
+        console.log(dataState)
+        document.getElementById("renderData").style.display = "block";
+
+    }
+    else {
+
+        document.getElementById("loadingOverlay").style.display = "none";
+    }
+
+}
+
 
 
 const leagueOptions = () => {
@@ -64,7 +102,6 @@ const leagueOptions = () => {
     const option = document.createElement('option');
     option.innerHTML = 'Choose League';
     option.selected = 'selectedLeague(this.options[this.selectedIndex].value);';
-    const selected = 'selectedLeague(this.options[this.selectedIndex].value);'
     select.appendChild(option);
     for (let i = 0; i < leagues.length; i++) {
         const option = document.createElement('option');
@@ -77,15 +114,15 @@ const leagueOptions = () => {
         option.id = 'league' + (i + 1);
         option.innerHTML = leagues[i];
     }
-   
+
     document.getElementById('leagueSelect').appendChild(select);
 
 };
 
 const selectedLeague = leagueOption => {
-    console.log(leagueOption);
+
     if (leagueOption !== choice) {
-        
+
         choice = localStorage.removeItem('league');
         choice = localStorage.setItem('league', leagueOption);
         reload();
@@ -151,10 +188,13 @@ const showTeamBadge = showBadge => {
 // Fill option seletor with list of teams
 const listTeamsOptions = () => {
     const select = document.createElement('select');
-
+    
+    select.innerHTML = "League Teams!"
     for (let i = 0; i < teams.length; i++) {
         const option = document.createElement('option');
+
         select.appendChild(option);
+
         select.setAttribute('onchange', 'getSelectedTeam();');
         select.id = 'teamList';
         select.name = 'teams';
@@ -883,8 +923,6 @@ const pieChart = stand => {
 
 // Call all functions
 const startApp = () => {
-
-
     filterData();
     getTeamsAndBadges();
     listTeamsOptions();
@@ -912,7 +950,6 @@ window.onload = () => {
     leagueOptions();
     selectedLeague(defaultLeagueOption());
     startApp();
-
 };
 
 

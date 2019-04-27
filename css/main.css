@@ -14,6 +14,13 @@ body {
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
 }
 
+.header-container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
 .logo {
     height: 75px;
 }
@@ -121,15 +128,106 @@ body {
     font-size: 12px;
 }
 
+.leagueOptionContainer {
+
+    display: flex;
+    margin-top: 1.5rem;
+    justify-content: space-around;
+}
+
+
 
 
 /*.................End Header CSS..............................*/
+
+/*.................Preloader overlay CSS Header CSS............*/
+
+#error {
+    display: none;
+    display: flex;
+    margin: 0 auto;
+
+}
+
+
+
+#loadingOverlay {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    margin: -4px 0 0 -4px;
+    border: 3px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 1em solid #c0392b;
+    width: 3em;
+    height: 3em;
+    -webkit-animation: spin 5s linear infinite;
+    animation: spin 5s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Add animation to "page content" */
+
+.animate-bottom {
+    position: relative;
+    -webkit-animation-name: animatebottom;
+    -webkit-animation-duration: 1s;
+    animation-name: animatebottom;
+    animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+    from {
+        bottom: -100px;
+        opacity: 0
+    }
+    to {
+        bottom: 0px;
+        opacity: 1
+    }
+}
+
+@keyframes animatebottom {
+    from {
+        bottom: -100px;
+        opacity: 0
+    }
+    to {
+        bottom: 0;
+        opacity: 1
+    }
+}
+
+#renderData {
+    display: none;
+}
+
+
+/*.................Preloader overlay CSS Header CSS End............*/
 
 .side-bar-menu {
     width: 300px;
     position: absolute;
     left: 0;
-    top: 6em;
+    top: 7.9rem;
     bottom: 0;
     background-color: #fff;
     overflow-y: auto;
@@ -161,15 +259,12 @@ img {
     margin-left: -15px;
 }
 
-.tBadge,
+
 .stats-cards-wrapper {
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
 }
 
-.stats-cards {
-    height: 9.5em;
-
-}
+.stats-cards {}
 
 .stats-blocks {
     width: 85%;
@@ -179,15 +274,16 @@ img {
 }
 
 .statsHead {
-    font-size: 14px;
+    font-size: 0.9rem;
     font-weight: 700;
     color: #2980b9;
 }
 
 .cardText {
-    font-size: 3.5em;
+    font-size: 2rem;
     text-align: center;
     color: #c0392b;
+    margin-top: -0.9rem;
 }
 
 .stats-wrapper {
@@ -258,9 +354,6 @@ th {
     width: 100%;
 }
 
-.table-containers {
-    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
-}
 
 .table-report {
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
@@ -368,6 +461,10 @@ th {
     .stats-cards {
         height: 3.5em;
     }
+    
+    .main-wrap{
+        margin-top: -59px
+    }
     .cardText {
         font-size: 1.5em;
         text-align: right;
@@ -381,7 +478,7 @@ th {
     }
     .side-bar-menu {
         width: 100%;
-        top: 1em;
+        top: 7.9em;
         background-color: #fff;
         position: relative;
         height: auto;
@@ -392,7 +489,7 @@ th {
         font-size: 1.5em;
         text-align: center;
         border-bottom: 1px solid #ccc;
-        padding-bottom: 2px;
+        padding-bottom: 1.5rem;
     }
     .stats-blocks {
         padding-top: 0px;
@@ -402,6 +499,9 @@ th {
     .stats-cards-wrapper {
         padding-bottom: 5px;
         padding-right: 10px;
+    }
+    .tables-container {
+        margin-top: 7rem;
     }
 
     .glyphicon {
@@ -434,9 +534,25 @@ th {
         display: flex;
         flex-direction: column;
     }
+    
+    .second-table{
+            margin-top: 1rem;
+    }
 }
 
-@media (min-width: 823px) and (max-width: 1024px) {
+@media (min-width: 765px) and (max-width: 1024px) {
+    .side-bar-menu {
+        top: 14.5rem
+    }
+
+    /*    .tables-wrap {*/
+    /* display: flex; */
+    /*}*/
+}
+
+
+
+@media (min-width: 823px) and (max-width: 1241px) {
     .header-input {
         padding: 0rem 2rem 1em 1em;
     }
@@ -447,16 +563,23 @@ th {
         display: flex;
         flex-direction: column;
     }
+
+
 }
+
+
 
 /*.....................Charts CSS.........................*/
 
 .dataBox {
-    padding: 10px 0 10px 0;
+
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     height: 350px;
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+   padding-left: 2.5rem;
+       margin-top: 2.5rem;
+            padding-right: 0px; 
 }
 
 h3 {
