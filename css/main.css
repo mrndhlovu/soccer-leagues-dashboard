@@ -264,10 +264,7 @@ img {
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
 }
 
-.stats-cards {
-    height: 9.5em;
-
-}
+.stats-cards {}
 
 .stats-blocks {
     width: 85%;
@@ -277,15 +274,16 @@ img {
 }
 
 .statsHead {
-    font-size: 14px;
+    font-size: 0.9rem;
     font-weight: 700;
     color: #2980b9;
 }
 
 .cardText {
-    font-size: 3.5em;
+    font-size: 2rem;
     text-align: center;
     color: #c0392b;
+    margin-top: -0.9rem;
 }
 
 .stats-wrapper {
@@ -463,6 +461,10 @@ th {
     .stats-cards {
         height: 3.5em;
     }
+    
+    .main-wrap{
+        margin-top: -59px
+    }
     .cardText {
         font-size: 1.5em;
         text-align: right;
@@ -487,7 +489,7 @@ th {
         font-size: 1.5em;
         text-align: center;
         border-bottom: 1px solid #ccc;
-        padding-bottom: 2px;
+        padding-bottom: 1.5rem;
     }
     .stats-blocks {
         padding-top: 0px;
@@ -497,6 +499,9 @@ th {
     .stats-cards-wrapper {
         padding-bottom: 5px;
         padding-right: 10px;
+    }
+    .tables-container {
+        margin-top: 7rem;
     }
 
     .glyphicon {
@@ -529,18 +534,22 @@ th {
         display: flex;
         flex-direction: column;
     }
+    
+    .second-table{
+            margin-top: 1rem;
+    }
 }
 
 @media (min-width: 765px) and (max-width: 1024px) {
-          .side-bar-menu {
+    .side-bar-menu {
         top: 14.5rem
     }
-    
-/*    .tables-wrap {*/
+
+    /*    .tables-wrap {*/
     /* display: flex; */
-/*}*/
+    /*}*/
 }
-    
+
 
 
 @media (min-width: 823px) and (max-width: 1241px) {
@@ -555,7 +564,7 @@ th {
         flex-direction: column;
     }
 
-    
+
 }
 
 
@@ -568,6 +577,9 @@ th {
     justify-content: space-evenly;
     height: 350px;
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+   padding-left: 2.5rem;
+       margin-top: 2.5rem;
+            padding-right: 0px; 
 }
 
 h3 {
