@@ -3,7 +3,7 @@
 #### Author: Mduduzi Ndhlovu
 #### [GitHub](https://github.com/mrndhlovu) 
 #### [LinkedIn](https://www.linkedin.com/in/mduduzi-ndhlovu-750068167/)
-#### Dashboard [URL](https://mrndhlovu.github.io/milestoneProject2-pl-app/)
+#### Dashboard [URL](https://mrndhlovu.github.io/soccer-leagues-dashboard/)
 
 ## Overview
 ___
@@ -184,7 +184,7 @@ ___
 ## Deployment
 ___
 * Final version of code was pushed from Cloud9 to a GitHub pages host with all the dependent files included and available for download.
-* Final version [URL](https://mrndhlovu.github.io/milestoneProject2-pl-app/)
+* Final version [URL](https://mrndhlovu.github.io/soccer-leagues-dashboard/)
 
 ## Credits
 ---
