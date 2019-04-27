@@ -144,12 +144,18 @@ body {
 
 #error {
     display: none;
-    display: flex;
-    margin: 0 auto;
-
+    text-align: center;
+    font-size: 2em;
+    background-color: #c0392b !important;
+    color: #fff;
+    margin-top: 20%;
+    position: absolute;
 }
 
-
+.alert-danger{
+    color: #c0392b;
+    background-color: #c0392b !important;
+}
 
 #loadingOverlay {
     position: fixed;
@@ -231,6 +237,7 @@ body {
     bottom: 0;
     background-color: #fff;
     overflow-y: auto;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
     height: fit-content;
 }
 
@@ -394,6 +401,11 @@ th {
     background-color: #e8e8e8 !important;
 }
 
+.dash-heads {
+    width: 100%;
+
+}
+
 .score {
     background-color: #fff !important;
 }
@@ -447,7 +459,7 @@ th {
 
 .footer {
     height: 75px;
-    background-color: #34495e;
+    background-color: #c0392b;
     width: 100%;
     color: #f5f5f5;
     text-align: right;
@@ -461,8 +473,8 @@ th {
     .stats-cards {
         height: 3.5em;
     }
-    
-    .main-wrap{
+
+    .main-wrap {
         margin-top: -59px
     }
     .cardText {
@@ -512,7 +524,7 @@ th {
         padding: 1rem 2rem;
     }
     .footer {
-        background-color: #34495e;
+        background-color: #c0392b;
         padding: 14px 18px 0 0;
     }
     .page-container {
@@ -534,9 +546,9 @@ th {
         display: flex;
         flex-direction: column;
     }
-    
-    .second-table{
-            margin-top: 1rem;
+
+    .second-table {
+        margin-top: 1rem;
     }
 }
 
@@ -550,8 +562,6 @@ th {
     /*}*/
 }
 
-
-
 @media (min-width: 823px) and (max-width: 1241px) {
     .header-input {
         padding: 0rem 2rem 1em 1em;
@@ -563,8 +573,6 @@ th {
         display: flex;
         flex-direction: column;
     }
-
-
 }
 
 
@@ -573,13 +581,12 @@ th {
 
 .dataBox {
 
-    display: flex;
-    justify-content: space-evenly;
-    height: 350px;
-    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
-   padding-left: 2.5rem;
-       margin-top: 2.5rem;
-            padding-right: 0px; 
+
+    height: auto;
+    /*box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);*/
+    padding-left: 2.5rem;
+    margin-top: 2.5rem;
+    padding-right: 0px;
 }
 
 h3 {
@@ -627,4 +634,8 @@ text {
 .chartPointTool1,
 .chartPointTool2 {
     font-weight: 500;
+}
+
+.chartWrapper {
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
 }
