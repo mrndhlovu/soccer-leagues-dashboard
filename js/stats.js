@@ -746,7 +746,7 @@ const graphTeamLosses = () => {
 
 //Create donuts
 // Donut color ranges and radius
-const radius = 155;
+const radius = 160;
 const color = d3.scale
   .ordinal()
   .range([
@@ -779,7 +779,7 @@ const donutChart = stand => {
     .attr('width', 400)
     .attr('height', 400);
 
-  const group = canvas.append('g').attr('transform', 'translate(170,160)');
+  const group = canvas.append('g').attr('transform', 'translate(160,160)');
 
   const arc = d3.svg
     .arc()
@@ -851,7 +851,7 @@ const donutChart = stand => {
     .attr('y', 1)
     .attr('text-anchor', 'end')
     .attr('class', 'graphHeading')
-    .text('Goals Scored');
+    .text('Click on a Team');
 };
 
 //Make donut showing goals conceded per team
@@ -862,11 +862,11 @@ const pieChart = stand => {
     .attr('width', 400)
     .attr('height', 400);
 
-  const group = canvas.append('g').attr('transform', 'translate(170,160)');
+  const group = canvas.append('g').attr('transform', 'translate(160,160)');
 
   const arc = d3.svg
     .arc()
-    .innerRadius(100)
+    .innerRadius(50)
     .outerRadius(radius);
 
   const pie = d3.layout.pie().value(d => {
@@ -935,7 +935,7 @@ const pieChart = stand => {
     .attr('y', 1)
     .attr('text-anchor', 'end')
     .attr('class', 'graphHeading')
-    .text('Goals Conceded');
+    .text('Click on Number');
 };
 
 // Call all functions
