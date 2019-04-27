@@ -127,6 +127,10 @@ body {
 
 /*.................Preloader overlay CSS Header CSS............*/
 
+#error{
+    display: none;
+}
+
 #overlay {
     position: fixed;
     left: 50%;
