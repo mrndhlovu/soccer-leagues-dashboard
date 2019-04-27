@@ -59,7 +59,8 @@ const fetchData = (leaguesEndPoint, scorerEP, standingsEP) => {
             },
             error: (response) => {
                 const showError = document.getElementById('error');
-                document.getElementById("overlay").style.display = "none";
+                document.getElementById("loadingOverlay").style.display = "none";
+                 document.getElementById("renderData").style.display = "none";
                 showError.style.display = "block";
                 showError.innerHTML = response.statusText;
             }
@@ -86,7 +87,7 @@ const animateLoading = dataState => {
     }
     else {
 
-        document.getElementById("overlay").style.display = "none"
+        document.getElementById("loadingOverlay").style.display = "none";
     }
 
 }
@@ -187,7 +188,8 @@ const showTeamBadge = showBadge => {
 // Fill option seletor with list of teams
 const listTeamsOptions = () => {
     const select = document.createElement('select');
-    select.innerHTML = "Choose Team!"
+    
+    select.innerHTML = "League Teams!"
     for (let i = 0; i < teams.length; i++) {
         const option = document.createElement('option');
 
